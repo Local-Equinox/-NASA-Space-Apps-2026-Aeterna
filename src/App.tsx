@@ -22,6 +22,7 @@ import Stories from './ui/Stories'
 import TopBar from './ui/TopBar'
 import { artifacts } from './data/artifacts'
 import Joystick from './ui/Joystick'
+import RotatePrompt from './ui/RotatePrompt'
 
 const SpaceScene = lazy(() => import('./scenes/SpaceScene'))
 const SurfaceScene = lazy(() => import('./scenes/SurfaceScene'))
@@ -91,6 +92,7 @@ function Game() {
       {overlay === 'help' && <Help />}
       {overlay === 'collection' && <Collection />}
       {overlay === 'about' && <About />}
+      <RotatePrompt />
       <div className={`fade ${fading ? 'on' : ''}`} aria-hidden="true" />
     </div>
   )

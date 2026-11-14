@@ -226,7 +226,7 @@ export default function SpaceWorld() {
         setWarping(false)
         st.orbit = { body: w.target, turn: 0 }
       }
-    } else if (st.orbit && !keys.current.size && !(touch.x || touch.y || touch.jump) && !locked.current) {
+    } else if (st.orbit && !keys.current.size && !(touch.x || touch.y || touch.jump || touch.down) && !locked.current) {
       // Autopilot: revolve around the body in a circular orbit, facing the way we are travelling.
       const o = st.orbit
       dir.copy(st.pos).sub(o.body.worldPosition)
@@ -247,7 +247,7 @@ export default function SpaceWorld() {
       // Speed scales with altitude: careful near a world, fast between them.
       let altitude = Infinity
       for (const b of system.bodies) altitude = Math.min(altitude, st.pos.distanceTo(b.worldPosition) - b.radius)
-      const boost = keys.current.has('ShiftLeft') || keys.current.has('ShiftRight') ? 3 : 1
+      const boost = keys.current.has('ShiftLeft') || keys.current.has('ShiftRight') || touch.boost ? 3 : 1
       const speed = MathUtils.clamp(0.9 * altitude, 0.1, 90) * boost
 
       forwardOf(st.yaw, st.pitch, fwd)
@@ -263,6 +263,7 @@ export default function SpaceWorld() {
         if (kk.has('KeyC')) target.sub(up)
         target.addScaledVector(fwd, touch.y).addScaledVector(right, touch.x)
         if (touch.jump) target.add(up)
+        if (touch.down) target.sub(up)
       }
       if (target.lengthSq() > 0) target.normalize().multiplyScalar(speed)
       // Velocity is relative to the anchor body, so it carries along

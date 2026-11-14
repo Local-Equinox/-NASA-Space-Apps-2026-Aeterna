@@ -82,13 +82,31 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
   useEffect(() => {
     const el = gl.domElement
     let last: { x: number; y: number } | null = null
+    // Two fingers on the view: pinch to zoom the camera (the joystick is a separate element, so it never counts).
+    const fingers = new Map<number, { x: number; y: number }>()
+    let pinch = 0
+    const spread = () => { const [a, b] = [...fingers.values()]; return Math.hypot(a.x - b.x, a.y - b.y) }
     const down = (e: PointerEvent) => {
+      if (e.pointerType === 'touch') {
+        fingers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+        if (fingers.size === 2) pinch = spread()
+      }
       // Mouse: hold the right button to look around. Touch and pen: any drag.
       if (e.pointerType === 'mouse' && e.button !== 2) return
       // Lock the pointer: the cursor is hidden and stays where it was until the button is released
       if (e.pointerType === 'mouse') { try { el.requestPointerLock() } catch { /* not available: plain dragging still works */ } }
       last = { x: e.clientX, y: e.clientY }; try { el.setPointerCapture(e.pointerId) } catch { /* ignore */ } }
     const move = (e: PointerEvent) => {
+      if (fingers.has(e.pointerId)) {
+        fingers.set(e.pointerId, { x: e.clientX, y: e.clientY })
+        if (fingers.size === 2) {
+          const d = spread()
+          view.current.dist = MathUtils.clamp(view.current.dist - (d - pinch) * 0.03, 2.6, 30)
+          pinch = d
+          last = null // a pinch is not a look-around
+          return
+        }
+      }
       if (!last || (locked.current && !focusing.current)) return
       focus.current.dragging = true
       const lockedPointer = document.pointerLockElement === el
@@ -97,7 +115,8 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
       view.current.pitch = MathUtils.clamp(view.current.pitch + dy * 0.005, -0.2, 1.3)
       last = { x: e.clientX, y: e.clientY }
     }
-    const end = () => {
+    const end = (e?: PointerEvent) => {
+      if (e) { fingers.delete(e.pointerId); if (fingers.size) { const [p] = [...fingers.values()]; last = { x: p.x, y: p.y } ; return } }
       last = null; focus.current.dragging = false
       if (document.pointerLockElement === el) document.exitPointerLock()
     }
@@ -146,7 +165,7 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
       wish.addScaledVector(fwd, touch.y).addScaledVector(right, touch.x)
       if (wish.lengthSq() > 1) wish.normalize()
     }
-    const running = keys.current.has('ShiftLeft') || keys.current.has('ShiftRight')
+    const running = keys.current.has('ShiftLeft') || keys.current.has('ShiftRight') || touch.run
     const top = running ? RUN : WALK
     if (wish.lengthSq() > 0) wish.multiplyScalar(top / Math.max(1, wish.length()))
 

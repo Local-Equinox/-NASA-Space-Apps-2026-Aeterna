@@ -3,6 +3,7 @@ import { isMuted, setMuted } from '../lib/sound'
 import { sim, view } from '../lib/sim'
 import { artifacts } from '../data/artifacts'
 import { useGame } from '../state/game'
+import { canFullscreen, enterLandscape, leaveFullscreen, useFullscreen } from '../lib/device'
 
 type ViewKey = 'orbits' | 'labels' | 'constellations'
 
@@ -21,6 +22,7 @@ export default function TopBar() {
   const [open, setOpen] = useState(false)
   const [muted, setM] = useState(isMuted)
   const [, force] = useState(0)
+  const fs = useFullscreen()
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => { if (e.code === 'Escape') setOpen(false) }
@@ -44,6 +46,7 @@ export default function TopBar() {
           <h2>Settings</h2>
           <button className="button secondary" onClick={() => { setOpen(false); setOverlay('help') }}>Controls</button>
           <button className="button secondary" onClick={() => { setOpen(false); setOverlay('about') }}>About and credits</button>
+          {canFullscreen() && <Switch label="Fullscreen" on={fs} onChange={(v) => { void (v ? enterLandscape() : leaveFullscreen()) }} />}
           <a className="button secondary" href="./index.html">Back to the intro</a>
           <Switch label="Orbit lines" on={view.orbits} onChange={(v) => set('orbits', v)} />
           <Switch label="Names" on={view.labels} onChange={(v) => set('labels', v)} />

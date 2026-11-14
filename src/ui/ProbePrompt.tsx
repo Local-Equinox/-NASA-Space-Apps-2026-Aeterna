@@ -9,7 +9,7 @@ export default function ProbePrompt() {
   if (!a) return null
   return (
     <button className="prompt" onClick={() => inspect(a)}>
-      Spacewalk to the spacecraft <kbd>E</kbd>
+      Spacewalk to the spacecraft <kbd className="kb-only">E</kbd>
     </button>
   )
 }

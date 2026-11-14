@@ -11,7 +11,7 @@ export default function LandPrompt() {
   }
   return (
     <button className="prompt" onClick={land}>
-      Press L to land on {BODY_DATA[near].name}
+      <span className="kb-only">Press L to land</span><span className="touch-text">Land</span> on {BODY_DATA[near].name}
     </button>
   )
 }

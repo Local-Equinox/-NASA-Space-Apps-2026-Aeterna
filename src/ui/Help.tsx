@@ -5,7 +5,14 @@ export default function Help() {
   return (
     <section className="overlay" role="dialog" aria-labelledby="help-title">
       <h2 id="help-title">Controls</h2>
-      <ul>
+      <ul className="touch-help touch-only-block">
+        <li><b>Left stick</b>: walk or fly (push it to the edge to run or move faster)</li>
+        <li><b>Jump</b> on foot. In space, <b>Up</b> / <b>Down</b> climb and dive, <b>Boost</b> goes faster</li>
+        <li><b>Drag on the view</b>: look around. <b>Pinch</b> on foot to zoom the camera</li>
+        <li><b>Tap</b> the glowing button at the bottom to inspect, board your ship, land or spacewalk</li>
+        <li><b>Tap</b> a planet or moon to select it. <b>Map</b> and <b>Missions</b> are at the top; ⚙ has fullscreen and sound</li>
+      </ul>
+      <ul className="kb-only-block">
         <li><b>W A S D</b>: fly forward, left, back, right</li>
         <li><b>Space / C</b>: up / down</li>
         <li><b>Shift</b>: boost</li>

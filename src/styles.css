@@ -2,6 +2,7 @@
 :root { color-scheme: dark; --bg: #05070f; --fg: #e8ecf5; --accent: #7cc4ff; --panel: rgba(10, 16, 32, 0.9); }
 * { box-sizing: border-box; }
 html, body, #root { height: 100%; }
+@supports (height: 100dvh) { html, body, #root { height: 100dvh; } }
 body { margin: 0; background: var(--bg); color: var(--fg); font-family: system-ui, sans-serif; line-height: 1.5; overflow: hidden; }
 .stage { position: relative; width: 100%; height: 100%; }
 .stage canvas { position: absolute; inset: 0; }
@@ -39,8 +40,11 @@ h3 { margin: 1rem 0 .25rem; font-size: 1rem; color: var(--accent); }
 .how { text-align: left; max-width: 32rem; font-size: .9rem; opacity: .9; }
 .button.big { min-height: 56px; font-size: 1.15rem; padding: 0 2.5rem; }
 .topbar { position: absolute; right: 1rem; top: 1rem; display: flex; gap: .5rem; }
-.touch-only { display: none; }
-@media (pointer: coarse) { .touch-only { display: flex; } .controls-hint { display: none; } }
+.touch-only, .touch-text, .touch-only-block { display: none; }
+.is-touch .touch-only { display: flex; }
+.is-touch .touch-text { display: inline; }
+.is-touch .touch-only-block { display: block; }
+.is-touch .kb-only, .is-touch .kb-only-block, .is-touch .controls-hint { display: none; }
 .joystick { position: absolute; left: 1.5rem; bottom: 1.5rem; width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.3); align-items: center; justify-content: center; touch-action: none; }
 .joystick-thumb { width: 52px; height: 52px; border-radius: 50%; background: rgba(124,196,255,.8); pointer-events: none; }
 .jump-button { position: absolute; right: 1.5rem; bottom: 2rem; width: 80px; height: 80px; border-radius: 50%; background: rgba(124,196,255,.85); color: #06101f; border: 0; font: 700 1rem system-ui; align-items: center; justify-content: center; touch-action: none; }
@@ -247,4 +251,55 @@ h3 { margin: 1rem 0 .25rem; font-size: 1rem; color: var(--accent); }
   .btn-glow:hover:not(:disabled), .btn-glow:focus-visible, .btn-glow:active:not(:disabled) { transform: none; animation: none; }
   .btn-glow:hover:not(:disabled)::after { animation: none; }
   .prompt:hover, .prompt:focus-visible, .prompt:active { transform: translateX(-50%); }
+}
+
+/* ---- Touch devices (phones and tablets, played in landscape) ---------------------------------------
+   <html class="is-touch"> is set in lib/device.ts. Safe-area insets keep controls clear of notches and rounded corners. */
+.is-touch { --sl: env(safe-area-inset-left, 0px); --sr: env(safe-area-inset-right, 0px); --st: env(safe-area-inset-top, 0px); --sb: env(safe-area-inset-bottom, 0px); }
+.is-touch body { overscroll-behavior: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.is-touch .overlay, .is-touch .dossier-body, .is-touch .info-panel { -webkit-user-select: text; user-select: text; overscroll-behavior: contain; }
+.is-touch .joystick { left: calc(1.5rem + var(--sl)); bottom: calc(1.25rem + var(--sb)); width: 132px; height: 132px; z-index: 12; background: rgba(255,255,255,.08); }
+.is-touch .joystick-thumb { width: 58px; height: 58px; }
+.is-touch .touch-btn { position: relative; z-index: 12; width: 78px; height: 78px; border-radius: 50%; background: rgba(124,196,255,.8); color: #06101f; border: 2px solid rgba(255,255,255,.45); font: 800 .85rem system-ui, sans-serif; text-transform: uppercase; letter-spacing: .04em; align-items: center; justify-content: center; touch-action: none; -webkit-user-select: none; user-select: none; }
+.is-touch .touch-btn:active { background: rgba(160,218,255,.95); transform: scale(.94); }
+.is-touch .jump-button { position: absolute; right: calc(1.75rem + var(--sr)); bottom: calc(1.5rem + var(--sb)); width: 92px; height: 92px; display: flex; }
+.is-touch .space-buttons { position: absolute; right: calc(1.5rem + var(--sr)); bottom: calc(1.25rem + var(--sb)); z-index: 12; display: grid; grid-template-columns: auto auto; gap: .6rem; align-items: end; justify-items: end; }
+.is-touch .space-buttons .touch-btn { width: 70px; height: 70px; }
+.is-touch .space-buttons .boost { grid-column: 1 / 3; width: 70px; height: 70px; background: rgba(255,170,90,.85); }
+.is-touch .prompt { bottom: calc(1.25rem + var(--sb)); min-height: 56px; font-size: .9rem; max-width: calc(100% - 520px); white-space: normal; line-height: 1.15; padding-top: .35rem; padding-bottom: .35rem; text-align: center; }
+.is-touch .return-button { left: calc(1rem + var(--sl)); bottom: calc(10.5rem + var(--sb)); }
+.is-touch .time-controls { right: calc(1rem + var(--sr)); bottom: calc(10rem + var(--sb)); }
+.is-touch .button, .is-touch .btn-glow { min-height: 44px; }
+
+.rotate-prompt { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .9rem; padding: 2rem; text-align: center; background: var(--bg); color: var(--fg); }
+.rotate-prompt h2 { margin: 0; font-family: 'Bungee', system-ui, sans-serif; font-size: 1.5rem; font-weight: 400; }
+.rotate-prompt p { margin: 0; max-width: 22rem; }
+.rotate-icon { color: var(--fg); animation: rotate-hint 2.4s ease-in-out infinite; }
+@keyframes rotate-hint { 0%, 25% { transform: rotate(0); } 60%, 100% { transform: rotate(-90deg); } }
+@media (prefers-reduced-motion: reduce) { .rotate-icon { animation: none; } }
+
+/* Landscape phones are short (about 320 to 430 px tall): tighten the HUD so it leaves the 3D view visible. */
+@media (max-height: 520px) {
+  .is-touch .topbar { top: calc(.5rem + var(--st)); right: calc(.5rem + var(--sr)); left: auto; gap: .35rem; }
+  .is-touch .topbar .button { min-height: 38px; padding: 0 .7rem; font-size: .78rem; }
+  .is-touch .minimap { left: calc(.5rem + var(--sl)); top: calc(3.3rem + var(--st)); width: 104px !important; height: 104px !important; }
+  .is-touch .brand { transform: scale(.85); transform-origin: left top; }
+  .is-touch .hud-center { top: calc(.5rem + var(--st)); left: 50%; max-width: calc(100% - 520px); font-size: .72rem; }
+  .is-touch .hud { top: calc(.5rem + var(--st)); left: calc(.5rem + var(--sl)); }
+  .is-touch .bodies { top: calc(.5rem + var(--st)); left: calc(.5rem + var(--sl)); }
+  .is-touch .info-panel { top: calc(3.4rem + var(--st)); left: calc(.5rem + var(--sl)); width: min(17rem, 38%); max-height: calc(100% - 12rem); padding: .6rem .8rem; font-size: .85rem; }
+  .is-touch .overlay { inset: calc(.4rem + var(--st)) calc(.6rem + var(--sr)) calc(.4rem + var(--sb)) calc(.6rem + var(--sl)); max-width: none; padding: .75rem 1rem; }
+  .is-touch .overlay.minigame-overlay { inset: 50% auto auto 50%; width: min(48rem, calc(100% - 3rem)); max-height: calc(100% - .8rem); }
+  .is-touch .overlay.cutscene { inset: 0; }
+  .is-touch .dossier { left: auto; top: 0; width: min(55%, 30rem); min-width: 0; padding-right: var(--sr); }
+  .is-touch .dossier h2 { font-size: 1.6rem; }
+  .is-touch .topbar { z-index: 14; }
+  .is-touch .settings { width: 22rem; max-width: calc(100vw - 1rem); display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; padding: .6rem; max-height: calc(100dvh - 4rem); overflow: auto; }
+  .is-touch .settings h2, .is-touch .settings .small { grid-column: 1 / -1; }
+  .is-touch .settings .button { font-size: .8rem; padding: 0 .4rem; }
+  .is-touch .joystick { width: 118px; height: 118px; bottom: calc(.9rem + var(--sb)); }
+  .is-touch .jump-button { width: 84px; height: 84px; bottom: calc(1rem + var(--sb)); }
+  .is-touch .prompt { max-width: calc(100% - 480px); }
+  .is-touch .return-button { bottom: calc(8.5rem + var(--sb)); }
+  .is-touch .time-controls { bottom: calc(8.5rem + var(--sb)); }
 }

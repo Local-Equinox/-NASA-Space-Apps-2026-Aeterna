@@ -6,7 +6,8 @@ export default defineConfig({
   base: './', // relative paths so it works on any static host
   build: {
     rollupOptions: {
-      input: { intro: 'intro.html' }
+      // intro.html is the landing page; mission.html is the game its Start button opens.
+      input: { intro: 'intro.html', mission: 'mission.html' },
     },
   },
 })

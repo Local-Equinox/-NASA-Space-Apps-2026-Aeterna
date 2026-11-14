@@ -5,7 +5,7 @@ export default function InspectPrompt() {
   if (scene !== 'surface' || !canInspect || overlay !== 'none' || !site) return null
   return (
     <button className="prompt" onClick={() => inspect(site)}>
-      Inspect <kbd>E</kbd>
+      Inspect <kbd className="kb-only">E</kbd>
     </button>
   )
 }
