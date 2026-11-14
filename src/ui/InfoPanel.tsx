@@ -26,7 +26,7 @@ export default function InfoPanel() {
         </dl>
         <p className="small blurb">{body.blurb} When you arrive, press E to start the spacewalk.</p>
         <div className="row">
-          <button className="button" disabled={warping || here} onClick={() => requestWarp(selected)}>
+          <button className="btn-glow" disabled={warping || here} onClick={() => requestWarp(selected)}>
             {here ? `Next to ${body.name}` : `Warp to ${body.name}`}
           </button>
           <button className="button secondary" onClick={() => setSelected(null)}>Close</button>
@@ -49,7 +49,7 @@ export default function InfoPanel() {
       </dl>
       <p className="small blurb">{body.blurb}</p>
       <div className="row">
-        <button className="button" disabled={warping || here} onClick={() => requestWarp(selected)}>
+        <button className="btn-glow" disabled={warping || here} onClick={() => requestWarp(selected)}>
           {here ? `In orbit of ${body.name}` : `Warp to ${body.name}`}
         </button>
         <button className="button secondary" onClick={() => setSelected(null)}>Close</button>

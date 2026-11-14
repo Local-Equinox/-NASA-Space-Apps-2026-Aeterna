@@ -137,14 +137,21 @@ export default function SpaceWorld() {
     const down = (e: PointerEvent) => {
       // Mouse: hold the right button to look around. Touch and pen: any drag.
       if (e.pointerType === 'mouse' && e.button !== 2) return
+      // Lock the pointer: the cursor is hidden and stays where it was until the button is released
+      if (e.pointerType === 'mouse') { try { el.requestPointerLock() } catch { /* not available: plain dragging still works */ } }
       last = { x: e.clientX, y: e.clientY }; try { el.setPointerCapture(e.pointerId) } catch { /* ignore */ } }
     const move = (e: PointerEvent) => {
       if (!last || locked.current || s.current.warp) return
-      s.current.yaw -= (e.clientX - last.x) * 0.004
-      s.current.pitch = MathUtils.clamp(s.current.pitch - (e.clientY - last.y) * 0.004, -1.5, 1.5)
+      const lockedPointer = document.pointerLockElement === el
+      const dx = lockedPointer ? e.movementX : e.clientX - last.x, dy = lockedPointer ? e.movementY : e.clientY - last.y
+      s.current.yaw -= dx * 0.004
+      s.current.pitch = MathUtils.clamp(s.current.pitch - dy * 0.004, -1.5, 1.5)
       last = { x: e.clientX, y: e.clientY }
     }
-    const end = () => { last = null }
+    const end = () => {
+      last = null
+      if (document.pointerLockElement === el) document.exitPointerLock()
+    }
     const noMenu = (e: Event) => e.preventDefault()
     el.addEventListener('contextmenu', noMenu)
     el.addEventListener('pointerdown', down)

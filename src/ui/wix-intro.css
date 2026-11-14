@@ -1,57 +1,52 @@
 /*
-  Intro: the Wix site in a cropped iframe.
+  Intro: the Wix site in a cropped, full-screen iframe.
 
   HOW THE CROP WORKS
-  The iframe is made as tall as the whole Wix page, so it never scrolls inside. It is pulled up by
-  --wix-crop-top, which pushes the Wix banner out of view, and the box around it is shortened by
-  --wix-crop-top + --wix-crop-bottom, which cuts the footer off. The box scrolls instead.
-
-  The Wix page's height grows with its width, so its height is worked out as:
-      page height = width x --wix-content-ratio + --wix-crop-top + --wix-crop-bottom
-  Measured on 14 Nov 2026: banner 30px, footer 90px, content 4.387 x the width, at 390, 768, 1024 and 1440px.
+  The frame is shifted up by --crop-top and made taller by --crop-top + --crop-bottom, and the box around
+  it hides whatever sticks out. The Wix banner is pinned to the top of the Wix page, so it always sits in
+  the hidden strip at the top. The Wix footer is the last thing on the page, so when the story is scrolled
+  to its end the footer sits in the hidden strip at the bottom.
 
   HOW TO ADJUST IT
-  - Banner still showing at the top     -> make --wix-crop-top bigger (it is the banner's height in px).
-  - Top of the story cut off            -> make --wix-crop-top smaller.
-  - Footer still showing at the end     -> make --wix-crop-bottom bigger (the footer's height in px).
-  - Blank space, or the story ends early, at the bottom -> fix --wix-content-ratio. On the Wix site, in the
-    browser console: (document.documentElement.scrollHeight - banner - footer) / innerWidth
-    You will need this whenever sections are added to or removed from the Wix page.
-  - Only wrong on phones or tablets     -> change the values inside the matching @media block below.
+  - Banner still showing at the top      -> make --crop-top bigger.  Top of the page cut off -> smaller.
+  - Footer still showing at the very end -> make --crop-bottom bigger. End of the story cut off -> smaller.
+  - Only wrong on phones or tablets      -> change the values in the matching @media block.
+  Measured on 14 Nov 2026 at 390, 768, 1024 and 1440px wide: the banner is 30px tall and the footer 90px.
 */
 .wix-intro {
-  --wix-crop-top: 30px;        /* height of the Wix banner to hide */
-  --wix-crop-bottom: 90px;     /* height of the Wix footer to hide */
-  --wix-content-ratio: 4.387;  /* story height divided by page width */
-  --wix-bar-height: 5.25rem;
-  position: absolute; inset: 0; display: flex; flex-direction: column; background: #000;
+  --crop-top: 30px;     /* height of the Wix banner */
+  --crop-bottom: 90px;  /* height of the Wix footer */
+  --amber: #ff9a3c;
+  --surface: #05070d;
+  position: absolute; inset: 0; overflow: hidden; background: var(--surface); isolation: isolate; color: #f4f3f0;
 }
-/* Small tablets */
-@media (max-width: 1000px) { .wix-intro { --wix-crop-top: 30px; --wix-crop-bottom: 90px; --wix-content-ratio: 4.387; } }
 /* Phones */
-@media (max-width: 750px)  { .wix-intro { --wix-crop-top: 30px; --wix-crop-bottom: 90px; --wix-content-ratio: 4.387; --wix-bar-height: 6.5rem; } }
+@media (max-width: 700px) { .wix-intro { --crop-top: 30px; --crop-bottom: 90px; } }
+/* Small tablets */
+@media (min-width: 701px) and (max-width: 1024px) { .wix-intro { --crop-top: 30px; --crop-bottom: 90px; } }
+/* Laptops and desktops */
+@media (min-width: 1025px) { .wix-intro { --crop-top: 30px; --crop-bottom: 90px; } }
 
-.wix-scroll { container-type: inline-size; flex: 1; min-height: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
-.wix-crop { --wix-page-height: calc(100cqw * var(--wix-content-ratio) + var(--wix-crop-top) + var(--wix-crop-bottom)); position: relative; overflow: hidden; height: calc(100cqw * var(--wix-content-ratio)); transition: opacity .6s; }
-.wix-crop.loading { opacity: 0; height: 0; }
-.wix-crop iframe { position: absolute; left: 0; top: calc(-1 * var(--wix-crop-top)); width: 100%; height: var(--wix-page-height); border: 0; display: block; }
-.wix-status { margin: 0; padding: 40vh 1rem 0; text-align: center; opacity: .85; }
+.wix-frame { position: absolute; left: 0; top: calc(-1 * var(--crop-top)); width: 100%; height: calc(100% + var(--crop-top) + var(--crop-bottom)); border: 0; opacity: 0; transition: opacity 700ms ease; background: var(--surface); }
+.wix-frame.is-loaded { opacity: 1; }
 
-.wix-fallback { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 1.5rem 1rem; text-align: center; }
-.wix-fallback h1 { margin: 0; font-family: 'Bungee', system-ui, sans-serif; font-size: clamp(2.2rem, 8vw, 4.5rem); }
-.wix-story { margin: 0; padding: 0; list-style: none; max-width: 36rem; display: grid; gap: .9rem; text-align: left; counter-reset: step; }
+.wix-status { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; gap: 12px; padding: 24px 24px 7rem; text-align: center; background: var(--surface); overflow-y: auto; }
+.wix-status h1 { margin: 0; font-size: clamp(1.3rem, 4vw, 2rem); letter-spacing: .04em; }
+.wix-status h1.wix-title { font-family: 'Bungee', system-ui, sans-serif; font-size: clamp(2.2rem, 8vw, 4.5rem); }
+.wix-status p { max-width: 34rem; margin: 0 auto; color: #c4c5cc; line-height: 1.55; }
+.wix-status a { color: var(--amber); text-underline-offset: .2em; }
+.wix-spinner { width: 32px; height: 32px; margin: 0 auto 6px; border: 2px solid #ffffff35; border-top-color: var(--amber); border-radius: 50%; animation: wix-spin 900ms linear infinite; }
+@keyframes wix-spin { to { transform: rotate(360deg); } }
+
+.wix-story { margin: 0 auto; padding: 0; list-style: none; max-width: 36rem; display: grid; gap: .9rem; text-align: left; counter-reset: step; }
 .wix-story li { counter-increment: step; padding-left: 2.4rem; position: relative; line-height: 1.55; }
-.wix-story li::before { content: counter(step); position: absolute; left: 0; top: .1rem; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--accent); color: #06101f; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.wix-story li::before { content: counter(step); position: absolute; left: 0; top: .1rem; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: #22d3ee; color: #06101f; font-weight: 700; display: flex; align-items: center; justify-content: center; }
 .wix-story b { display: block; font-size: 1.1rem; }
 .wix-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-.wix-bar { flex: none; min-height: var(--wix-bar-height); display: flex; align-items: center; justify-content: center; gap: .75rem 1.5rem; flex-wrap: wrap; padding: .6rem 1rem calc(.6rem + env(safe-area-inset-bottom)); background: linear-gradient(rgba(5, 7, 15, .9), #05070f); border-top: 1px solid #2a3558; }
-.wix-open { color: #cfd8ee; font-size: .85rem; }
-.wix-begin { box-shadow: 0 0 24px rgba(124, 196, 255, .45); transition: transform .15s, filter .15s; }
-.wix-begin:hover { transform: translateY(-2px); filter: brightness(1.1); }
-
-@media (prefers-reduced-motion: reduce) {
-  .wix-scroll { scroll-behavior: auto; }
-  .wix-crop, .wix-begin { transition: none; }
-  .wix-begin:hover { transform: none; }
-}
+/* The game's own buttons float over the bottom of the intro */
+.wix-bar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; display: flex; align-items: center; justify-content: center; gap: .9rem; flex-wrap: wrap; padding: 2.2rem 1rem calc(1.1rem + env(safe-area-inset-bottom)); background: linear-gradient(transparent, rgba(5, 7, 13, .78) 55%); pointer-events: none; }
+.wix-bar > * { pointer-events: auto; }
+.wix-bar .wix-start { min-height: 3.6rem; padding: 0 2.8rem; font-size: clamp(.95rem, 1.6vw, 1.15rem); }
+@media (max-width: 520px) { .wix-bar { gap: .5rem; } .wix-bar .wix-start { order: -1; flex-basis: 100%; max-width: 20rem; padding: 0 1.5rem; } }
+@media (prefers-reduced-motion: reduce) { .wix-frame { transition: none; } .wix-spinner { animation-duration: 2.5s; } }

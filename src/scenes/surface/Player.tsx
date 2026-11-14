@@ -85,15 +85,22 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
     const down = (e: PointerEvent) => {
       // Mouse: hold the right button to look around. Touch and pen: any drag.
       if (e.pointerType === 'mouse' && e.button !== 2) return
+      // Lock the pointer: the cursor is hidden and stays where it was until the button is released
+      if (e.pointerType === 'mouse') { try { el.requestPointerLock() } catch { /* not available: plain dragging still works */ } }
       last = { x: e.clientX, y: e.clientY }; try { el.setPointerCapture(e.pointerId) } catch { /* ignore */ } }
     const move = (e: PointerEvent) => {
       if (!last || (locked.current && !focusing.current)) return
       focus.current.dragging = true
-      view.current.yaw -= (e.clientX - last.x) * 0.005
-      view.current.pitch = MathUtils.clamp(view.current.pitch + (e.clientY - last.y) * 0.005, -0.2, 1.3)
+      const lockedPointer = document.pointerLockElement === el
+      const dx = lockedPointer ? e.movementX : e.clientX - last.x, dy = lockedPointer ? e.movementY : e.clientY - last.y
+      view.current.yaw -= dx * 0.005
+      view.current.pitch = MathUtils.clamp(view.current.pitch + dy * 0.005, -0.2, 1.3)
       last = { x: e.clientX, y: e.clientY }
     }
-    const end = () => { last = null; focus.current.dragging = false }
+    const end = () => {
+      last = null; focus.current.dragging = false
+      if (document.pointerLockElement === el) document.exitPointerLock()
+    }
     const wheel = (e: WheelEvent) => { view.current.dist = MathUtils.clamp(view.current.dist + e.deltaY * 0.01, 2.6, 30) }
     const noMenu = (e: Event) => e.preventDefault()
     el.addEventListener('contextmenu', noMenu)

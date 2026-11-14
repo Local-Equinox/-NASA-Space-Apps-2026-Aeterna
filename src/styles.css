@@ -200,3 +200,46 @@ h3 { margin: 1rem 0 .25rem; font-size: 1rem; color: var(--accent); }
 .dossier-btn.solid { background: #14181d; color: #fff; }
 .dossier :focus-visible { outline: 3px solid #1d47a8; }
 @media (max-width: 820px) { .dossier { left: 0; top: 42%; width: auto; min-width: 0; box-shadow: 0 -12px 30px rgba(0, 0, 0, .45); } }
+
+/* ---- Glow buttons -------------------------------------------------------------------------------
+   .btn-glow       the main call to action: cyan-to-blue pill that flashes, grows and shimmers on hover
+   .btn-glow.soft  secondary buttons: the same lift with a softer glow, no flash and no moving light
+   Only transform, opacity, box-shadow and background-position are animated. */
+.btn-glow {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 1.6rem;
+  border: 0; border-radius: 999px; cursor: pointer;
+  font: 800 .9rem system-ui, sans-serif; letter-spacing: .2em; text-transform: uppercase; color: #04121c;
+  background: linear-gradient(115deg, #22d3ee 0%, #0ea5e9 26%, #7be8fa 42%, #0b8cf5 58%, #22d3ee 76%, #0ea5e9 100%) 0% 50% / 300% 300%;
+  box-shadow: 0 0 18px rgba(34, 211, 238, .45), inset 0 0 0 1px rgba(255, 255, 255, .35);
+  transition: transform 250ms cubic-bezier(.2, .8, .2, 1), box-shadow 250ms cubic-bezier(.2, .8, .2, 1);
+}
+/* Entry flash: sits above the fill but below the label */
+.btn-glow::after { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: #eaffff; opacity: 0; pointer-events: none; }
+.btn-glow:disabled { opacity: .5; cursor: not-allowed; }
+.btn-glow.soft { min-height: 44px; padding: 0 1.2rem; font-size: .75rem; color: #e8f6ff; background: rgba(6, 14, 30, .78); box-shadow: 0 0 10px rgba(34, 211, 238, .18), inset 0 0 0 1.5px rgba(125, 232, 250, .55); }
+.btn-glow.soft::after { display: none; }
+
+@keyframes btn-sheen { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+@keyframes btn-flash { from { opacity: .55; } to { opacity: 0; } }
+
+/* Hover only where a real pointer can hover, so a tap never leaves a button stuck lit */
+@media (hover: hover) {
+  .btn-glow:hover:not(:disabled) { transform: scale(1.055); box-shadow: 0 0 28px rgba(34, 211, 238, .7), 0 0 60px rgba(14, 165, 233, .45), inset 0 0 0 1px rgba(255, 255, 255, .55); animation: btn-sheen 3.6s linear infinite alternate; }
+  .btn-glow:hover:not(:disabled)::after { animation: btn-flash 300ms ease-out; }
+  .btn-glow.soft:hover:not(:disabled) { animation: none; box-shadow: 0 0 20px rgba(34, 211, 238, .45), inset 0 0 0 1.5px rgba(125, 232, 250, .9); }
+  .prompt:hover { transform: translateX(-50%) scale(1.05); box-shadow: 0 0 26px rgba(95, 211, 200, .6), 0 0 54px rgba(124, 196, 255, .35); }
+}
+.prompt { transition: transform 250ms cubic-bezier(.2, .8, .2, 1), box-shadow 250ms cubic-bezier(.2, .8, .2, 1); box-shadow: 0 0 14px rgba(95, 211, 200, .3); }
+.btn-glow:focus-visible { transform: scale(1.055); box-shadow: 0 0 28px rgba(34, 211, 238, .7), 0 0 60px rgba(14, 165, 233, .45), inset 0 0 0 1px rgba(255, 255, 255, .55); }
+.btn-glow.soft:focus-visible { box-shadow: 0 0 20px rgba(34, 211, 238, .45), inset 0 0 0 1.5px rgba(125, 232, 250, .9); }
+.prompt:focus-visible { transform: translateX(-50%) scale(1.05); box-shadow: 0 0 26px rgba(95, 211, 200, .6), 0 0 54px rgba(124, 196, 255, .35); }
+.btn-glow:active:not(:disabled) { transform: scale(.98); }
+.prompt:active { transform: translateX(-50%) scale(.98); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-glow, .prompt { transition: box-shadow 250ms ease; }
+  .btn-glow:hover:not(:disabled), .btn-glow:focus-visible, .btn-glow:active:not(:disabled) { transform: none; animation: none; }
+  .btn-glow:hover:not(:disabled)::after { animation: none; }
+  .prompt:hover, .prompt:focus-visible, .prompt:active { transform: translateX(-50%); }
+}
