@@ -60,7 +60,7 @@ interface Game {
 const Ctx = createContext<Game | null>(null)
 
 export function GameProvider({ children }: { children: ReactNode }) {
-  const [scene, setScene] = useState<SceneName>('title')
+  const [scene, setScene] = useState<SceneName>('surface') // the game page opens straight into the mission, on Earth
   const [site, setSite] = useState<Artifact | null>(null)
   const [overlay, setOverlay] = useState<Overlay>('none')
   const [found, setFound] = useState<string[]>(loadFound)

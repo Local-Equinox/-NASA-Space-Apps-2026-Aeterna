@@ -1,6 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react'
 import { GameProvider, useGame } from './state/game'
-import TitleScreen from './ui/TitleScreen'
 import Collection from './ui/Collection'
 import About from './ui/About'
 import InfoPanel from './ui/InfoPanel'
@@ -70,7 +69,6 @@ function Game() {
         {scene === 'surface' && <SurfaceScene />}
         {scene === 'launch' && <LaunchScene />}
       </Suspense>
-      {scene === 'title' && <TitleScreen />}
       {scene === 'space' && <InfoPanel />}
       {scene === 'space' && <LandPrompt />}
       <SurfaceHud />

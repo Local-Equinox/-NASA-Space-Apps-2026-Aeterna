@@ -74,12 +74,11 @@ After each minigame the game plays `public/assets/cutscenes/<artifact id>.mp4`, 
 
 The gear button opens Settings: Controls, and switches for Orbits, Names, Stars and Sound.
 
-## Intro (Wix embed)
+## Pages
 
-The first screen embeds the team's Wix Studio site (`INTRO_URL` in `src/ui/WixIntro.tsx`) in an iframe as tall as the whole Wix page, cropped to hide the Wix banner and footer. **It needs an internet connection**; offline, the storyline is shown as text with a Start mission button.
+- `index.html` is the **intro page** (the team's Wix story in a cropped iframe). Its Start mission link goes to `mission.html`.
+- `mission.html` is the **game**. It must keep `<div id="root"></div>` and the `<script type="module" src="/src/main.tsx">` line, or the game will not load. It opens straight into the mission, on Earth.
 
-The "START MISSION" drawn in the Wix page is only a picture, so the game lays its own working button exactly over it. If the Wix page changes (sections added, button moved), update the variables at the top of `src/ui/wix-intro.css`: `--crop-top`, `--crop-bottom`, `--content-ratio` and the four `--start-*` values. Instructions are in that file.
-
-**Do not replace the root `index.html`.** It is the file that loads the game. The intro lives in `src/ui/WixIntro.tsx`.
+Both pages are built by `npm run build` (see `vite.config.ts`).
 
 Buttons: add the class `btn-glow` for the glowing call-to-action effect, or `btn-glow soft` for the toned-down version (see the end of `src/styles.css`).
