@@ -8,6 +8,7 @@ import Stars from './space/Stars'
 import TerrainView, { shipSpot } from './surface/Terrain'
 import Player from './surface/Player'
 import ArtifactModel from './surface/ArtifactModel'
+import EarthScenery, { earthFlats } from './surface/EarthScenery'
 import { makeTerrain, type Spot } from './surface/terrain-math'
 
 const SKY = { earth: '#8fb4ee', moon: '#000000', mars: '#b98363' } as const
@@ -27,6 +28,7 @@ export default function SurfaceScene() {
       { x: 0, z: 0 },
       spot,
       ...(site ? [site.surfacePosition, ...(site.pairedModels ?? []).map((m) => m.surfacePosition)] : []),
+      ...(world === 'earth' ? earthFlats(spot) : []),
     ]
     return { terrain: makeTerrain(world, site?.id ?? 'earth', spots), spot, spots }
   }, [site, world])
@@ -39,8 +41,9 @@ export default function SurfaceScene() {
       <directionalLight position={[80, 22, 35]} intensity={world === 'moon' ? 3.4 : 2.8} />
       <Suspense fallback={null}>
         {world === 'moon' && <Stars />}
-        <Physics gravity={[0, -gravityOf(world), 0]}>
+        <Physics gravity={[0, -gravityOf(world), 0]} timeStep="vary">
           <TerrainView world={world} seed={site?.id ?? 'earth'} terrain={terrain} avoid={spots} />
+          {world === 'earth' && <EarthScenery terrain={terrain} pad={spot} />}
           <Player artifact={site} terrain={terrain} />
           {site && <ArtifactModel artifact={site} found={found.includes(site.id)} terrain={terrain} />}
         </Physics>

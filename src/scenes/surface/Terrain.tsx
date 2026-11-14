@@ -2,7 +2,7 @@ import { useLayoutEffect, useMemo, useRef } from 'react'
 import { RigidBody, TrimeshCollider } from '@react-three/rapier'
 import { BufferAttribute, BufferGeometry, Color, InstancedMesh, Matrix4, Quaternion, Vector3 } from 'three'
 import type { LandId } from '../../data/bodies'
-import { PATCH_RADIUS, rng, shade, type Spot, type Terrain } from './terrain-math'
+import { GRID_SEGMENTS as SEGMENTS, GRID_SIZE as SIZE, PATCH_RADIUS, rng, shade, type Spot, type Terrain } from './terrain-math'
 
 const PALETTE = {
   earth: { ground: '#4f7a3a', rock: '#7d7d76' },
@@ -10,8 +10,6 @@ const PALETTE = {
   mars: { ground: '#a85f3c', rock: '#7d4630' },
 }
 
-const SIZE = 420 // metres across the detailed patch
-const SEGMENTS = 168 // 2.5 m cells
 
 /** Parked ship: to the side of the line toward the artifact, so it never blocks the first view. */
 export function shipSpot(target: Spot | null): Spot {

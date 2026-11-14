@@ -1,6 +1,11 @@
 import type { LandId } from '../../data/bodies'
 
 export const PATCH_RADIUS = 200 // metres from spawn the player may roam
+export const GRID_SIZE = 420 // metres across the detailed patch
+export const GRID_SEGMENTS = 168 // 2.5 m cells
+
+/** Earth only: the river's centre line (x for a given z). */
+export const riverX = (z: number) => 78 + 22 * Math.sin(z / 38)
 
 // Deterministic random numbers, so a site looks the same every visit.
 export function rng(seed: string) {
@@ -44,11 +49,13 @@ export interface Crater { x: number; z: number; r: number; depth: number }
 
 export interface Terrain {
   height: (x: number, z: number) => number
+  /** Height of the drawn ground mesh at (x, z): what the player actually stands on. */
+  surface: (x: number, z: number) => number
   craters: Crater[]
 }
 
 const CONFIG = {
-  earth: { craters: 0, craterDepth: 0, hill: 2.6, rough: 0.12 },
+  earth: { craters: 0, craterDepth: 0, hill: 5.5, rough: 0.12 },
   moon: { craters: 85, craterDepth: 0.2, hill: 2.6, rough: 0.5 },
   mars: { craters: 55, craterDepth: 0.15, hill: 3.2, rough: 0.4 },
 }
@@ -91,9 +98,31 @@ export function makeTerrain(world: LandId, seed: string, flats: Spot[]): Terrain
     let flat = 1
     for (const f of flats) flat = Math.min(flat, smooth(5, 15, Math.hypot(x - f.x, z - f.z)))
     const edge = 1 - smooth(PATCH_RADIUS - 35, PATCH_RADIUS, Math.hypot(x, z))
-    return h * flat * edge
+    const ground = h * flat * edge
+    if (world !== 'earth') return ground
+    // Earth: a river channel cut through the hills
+    return -1.7 + (ground + 1.7) * smooth(5, 15, Math.abs(x - riverX(z)))
   }
-  return { height, craters }
+
+  // The same grid the ground mesh is built from, so the player follows the drawn triangles exactly.
+  const n = GRID_SEGMENTS + 1
+  const cell = GRID_SIZE / GRID_SEGMENTS
+  let grid: Float32Array | null = null
+  const at = (i: number, j: number) => grid![j * n + i]
+  const surface = (x: number, z: number) => {
+    if (!grid) {
+      grid = new Float32Array(n * n)
+      for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) grid[j * n + i] = height((i / GRID_SEGMENTS - 0.5) * GRID_SIZE, (j / GRID_SEGMENTS - 0.5) * GRID_SIZE)
+    }
+    const gx = x / cell + GRID_SEGMENTS / 2, gz = z / cell + GRID_SEGMENTS / 2
+    if (gx < 0 || gz < 0 || gx >= GRID_SEGMENTS || gz >= GRID_SEGMENTS) return 0
+    const i = Math.floor(gx), j = Math.floor(gz)
+    const u = gx - i, v = gz - j
+    const a = at(i, j), b = at(i + 1, j), c = at(i, j + 1), d = at(i + 1, j + 1)
+    // Each cell is two triangles split along the b-c diagonal (see Terrain.tsx)
+    return u + v <= 1 ? a + (b - a) * u + (c - a) * v : d + (c - d) * (1 - u) + (b - d) * (1 - v)
+  }
+  return { height, surface, craters }
 }
 
 /** Shades a vertex: darker in low ground, lighter on rims, with a little noise. */

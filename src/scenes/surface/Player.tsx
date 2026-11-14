@@ -18,7 +18,9 @@ const BOARD_RANGE = 16
 const KEYS = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD', 'Space', 'ShiftLeft', 'ShiftRight'])
 
 export default function Player({ artifact, terrain }: { artifact: Artifact | null; terrain: Terrain }) {
-  const { overlay, setCanInspect, setCanBoard, found } = useGame()
+  const { overlay, setCanInspect, setCanBoard, found, surfaceWorld } = useGame()
+  // On Earth the camera stays above the river's water line
+  const cameraFloor = surfaceWorld === 'earth' ? -0.2 : -Infinity
   const camera = useThree((s) => s.camera)
   const gl = useThree((s) => s.gl)
   const body = useRef<RapierRigidBody>(null)
@@ -106,8 +108,8 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
     const { wish, fwd, right, head } = tmp
     const pos = rb.translation()
     const vel = rb.linvel()
-    const ground = terrain.height(pos.x, pos.z)
-    const grounded = pos.y - ground < 0.99 && vel.y < 2.5
+    const ground = terrain.surface(pos.x, pos.z)
+    const grounded = pos.y - ground < 1.02 && vel.y < 2.5
 
     fwd.set(-Math.sin(yaw), 0, -Math.cos(yaw))
     right.set(Math.cos(yaw), 0, -Math.sin(yaw))
@@ -135,19 +137,19 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
     let vy = vel.y
     const jumping = grounded && !locked.current && (keys.current.has('Space') || touch.jump)
     if (jumping) vy = JUMP_SPEED
-    else if (grounded && vel.y < 1) {
-      // Glue to the ground: follow the terrain height instead of bouncing off every bump
-      vy = MathUtils.clamp((ground + 0.9 - pos.y) * 14, -6, 6)
+    else if (grounded) {
+      // Follow the drawn ground exactly, hovering 2 cm above it so the physics never has to push the
+      // capsule back out of the terrain (that tug-of-war was what made the astronaut shake).
+      vy = MathUtils.clamp((ground + 0.92 - pos.y) * 20, -12, 12)
     }
 
     // Stay inside the patch
     const r = Math.hypot(pos.x, pos.z)
     if (r > PATCH_RADIUS && pos.x * vx + pos.z * vz > 0) { vx = 0; vz = 0 }
     rb.setLinvel({ x: vx, y: vy, z: vz }, true)
-    // Never fall through the ground: if the physics ever lets the player sink below the surface, put them back on it
-    const floor = ground + 0.8
-    if (pos.y < floor) {
-      rb.setTranslation({ x: pos.x, y: floor, z: pos.z }, true)
+    // Never fall through the ground
+    if (pos.y < ground + 0.85) {
+      rb.setTranslation({ x: pos.x, y: ground + 0.92, z: pos.z }, true)
       rb.setLinvel({ x: vx, y: Math.max(vy, 0), z: vz }, true)
     }
     if (pos.y < -60) { rb.setTranslation({ x: 0, y: terrain.height(0, 0) + 1, z: 0 }, true); rb.setLinvel({ x: 0, y: 0, z: 0 }, true) }
@@ -167,12 +169,13 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
     head.set(pos.x, pos.y + 0.5, pos.z)
     if (!sm.ready) { sm.head.copy(head); sm.ready = true }
     // Horizontal follows tightly; vertical is damped so steps and jumps do not shake the view
-    sm.head.x = head.x; sm.head.z = head.z
+    const follow = 1 - Math.exp(-30 * dt)
+    sm.head.x += (head.x - sm.head.x) * follow; sm.head.z += (head.z - sm.head.z) * follow
     sm.head.y += (head.y - sm.head.y) * (1 - Math.exp(-10 * dt))
     head.copy(sm.head)
     camera.position.set(
       head.x + Math.sin(yaw) * Math.cos(pitch) * dist,
-      Math.max(terrain.height(head.x + Math.sin(yaw) * Math.cos(pitch) * dist, head.z + Math.cos(yaw) * Math.cos(pitch) * dist) + 0.5, head.y + Math.sin(pitch) * dist),
+      Math.max(terrain.surface(head.x + Math.sin(yaw) * Math.cos(pitch) * dist, head.z + Math.cos(yaw) * Math.cos(pitch) * dist) + 0.5, head.y + Math.sin(pitch) * dist, cameraFloor),
       head.z + Math.cos(yaw) * Math.cos(pitch) * dist,
     )
     camera.lookAt(head)
@@ -193,7 +196,7 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
   })
 
   return (
-    <RigidBody ref={body} position={[0, terrain.height(0, 0) + 0.95, 0]} lockRotations colliders={false} linearDamping={0} ccd>
+    <RigidBody ref={body} position={[0, terrain.surface(0, 0) + 0.95, 0]} lockRotations colliders={false} linearDamping={0} ccd>
       <CapsuleCollider args={[0.5, 0.4]} friction={0} />
       <group ref={visual} position={[0, -0.9, 0]}>
         <primitive object={model} />
