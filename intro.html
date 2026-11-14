@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05070d">
+  <title>Left Behind — Introduction</title>
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /*
+       * CROP CALIBRATION
+       * These values hide Wix's own banner and footer. Tune them in the
+       * calibration panel (press C), then copy the values back here.
+       * The iframe is moved upward by --crop-top and enlarged by both crops.
+       */
+      --crop-top: 84px;
+      --crop-bottom: 92px;
+      --bg: #05070d;
+      --amber: #ff9a3c;
+    }
+
+    /* Phone: Wix commonly uses a taller, stacked mobile banner/footer. */
+    @media (max-width: 700px) {
+      :root {
+        --crop-top: 116px;
+        --crop-bottom: 132px;
+      }
+    }
+
+    /* Tablet: keep this breakpoint separate for inexpensive tablets. */
+    @media (min-width: 701px) and (max-width: 1100px) {
+      :root {
+        --crop-top: 96px;
+        --crop-bottom: 104px;
+      }
+    }
+
+    /* Desktop values. */
+    @media (min-width: 1101px) {
+      :root {
+        --crop-top: 84px;
+        --crop-bottom: 92px;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .intro-stage {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--bg);
+    }
+
+    .intro-frame {
+      position: absolute;
+      top: calc(-1 * var(--crop-top));
+      left: 0;
+      width: 100%;
+      height: calc(100% + var(--crop-top) + var(--crop-bottom));
+      border: 0;
+      opacity: 0;
+      background: var(--bg);
+      transition: opacity 700ms ease;
+      /* Deliberately interactive: no pointer-events:none and no scaling. */
+    }
+
+    .intro-frame.is-loaded { opacity: 1; }
+
+    .loading-screen {
+      position: fixed;
+      z-index: 2;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right)
+               env(safe-area-inset-bottom) env(safe-area-inset-left);
+      color: #ffd7aa;
+      background: var(--bg);
+      pointer-events: none;
+      transition: opacity 450ms ease, visibility 450ms ease;
+    }
+
+    .loading-screen.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loading-content {
+      display: grid;
+      justify-items: center;
+      gap: 14px;
+      text-align: center;
+      letter-spacing: .04em;
+    }
+
+    .loading-mark {
+      width: 28px;
+      height: 28px;
+      border: 2px solid rgba(255, 154, 60, .25);
+      border-top-color: var(--amber);
+      border-radius: 50%;
+      animation: loading-spin 900ms linear infinite;
+    }
+
+    .loading-text { font-size: .78rem; }
+
+    .calibration-toggle {
+      position: fixed;
+      z-index: 4;
+      right: max(12px, env(safe-area-inset-right));
+      bottom: max(12px, env(safe-area-inset-bottom));
+      display: none;
+      min-width: 38px;
+      min-height: 34px;
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 154, 60, .55);
+      border-radius: 6px;
+      color: var(--amber);
+      background: rgba(5, 7, 13, .86);
+      font: 700 .7rem/1 system-ui, sans-serif;
+      cursor: pointer;
+    }
+
+    /* This makes calibration discoverable on touch devices, while C works everywhere. */
+    @media (hover: none), (pointer: coarse) {
+      .calibration-toggle { display: block; }
+    }
+
+    .calibration-panel {
+      position: fixed;
+      z-index: 5;
+      top: max(12px, env(safe-area-inset-top));
+      right: max(12px, env(safe-area-inset-right));
+      width: min(340px, calc(100vw - 24px));
+      display: none;
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid rgba(255, 154, 60, .45);
+      border-radius: 10px;
+      color: #fff1df;
+      background: rgba(8, 12, 22, .96);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .5);
+      font-size: .82rem;
+    }
+
+    .calibration-panel.is-open { display: grid; }
+
+    .calibration-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .calibration-header strong { color: var(--amber); }
+
+    .calibration-close {
+      border: 0;
+      color: #ffd7aa;
+      background: transparent;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .slider-row { display: grid; gap: 5px; }
+    .slider-label { display: flex; justify-content: space-between; }
+    .slider-value { color: var(--amber); font-variant-numeric: tabular-nums; }
+    input[type="range"] { width: 100%; accent-color: var(--amber); }
+
+    .calibration-output {
+      margin: 0;
+      padding: 8px;
+      overflow-wrap: anywhere;
+      border-radius: 5px;
+      color: #ffd7aa;
+      background: #05070d;
+      font: .72rem/1.45 ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+
+    .copy-values {
+      justify-self: start;
+      padding: 7px 9px;
+      border: 1px solid rgba(255, 154, 60, .5);
+      border-radius: 5px;
+      color: var(--amber);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    @keyframes loading-spin { to { transform: rotate(360deg); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .intro-frame, .loading-screen { transition: none; }
+      .loading-mark { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="intro-stage" aria-label="Left Behind introduction">
+    <!-- Cropping is the only Wix-banner/footer hiding technique used here. -->
+    <iframe
+      id="intro-frame"
+      class="intro-frame"
+      data-src="https://hannahbellaatay.wixstudio.com/my-site-5"
+      title="Left Behind — AETERNA: Beyond time, beyond stars"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+      loading="eager"
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+
+    <div id="loading-screen" class="loading-screen" aria-live="polite">
+      <div class="loading-content">
+        <div class="loading-mark" aria-hidden="true"></div>
+        <div class="loading-text">Loading the intro…</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Remove this button and the calibration panel/script when calibration is finished. -->
+  <button id="calibration-toggle" class="calibration-toggle" type="button" aria-expanded="false" aria-controls="calibration-panel">Crop</button>
+
+  <section id="calibration-panel" class="calibration-panel" aria-label="Crop calibration" aria-hidden="true">
+    <div class="calibration-header">
+      <strong>Crop calibration</strong>
+      <button id="calibration-close" class="calibration-close" type="button" aria-label="Close calibration">×</button>
+    </div>
+    <div>Press C to open/close. Changes are live and apply to the current screen size.</div>
+    <label class="slider-row" for="crop-top-slider">
+      <span class="slider-label"><span>Top crop</span><span id="crop-top-value" class="slider-value"></span></span>
+      <input id="crop-top-slider" type="range" min="0" max="300" step="1">
+    </label>
+    <label class="slider-row" for="crop-bottom-slider">
+      <span class="slider-label"><span>Bottom crop</span><span id="crop-bottom-value" class="slider-value"></span></span>
+      <input id="crop-bottom-slider" type="range" min="0" max="300" step="1">
+    </label>
+    <output id="calibration-output" class="calibration-output"></output>
+    <button id="copy-values" class="copy-values" type="button">Copy values</button>
+  </section>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const frame = document.getElementById('intro-frame');
+      const loadingScreen = document.getElementById('loading-screen');
+      const toggle = document.getElementById('calibration-toggle');
+      const panel = document.getElementById('calibration-panel');
+      const close = document.getElementById('calibration-close');
+      const topSlider = document.getElementById('crop-top-slider');
+      const bottomSlider = document.getElementById('crop-bottom-slider');
+      const topValue = document.getElementById('crop-top-value');
+      const bottomValue = document.getElementById('crop-bottom-value');
+      const output = document.getElementById('calibration-output');
+      const copyButton = document.getElementById('copy-values');
+
+      frame.addEventListener('load', () => {
+        frame.classList.add('is-loaded');
+        loadingScreen.classList.add('is-hidden');
+      }, { once: true });
+
+      // Start navigation only after the load listener exists, including on fast caches.
+      frame.src = frame.dataset.src;
+
+      const cssPixels = (name) => parseFloat(getComputedStyle(root).getPropertyValue(name)) || 0;
+
+      function updateCalibration() {
+        const top = `${topSlider.value}px`;
+        const bottom = `${bottomSlider.value}px`;
+        root.style.setProperty('--crop-top', top);
+        root.style.setProperty('--crop-bottom', bottom);
+        topValue.textContent = top;
+        bottomValue.textContent = bottom;
+        output.textContent = `--crop-top: ${top}; --crop-bottom: ${bottom};`;
+      }
+
+      function setCalibrationOpen(open) {
+        panel.classList.toggle('is-open', open);
+        panel.setAttribute('aria-hidden', String(!open));
+        toggle.setAttribute('aria-expanded', String(open));
+        if (open) {
+          topSlider.value = cssPixels('--crop-top');
+          bottomSlider.value = cssPixels('--crop-bottom');
+          updateCalibration();
+          topSlider.focus();
+        }
+      }
+
+      topSlider.addEventListener('input', updateCalibration);
+      bottomSlider.addEventListener('input', updateCalibration);
+      toggle.addEventListener('click', () => setCalibrationOpen(!panel.classList.contains('is-open')));
+      close.addEventListener('click', () => setCalibrationOpen(false));
+      copyButton.addEventListener('click', async () => {
+        const values = output.textContent;
+        try {
+          await navigator.clipboard.writeText(values);
+          copyButton.textContent = 'Copied';
+          setTimeout(() => { copyButton.textContent = 'Copy values'; }, 1200);
+        } catch (_) {
+          copyButton.textContent = 'Select the values above';
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key.toLowerCase() === 'c' && !/input|textarea|select/i.test(event.target.tagName)) {
+          setCalibrationOpen(!panel.classList.contains('is-open'));
+        }
+        if (event.key === 'Escape') setCalibrationOpen(false);
+      });
+    })();
+  </script>
+
+  <!--
+    INTEGRATION NOTES
+
+    1) Tune crop values: open calibration with C (or the Crop button on a
+       touch device), adjust each slider until the Wix banner/footer vanish,
+       then copy the displayed values into the matching phone/tablet/desktop
+       :root media-query block above. Check portrait and landscape separately.
+
+    2) Vite + TypeScript: use this file as the first static route by copying it
+       to public/intro.html and linking to /intro.html, or move the main markup
+       into an Intro component and the CSS into its stylesheet. Keep the iframe
+       URL, fixed crop container, load handler, and allow attribute together.
+       If using a router, make this the initial route and use the same CSS/JS
+       behavior in that route; no framework or build step is required here.
+
+    3) Real-phone checklist: test iOS Safari and Android Chrome; portrait and
+       landscape; safe-area/notch devices; first load on a slow connection;
+       iframe taps, swipes, and Wix scrolling; animation playback after load;
+       the footer/banner at several viewport heights; reduced-motion enabled;
+       and the C/slider calibration controls on a touch screen.
+  -->
+</body>
+</html>
