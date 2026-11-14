@@ -133,10 +133,6 @@ h3 { margin: 1rem 0 .25rem; font-size: 1rem; color: var(--accent); }
 .overlay.cutscene { position: fixed; inset: 0; z-index: 30; width: 100%; max-width: none; max-height: none; margin: 0; overflow: auto; border: 0; border-radius: 0; padding: clamp(1rem, 3vw, 3rem); background: rgba(4, 7, 15, .97); display: flex; flex-direction: column; justify-content: center; }
 .cutscene h2 { width: min(100%, 80rem); margin: 0 auto 1rem; }
 .cutscene video, .cutscene-placeholder { width: min(100%, 80rem); max-height: min(72vh, 56rem); margin: 0 auto; }
-.cutscene-player { position: relative; width: min(100%, 80rem); margin: 0 auto; }
-.cutscene-player video { width: 100%; }
-.cutscene-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); box-shadow: 0 2px 18px rgba(0,0,0,.7); }
-.cutscene-play-error { position: absolute; left: 50%; bottom: 3.5rem; transform: translateX(-50%); margin: 0; padding: .4rem .7rem; border-radius: .4rem; background: rgba(0,0,0,.8); text-align: center; }
 .cutscene video { display: block; height: min(72vh, 56rem); object-fit: contain; background: #000; border-radius: .5rem; }
 .cutscene-skip { position: fixed; top: max(1rem, env(safe-area-inset-top)); right: max(1rem, env(safe-area-inset-right)); z-index: 2; }
 .cutscene-placeholder { border: 2px dashed #5b6b8f; border-radius: .6rem; padding: 2rem 1rem; text-align: center; margin: .5rem 0; aspect-ratio: 16 / 9; display: flex; flex-direction: column; justify-content: center; }

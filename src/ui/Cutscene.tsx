@@ -7,26 +7,22 @@ export default function Cutscene() {
   const { site, setOverlay } = useGame()
   const video = useRef<HTMLVideoElement>(null)
   const [missing, setMissing] = useState(false)
-  const [playError, setPlayError] = useState(false)
-  const [playing, setPlaying] = useState(false)
   const next = () => setOverlay('story')
   const src = site?.cutscene
 
   useEffect(() => {
     if (!site) return
     if (!src) { setOverlay('story'); return }
-  }, [site, src, setOverlay])
-
-  // Start playback directly from a player click so browsers grant audio playback.
-  const playWithSound = () => {
     const v = video.current
-    if (!v) return
-    v.defaultMuted = false
-    v.muted = false
-    v.volume = 1
-    setPlayError(false)
-    v.play().catch(() => setPlayError(true))
-  }
+    if (v) {
+      // The game Sound setting controls synthesized effects only. Flashback audio
+      // starts at full volume and the player can change it with native controls.
+      v.defaultMuted = false
+      v.muted = false
+      v.volume = 1
+      v.play().catch(() => { /* autoplay blocked: the controls are visible */ })
+    }
+  }, [site, src, setOverlay])
 
   // A missing file: skip for players, but show the team where the video goes while developing.
   const onError = () => { if (import.meta.env.DEV) setMissing(true); else next() }
@@ -44,11 +40,7 @@ export default function Cutscene() {
           <p className="small">Players never see this card: without the file, the game goes straight to the story.</p>
         </div>
       ) : (
-        <div className="cutscene-player">
-          <video ref={video} src={`./${src}`} controls playsInline onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={next} onError={onError} />
-          {!playing && <button className="button cutscene-play" onClick={playWithSound}>Play with sound</button>}
-          {playError && <p className="small cutscene-play-error" role="alert">Couldn’t start playback. Use the video’s play control to try again.</p>}
-        </div>
+        <video ref={video} src={`./${src}`} controls playsInline onEnded={next} onError={onError} />
       )}
     </section>
   )
