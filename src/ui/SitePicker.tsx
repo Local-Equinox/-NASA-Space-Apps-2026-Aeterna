@@ -1,20 +1,21 @@
 import { artifacts } from '../data/artifacts'
-import { BODIES } from '../data/bodies'
+import { BODY_DATA } from '../data/bodies'
 import { useGame } from '../state/game'
 
 export default function SitePicker() {
   const { near, found, goTo, setOverlay } = useGame()
   if (!near) return null
   const sites = artifacts.filter((a) => a.world === near)
+  if (sites.length === 0) return null
   return (
     <section className="overlay" role="dialog" aria-labelledby="sites-title">
-      <h2 id="sites-title">Choose a landing site: {BODIES[near].name}</h2>
+      <h2 id="sites-title">Choose a landing site: {BODY_DATA[near].name}</h2>
       <ul className="list">
         {sites.map((a) => (
           <li key={a.id}>
             <button
               className="button secondary site"
-              onClick={() => { setOverlay('none'); goTo('surface', a) }}
+              onClick={() => { setOverlay('none'); goTo('surface', a, a.world) }}
             >
               {found.includes(a.id) ? '✔ ' : ''}{a.site.name}
             </button>

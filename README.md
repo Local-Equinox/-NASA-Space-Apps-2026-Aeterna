@@ -3,11 +3,13 @@
 A 3D browser game for the **NASA Space Apps Challenge 2026** (Iligan), for the challenge
 *“Abandoned but Not Forgotten: Storytelling about NASA's Discarded Equipment on the Moon and Mars.”*
 
-You are a young space archaeologist. Fly a ship from Earth orbit to the Moon and Mars, land at real mission
-sites, walk the surface in a spacesuit, find the hardware NASA left behind, make the call the mission faced,
-and unlock its story. Nine artifacts, all in a collection.
+You are a young space archaeologist. Walk to your ship on Earth and blast off into a solar system with real
+orbits, rotations and labelled constellations. Select a world, warp to it, land at a mission site, explore on
+foot under that world's real gravity, and follow the map tracker (artifacts show as ??? until found). Find
+the hardware NASA left behind, make the call the mission faced, and unlock its story. Nine artifacts.
 
-Not affiliated with or endorsed by NASA. Earth, Moon and Mars distances are compressed so the trip is quick.
+Not affiliated with or endorsed by NASA. Distances and sizes are compressed (logarithmic) so the trip is quick.
+The solar system engine in `src/solar/` is ported from the team's Solar System 3D project.
 
 ## Run it
 
@@ -26,10 +28,10 @@ npm run preview  # serve dist/ locally
 |---|---|---|
 | Move | WASD (Space / C up and down) | WASD, Shift to run |
 | Look | Drag | Drag, wheel to zoom |
-| Other | Shift boost, click Moon/Mars then Warp, L to land | Space jump, E inspect |
+| Other | Shift boost; click a world or use Bodies, then Warp; L to land | Space jump; E inspect or board your ship |
 | Touch | On-screen stick and Jump button | same |
 
-`H` shows help. The top bar has Collection, help and a sound toggle.
+`H` shows help. The top bar has Orbits/Names/Stars toggles, Collection, help and a sound toggle. The bottom-right clock sets the simulation speed. On the surface, the map tracker (top left) shows ??? where an artifact is, and your ship.
 
 ## Editing content (no code needed)
 

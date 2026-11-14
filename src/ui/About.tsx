@@ -10,16 +10,17 @@ export default function About() {
         “Abandoned but Not Forgotten”. It is a student project and is not affiliated with or endorsed by NASA.
       </p>
       <h3>Distances are compressed</h3>
-      <p>Earth, the Moon and Mars are much closer together, and much smaller compared with their distances, than in real life, so the trip is quick to fly.</p>
+      <p>Planet orbits, spins and constellations follow real data, starting from today's date, but distances and sizes are compressed (logarithmically) so the trip is quick to fly. Real distances would make Earth a speck.</p>
       <h3>Placeholders</h3>
       <p>Artifact models marked “PLACEHOLDER MODEL” are stand-ins until real NASA 3D models are added. Story text marked “DRAFT – verify” or “TODO” has not been checked against NASA sources yet.</p>
       <h3>Credits</h3>
       <ul>
-        <li>Earth, Moon and Mars textures: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noreferrer">Solar System Scope</a>, CC BY 4.0, based on NASA data.</li>
+        <li>Sun, planet and Moon textures: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noreferrer">Solar System Scope</a>, CC BY 4.0, based on NASA data. Other moon maps: NASA/JPL (Caltech/JPL/USGS).</li>
+        <li>Orbital elements: JPL Solar System Dynamics. Rotation models: IAU Working Group on Cartographic Coordinates and Rotational Elements.</li>
         <li>Star catalog and constellations: d3-celestial (BSD-3).</li>
         <li>Font: Bungee, SIL Open Font License.</li>
         <li>Built with React, three.js, React Three Fiber, drei and Rapier.</li>
-        <li>Gravity values: NASA/JPL planetary fact sheets (Moon 1.62, Mars 3.71 m/s²).</li>
+        <li>Gravity values: NASA/JPL planetary fact sheets (Earth 9.81, Moon 1.62, Mars 3.71 m/s²).</li>
         <li>Full list: <code>CREDITS.md</code> in the project.</li>
       </ul>
       <h3>Team</h3>

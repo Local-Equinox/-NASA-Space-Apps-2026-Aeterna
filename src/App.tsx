@@ -9,6 +9,10 @@ import SitePicker from './ui/SitePicker'
 import Help from './ui/Help'
 import SurfaceHud from './ui/SurfaceHud'
 import InspectPrompt from './ui/InspectPrompt'
+import BoardPrompt from './ui/BoardPrompt'
+import MiniMap from './ui/MiniMap'
+import BodiesList from './ui/BodiesList'
+import TimeControls from './ui/TimeControls'
 import Decision from './ui/Decision'
 import Story from './ui/Story'
 import Stories from './ui/Stories'
@@ -19,11 +23,11 @@ const SpaceScene = lazy(() => import('./scenes/SpaceScene'))
 const SurfaceScene = lazy(() => import('./scenes/SurfaceScene'))
 
 function Game() {
-  const { scene, overlay, fading, warping, near, canInspect, setOverlay } = useGame()
+  const { scene, overlay, fading, warping, near, canInspect, canBoard, surfaceWorld, setOverlay, setSelected, setSpawn, goTo } = useGame()
 
   // Show the controls once on first load of the space scene; H toggles them any time.
   useEffect(() => {
-    if (scene !== 'space') return
+    if (scene === 'title') return
     try {
       if (!localStorage.getItem('left-behind-help-seen')) {
         localStorage.setItem('left-behind-help-seen', '1')
@@ -37,12 +41,18 @@ function Game() {
       if (scene === 'title') return
       if (e.code === 'KeyH' && (overlay === 'none' || overlay === 'help')) setOverlay(overlay === 'help' ? 'none' : 'help')
       else if (e.code === 'KeyE' && scene === 'surface' && canInspect && overlay === 'none') setOverlay('decision')
-      else if (e.code === 'KeyL' && scene === 'space' && near && overlay === 'none') setOverlay('sites')
-      else if (e.code === 'Escape') setOverlay('none')
+      else if (e.code === 'KeyL' && scene === 'space' && near && overlay === 'none') {
+        if (near === 'earth') goTo('surface', null, 'earth')
+        else setOverlay('sites')
+      } else if (e.code === 'KeyE' && scene === 'surface' && canBoard && !canInspect && overlay === 'none') {
+        setSpawn(surfaceWorld)
+        goTo('space')
+      }
+      else if (e.code === 'Escape') { setOverlay('none'); setSelected(null) }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [scene, near, canInspect, overlay, setOverlay])
+  }, [scene, near, canInspect, canBoard, surfaceWorld, overlay, setOverlay, setSelected, setSpawn, goTo])
 
   return (
     <div className={`stage ${warping ? 'warping' : ''}`}>
@@ -56,6 +66,10 @@ function Game() {
       {scene === 'space' && <LandPrompt />}
       <SurfaceHud />
       <InspectPrompt />
+      <BoardPrompt />
+      <MiniMap />
+      <BodiesList />
+      <TimeControls />
       {overlay === 'decision' && <Decision />}
       {overlay === 'story' && <Story />}
       {overlay === 'stories' && <Stories />}

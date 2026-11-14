@@ -7,15 +7,17 @@ import { useGame } from '../../state/game'
 import { JUMP_SPEED } from '../../data/bodies'
 import { touch } from '../../lib/touch'
 import type { Artifact } from '../../types/artifact'
-import { PATCH_RADIUS } from './Terrain'
+import { PATCH_RADIUS, shipSpot } from './Terrain'
+import { track } from '../../lib/track'
 
 const WALK = 5
 const RUN = 9.5
 const INSPECT_RANGE = 4
+const BOARD_RANGE = 16
 const KEYS = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD', 'Space', 'ShiftLeft', 'ShiftRight'])
 
-export default function Player({ artifact }: { artifact: Artifact }) {
-  const { overlay, setCanInspect } = useGame()
+export default function Player({ artifact }: { artifact: Artifact | null }) {
+  const { overlay, setCanInspect, setCanBoard, found } = useGame()
   const camera = useThree((s) => s.camera)
   const gl = useThree((s) => s.gl)
   const body = useRef<RapierRigidBody>(null)
@@ -26,8 +28,24 @@ export default function Player({ artifact }: { artifact: Artifact }) {
   const locked = useRef(false)
   locked.current = overlay !== 'none'
   // The camera starts on the open side, looking toward the artifact's general direction.
-  const view = useRef({ yaw: Math.atan2(artifact.surfacePosition.x, artifact.surfacePosition.z) + Math.PI, pitch: 0.3, dist: 6 })
-  const state = useRef({ canInspect: false, facing: 0 })
+  const view = useRef({ yaw: 0, pitch: 0.3, dist: 6 })
+  const state = useRef({ canInspect: false, canBoard: false, facing: 0 })
+  const ship = useMemo(() => shipSpot(artifact), [artifact])
+  // Start looking toward the artifact (or the ship, on Earth) so the camera is on the open side.
+  useMemo(() => {
+    const look = artifact ? artifact.surfacePosition : ship
+    view.current.yaw = Math.atan2(-look.x, -look.z)
+  }, [artifact, ship])
+
+  // Mini-map data: artifacts show as ??? until found.
+  useEffect(() => {
+    track.ship = ship
+    track.markers = artifact
+      ? [artifact.surfacePosition, ...(artifact.pairedModels ?? []).map((m) => m.surfacePosition)].map((p) => ({
+          x: p.x, z: p.z, found: found.includes(artifact.id), label: found.includes(artifact.id) ? artifact.name : '???',
+        }))
+      : []
+  }, [artifact, ship, found])
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -52,7 +70,7 @@ export default function Player({ artifact }: { artifact: Artifact }) {
   useEffect(() => {
     const el = gl.domElement
     let last: { x: number; y: number } | null = null
-    const down = (e: PointerEvent) => { last = { x: e.clientX, y: e.clientY }; el.setPointerCapture(e.pointerId) }
+    const down = (e: PointerEvent) => { last = { x: e.clientX, y: e.clientY }; try { el.setPointerCapture(e.pointerId) } catch { /* ignore */ } }
     const move = (e: PointerEvent) => {
       if (!last || locked.current) return
       view.current.yaw -= (e.clientX - last.x) * 0.005
@@ -137,10 +155,15 @@ export default function Player({ artifact }: { artifact: Artifact }) {
     )
     camera.lookAt(head)
 
+    track.x = pos.x; track.z = pos.z; track.yaw = yaw
+
+    // Boarding prompt
+    const nearShip = Math.hypot(pos.x - ship.x, pos.z - ship.z) < BOARD_RANGE
+    if (nearShip !== state.current.canBoard) { state.current.canBoard = nearShip; setCanBoard(nearShip) }
+
     // Inspect prompt
-    const near = [artifact.surfacePosition, ...(artifact.pairedModels ?? []).map((m) => m.surfacePosition)].some(
-      (p) => Math.hypot(pos.x - p.x, pos.z - p.z) < INSPECT_RANGE,
-    )
+    const spots = artifact ? [artifact.surfacePosition, ...(artifact.pairedModels ?? []).map((m) => m.surfacePosition)] : []
+    const near = spots.some((p) => Math.hypot(pos.x - p.x, pos.z - p.z) < INSPECT_RANGE)
     if (near !== state.current.canInspect) {
       state.current.canInspect = near
       setCanInspect(near)

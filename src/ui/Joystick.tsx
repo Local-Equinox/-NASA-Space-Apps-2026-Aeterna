@@ -26,7 +26,7 @@ export default function Joystick() {
         onPointerDown={(e) => {
           const r = e.currentTarget.getBoundingClientRect()
           origin.current = { x: r.left + r.width / 2, y: r.top + r.height / 2 }
-          e.currentTarget.setPointerCapture(e.pointerId)
+          try { e.currentTarget.setPointerCapture(e.pointerId) } catch { /* synthetic or lost pointer */ }
           set(e.clientX - origin.current.x, e.clientY - origin.current.y)
         }}
         onPointerMove={(e) => origin.current && set(e.clientX - origin.current.x, e.clientY - origin.current.y)}

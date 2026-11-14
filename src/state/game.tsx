@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 import { artifacts } from '../data/artifacts'
-import type { Artifact, World } from '../types/artifact'
-import type { BodyId } from '../data/bodies'
+import type { Artifact } from '../types/artifact'
+import type { LandId } from '../data/bodies'
 
 export type SceneName = 'title' | 'space' | 'surface'
 export type Overlay = 'none' | 'collection' | 'about' | 'help' | 'sites' | 'decision' | 'story' | 'stories'
@@ -23,19 +23,22 @@ interface Game {
   overlay: Overlay
   found: string[]
   fading: boolean
-  selected: World | null
-  near: World | null
+  selected: string | null
+  near: LandId | null
+  surfaceWorld: LandId
+  canBoard: boolean
+  setCanBoard: (b: boolean) => void
   warping: boolean
   canInspect: boolean
   setCanInspect: (b: boolean) => void
-  warpRequest: { id: World; n: number } | null
-  spawn: BodyId
-  setSelected: (w: World | null) => void
-  setNear: (w: World | null) => void
+  warpRequest: { id: string; n: number } | null
+  spawn: string
+  setSelected: (w: string | null) => void
+  setNear: (w: LandId | null) => void
   setWarping: (b: boolean) => void
-  requestWarp: (w: World) => void
-  setSpawn: (b: BodyId) => void
-  goTo: (scene: SceneName, site?: Artifact | null) => void
+  requestWarp: (w: string) => void
+  setSpawn: (b: string) => void
+  goTo: (scene: SceneName, site?: Artifact | null, world?: LandId) => void
   setOverlay: (o: Overlay) => void
   markFound: (id: string) => void
   resetProgress: () => void
@@ -49,13 +52,15 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [overlay, setOverlay] = useState<Overlay>('none')
   const [found, setFound] = useState<string[]>(loadFound)
   const [fading, setFading] = useState(false)
-  const [selected, setSelected] = useState<World | null>(null)
-  const [near, setNear] = useState<World | null>(null)
+  const [selected, setSelected] = useState<string | null>(null)
+  const [near, setNear] = useState<LandId | null>(null)
+  const [surfaceWorld, setSurfaceWorld] = useState<LandId>('earth')
+  const [canBoard, setCanBoard] = useState(false)
   const [warping, setWarping] = useState(false)
   const [canInspect, setCanInspect] = useState(false)
-  const [warpRequest, setWarpRequest] = useState<{ id: World; n: number } | null>(null)
-  const [spawn, setSpawn] = useState<BodyId>('earth')
-  const requestWarp = useCallback((id: World) => setWarpRequest((r) => ({ id, n: (r?.n ?? 0) + 1 })), [])
+  const [warpRequest, setWarpRequest] = useState<{ id: string; n: number } | null>(null)
+  const [spawn, setSpawn] = useState<string>('earth')
+  const requestWarp = useCallback((id: string) => setWarpRequest((r) => ({ id, n: (r?.n ?? 0) + 1 })), [])
 
   useEffect(() => {
     try {
@@ -66,7 +71,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   }, [found])
 
   // Fade out, swap scene, fade in. Space and surface never render together.
-  const goTo = useCallback((next: SceneName, nextSite: Artifact | null = null) => {
+  const goTo = useCallback((next: SceneName, nextSite: Artifact | null = null, world?: LandId) => {
     setFading(true)
     setTimeout(() => {
       setScene(next)
@@ -75,6 +80,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
       setWarping(false)
       setCanInspect(false)
       setSite(nextSite)
+      if (world) setSurfaceWorld(world)
+      setCanBoard(false)
       setFading(false)
     }, 400)
   }, [])
@@ -86,7 +93,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const resetProgress = useCallback(() => setFound([]), [])
 
   return (
-    <Ctx.Provider value={{ scene, site, overlay, found, fading, selected, near, warping, canInspect, setCanInspect, warpRequest, spawn, setSelected, setNear, setWarping, requestWarp, setSpawn, goTo, setOverlay, markFound, resetProgress }}>
+    <Ctx.Provider value={{ scene, site, overlay, found, fading, selected, near, surfaceWorld, canBoard, setCanBoard, warping, canInspect, setCanInspect, warpRequest, spawn, setSelected, setNear, setWarping, requestWarp, setSpawn, goTo, setOverlay, markFound, resetProgress }}>
       {children}
     </Ctx.Provider>
   )

@@ -1,26 +1,18 @@
 import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { SUN_DIR } from '../data/bodies'
-import { useGame } from '../state/game'
 import Stars from './space/Stars'
-import Bodies from './space/Bodies'
-import Ship from './space/Ship'
+import Constellations from './space/Constellations'
+import SpaceWorld from './space/SpaceWorld'
 
+// The whole solar system, with real orbits and rotations. Distances and sizes are compressed.
 export default function SpaceScene() {
-  const { setSelected } = useGame()
   return (
-    <Canvas
-      dpr={[1, 2]}
-      camera={{ position: [0, 0, 8], fov: 60, near: 0.05, far: 5000 }}
-      onPointerMissed={() => setSelected(null)}
-    >
+    <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 0.2], fov: 60, near: 0.01, far: 4000 }}>
       <color attach="background" args={['#000']} />
-      <ambientLight intensity={0.12} />
-      <directionalLight position={SUN_DIR.clone().multiplyScalar(500)} intensity={3} />
       <Suspense fallback={null}>
         <Stars />
-        <Bodies />
-        <Ship />
+        <Constellations />
+        <SpaceWorld />
       </Suspense>
     </Canvas>
   )
