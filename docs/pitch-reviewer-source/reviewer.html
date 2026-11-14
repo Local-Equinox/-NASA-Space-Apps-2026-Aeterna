@@ -1,0 +1,245 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Left Behind: Pitch Reviewer</title>
+<style>
+@page { size: A4; margin: 16mm 15mm 16mm; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 10.2pt/1.5 -apple-system, "Helvetica Neue", Arial, sans-serif; color: #17202b; }
+h1 { font-size: 30pt; letter-spacing: .12em; margin: 0; }
+h2 { font-size: 14pt; margin: 0 0 6pt; padding-bottom: 3pt; border-bottom: 2px solid #0e7fb8; color: #0b3a5c; letter-spacing: .04em; break-after: avoid; }
+h3 { font-size: 10.8pt; margin: 9pt 0 2pt; color: #0b3a5c; break-after: avoid; }
+p { margin: 0 0 6pt; } ul, ol { margin: 0 0 6pt; padding-left: 15pt; } li { margin-bottom: 2.2pt; }
+section { margin-bottom: 13pt; }
+.cover { background: #07101f; color: #fff; padding: 22pt 22pt 18pt; border-radius: 6pt; margin-bottom: 13pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.cover .sub { letter-spacing: .22em; text-transform: uppercase; font-size: 8.6pt; opacity: .85; margin: 4pt 0 10pt; }
+.cover .pitch { font-size: 12.5pt; line-height: 1.45; margin: 0; }
+.cover small { display: block; margin-top: 9pt; opacity: .75; font-size: 8.4pt; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6pt 16pt; }
+.fact { border-left: 3px solid #0e7fb8; padding: 1pt 0 1pt 7pt; } .fact b { display: block; font-size: 8pt; letter-spacing: .12em; text-transform: uppercase; color: #4a5866; }
+table { width: 100%; border-collapse: collapse; font-size: 8.5pt; line-height: 1.35; margin-bottom: 6pt; }
+th { text-align: left; background: #0b3a5c; color: #fff; padding: 3.5pt 5pt; font-size: 8pt; letter-spacing: .05em; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+td { padding: 3.5pt 5pt; border-bottom: 1px solid #d3dae1; vertical-align: top; } tr { break-inside: avoid; }
+td.n { width: 15pt; color: #4a5866; } .grp td { background: #e7eef4; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-size: 7.8pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.shots { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; margin: 6pt 0; } figure { margin: 0; break-inside: avoid; } img { width: 100%; border-radius: 3pt; border: 1px solid #c3ccd5; display: block; } figcaption { font-size: 7.8pt; color: #4a5866; margin-top: 2pt; }
+.box { background: #f1f5f8; border: 1px solid #d3dae1; border-radius: 4pt; padding: 7pt 9pt; margin-bottom: 7pt; break-inside: avoid; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.warn { background: #fff6e3; border-color: #e9c877; }
+.qa b { color: #0b3a5c; } .qa p { margin-bottom: 5pt; }
+.two { columns: 2; column-gap: 18pt; } .two li, .two p { break-inside: avoid; }
+.fill { border-bottom: 1px solid #17202b; display: inline-block; min-width: 150pt; }
+.pb { break-before: page; }
+</style></head><body>
+
+<div class="cover">
+  <h1>LEFT BEHIND</h1>
+  <p class="sub">Pitch reviewer · Team Aeterna · NASA Space Apps Challenge 2026, Iligan</p>
+  <p class="pitch">A browser 3D game where you play a young space archaeologist. You launch from Earth, fly a real-orbit solar system, land on the Moon and Mars, find the hardware NASA left behind, and uncover why each piece was left.</p>
+  <small>Challenge: "Abandoned but Not Forgotten: Storytelling about NASA's Discarded Equipment on the Moon and Mars". Internal study guide for the pitch team. State of the game as of 14 November 2026.</small>
+</div>
+
+<section>
+  <h2>1. At a glance</h2>
+  <div class="grid">
+    <div class="fact"><b>What it is</b>A free 3D game that runs in any modern web browser, on a laptop or a phone. Nothing to install.</div>
+    <div class="fact"><b>Who it is for</b>School-age space enthusiasts.</div>
+    <div class="fact"><b>Content</b>17 real pieces of NASA hardware: 4 on the Moon, 8 on Mars, 5 in deep space.</div>
+    <div class="fact"><b>Core loop</b>Travel there, find it, clean or power it up, read its story, add it to your Missions list.</div>
+    <div class="fact"><b>Where the facts come from</b>NASA mission pages and NASA's 3D model collection. Every story card links its sources.</div>
+    <div class="fact"><b>Team</b>Aeterna ("Beyond time, beyond stars"). Members: <span class="fill"></span></div>
+  </div>
+</section>
+
+<section>
+  <h2>2. The objective</h2>
+  <p><b>For the player:</b> explore all 17 pieces of abandoned hardware and work out why each one was left where it is.</p>
+  <p><b>For the challenge:</b> turn NASA's "discarded" equipment into stories a young audience wants to discover. The game makes three points:</p>
+  <ul>
+    <li><b>These objects are real and they are still there.</b> Landing sites sit at their real coordinates on Moon and Mars maps.</li>
+    <li><b>Being left behind was usually a decision or a consequence, not carelessness.</b> A descent stage was the launch pad for the trip home. A rover outlived its plan until a dust storm cut its power. A probe ran out of fuel and was parked in a safe orbit.</li>
+    <li><b>They still matter.</b> Each card says what science the equipment made possible.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>3. The story</h2>
+  <p>The intro (the team's Wix page, shown inside the game) sets a mystery in four beats:</p>
+  <ol>
+    <li><b>Something is out there.</b> Hundreds of man-made objects sit on the Moon and Mars. Rovers, landers, machines that once moved, listened and sent back data. Now they are still.</li>
+    <li><b>A question.</b> Why is a rover parked forever? Were they forgotten, or did someone decide?</li>
+    <li><b>The clue.</b> A rocket can only carry so much, so crews chose what stayed. Some objects stayed on purpose, and a few kept working.</li>
+    <li><b>Your mission.</b> You are a junior space archaeologist. Find and explore the abandoned equipment.</li>
+  </ol>
+  <p>The player answers the question one object at a time. There is no villain and no score: the reward for each find is the true story.</p>
+</section>
+
+<section>
+  <h2>4. How a play session goes</h2>
+  <ol>
+    <li><b>Intro.</b> Scroll the story page, then press Start mission.</li>
+    <li><b>Earth.</b> You stand as an astronaut near a launch pad, with an assembly building, river, trees and mountains around you. Walk to the shuttle and board.</li>
+    <li><b>Launch cutscene</b> (can be skipped). Four captioned stages: liftoff, booster separation, external tank separation, orbit.</li>
+    <li><b>Space.</b> You circle Earth in the orbiter. Open Missions, pick a target, and press Warp. Planets move on real orbits and the constellations are in their real places.</li>
+    <li><b>Landing.</b> In orbit of the Moon or Mars, press L and choose a site on a map. Only the first site is named. The others show "???" until found.</li>
+    <li><b>Surface.</b> Walk under that world's real gravity (a jump on the Moon is about six times higher than on Earth). A mini-map tracker points to the "???" equipment.</li>
+    <li><b>Inspect.</b> Walk up to the equipment and press E. Play a short minigame.</li>
+    <li><b>Dossier.</b> The camera circles the equipment while a panel shows its story: what it is, why it was left, the science it enabled, where it is now, and sources.</li>
+    <li><b>Repeat.</b> Return to the ship and fly to the next one. Deep-space probes are reached by warp and a spacewalk.</li>
+  </ol>
+</section>
+
+<div class="shots">
+  <figure><img src="r2-hover.jpg" alt=""><figcaption>Intro page with the Start mission button.</figcaption></figure>
+  <figure><img src="s-stage2.jpg" alt=""><figcaption>Launch cutscene: booster separation.</figcaption></figure>
+  <figure><img src="z-missions.jpg" alt=""><figcaption>Missions list. Unexplored hardware shows as "???".</figcaption></figure>
+  <figure><img src="z-dossier.jpg" alt=""><figcaption>Dossier view: Opportunity on Mars, with shadows.</figcaption></figure>
+</div>
+
+<section class="pb">
+  <h2>5. Features</h2>
+  <div class="two">
+    <h3 style="margin-top:0">Exploration</h3>
+    <ul>
+      <li>Solar system with real planetary orbits and spins, starting from today's date. Distances are compressed so trips are short.</li>
+      <li>Warp travel to the Moon, Mars and five spacecraft.</li>
+      <li>Twelve landing sites placed at real coordinates.</li>
+      <li>Walkable terrain with craters, rocks, real-time shadows and real gravity per world.</li>
+      <li>Mini-map tracker, plus a full Moon and Mars map (M key).</li>
+    </ul>
+    <h3>Discovery</h3>
+    <ul>
+      <li>"???" labels everywhere until the player finds the equipment.</li>
+      <li>Three minigames (next section).</li>
+      <li>Dossier panel with a close-up camera on the equipment.</li>
+      <li>Missions list grouped by Moon, Mars and deep space, with progress.</li>
+      <li>Progress is saved in the browser. A Reset button clears it.</li>
+    </ul>
+    <h3>Presentation</h3>
+    <ul>
+      <li>Space Shuttle style ship and a four-stage launch cutscene.</li>
+      <li>Real NASA 3D models where NASA publishes them.</li>
+      <li>Slots for a flashback video after each minigame (videos not added yet).</li>
+      <li>Synthesized sound effects, with a mute switch.</li>
+    </ul>
+    <h3>Access</h3>
+    <ul>
+      <li>Runs in a browser, with touch controls for phones.</li>
+      <li>Settings panel: controls help, orbit lines, names, stars, sound.</li>
+      <li>"View all stories" lets anyone read every story without playing the 3D parts.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>6. The three minigames</h2>
+  <div class="grid">
+    <div class="box"><b>Uncover the nameplate</b> (Moon and Mars). Drag the large rocks off the plate, then brush away grey Moon dust or rust-coloured Mars dust until the name can be read.</div>
+    <div class="box"><b>Power up the module</b> (Moon and Mars). Four cut wires, colour-coded and shape-coded. Drag each to its match to switch the equipment's menu on. Used for equipment with no nameplate.</div>
+    <div class="box"><b>Spacewalk</b> (deep space). Leave the ship on a tether and cross to the spacecraft while rogue asteroids cut across the rope. A hit sends you back to the ship.</div>
+    <div class="box"><b>How it is chosen.</b> Moon and Mars equipment picks one of the first two at random. Surveyor 3, Sojourner, Ingenuity and Phoenix always use the wires.</div>
+  </div>
+</section>
+
+<section>
+  <h2>7. The 17 pieces of hardware</h2>
+  <p>"Why it was left" is shortened from the in-game cards, which are written from NASA's pages. Where NASA's page gives no reason, the game says so.</p>
+  <table>
+    <tr><th></th><th>Equipment</th><th>Where</th><th>Years</th><th>Why it was left (short)</th></tr>
+    <tr class="grp"><td colspan="5">Moon</td></tr>
+    <tr><td class="n">1</td><td>Apollo 11 Lunar Module Eagle (descent stage)</td><td>Sea of Tranquility</td><td>1969</td><td>It was the launch platform for the ascent stage that carried the crew back up.</td></tr>
+    <tr><td class="n">2</td><td>Apollo 15 Lunar Module Falcon, ALSEP and rover</td><td>Hadley–Apennine</td><td>1971</td><td>Descent stage was the launch platform. The ALSEP science station stayed to keep recording until 1977.</td></tr>
+    <tr><td class="n">3</td><td>Apollo 12 Lunar Module Intrepid and ALSEP</td><td>Ocean of Storms</td><td>1969</td><td>Descent stage was the launch platform. The ascent stage was crashed on purpose to make the first recorded artificial moonquake.</td></tr>
+    <tr><td class="n">4</td><td>Surveyor 3</td><td>Oceanus Procellarum</td><td>1967</td><td>A robotic lander. Last contact was 4 May 1967, after lunar night began. It stayed where it landed.</td></tr>
+    <tr class="grp"><td colspan="5">Mars</td></tr>
+    <tr><td class="n">5</td><td>Sojourner rover and Pathfinder lander</td><td>Ares Vallis</td><td>1997</td><td>Mission ended 27 September 1997. NASA's page gives no reason.</td></tr>
+    <tr><td class="n">6</td><td>Spirit rover</td><td>Gusev Crater</td><td>2004–2010</td><td>Stuck in soft soil in 2009. Contact lost after 22 March 2010, most probably from extreme cold.</td></tr>
+    <tr><td class="n">7</td><td>Opportunity rover</td><td>Meridiani Planum</td><td>2004–2018</td><td>A Mars-wide dust storm cut its solar power. Last signal 10 June 2018.</td></tr>
+    <tr><td class="n">8</td><td>Viking 1 lander</td><td>Chryse Planitia</td><td>1976–1982</td><td>A faulty command from Earth interrupted communications on 11 November 1982.</td></tr>
+    <tr><td class="n">9</td><td>Viking 2 lander</td><td>Utopia Planitia</td><td>1976–1980</td><td>Sent data until 12 April 1980. NASA's page does not say what ended it.</td></tr>
+    <tr><td class="n">10</td><td>InSight lander</td><td>Elysium Planitia</td><td>2018–2022</td><td>Mission ended 15 December 2022. The challenge description says it lost power.</td></tr>
+    <tr><td class="n">11</td><td>Ingenuity helicopter</td><td>Jezero Crater</td><td>2021–2024</td><td>Last flight 18 January 2024. The challenge description says rotor damage grounded it.</td></tr>
+    <tr><td class="n">12</td><td>Phoenix lander</td><td>Vastitas Borealis</td><td>2008</td><td>Mission ended 2 November 2008. NASA's page does not state the cause.</td></tr>
+    <tr class="grp"><td colspan="5">Deep space</td></tr>
+    <tr><td class="n">13</td><td>Dawn</td><td>In orbit around Ceres</td><td>2007–2018</td><td>Ran out of hydrazine fuel. Left in orbit, not crashed, to protect Ceres from contamination.</td></tr>
+    <tr><td class="n">14</td><td>NEAR Shoemaker</td><td>On asteroid Eros</td><td>1996–2001</td><td>Not designed to land, but touched down on 12 February 2001. Lost to extreme cold on 28 February.</td></tr>
+    <tr><td class="n">15</td><td>Pioneer 10</td><td>Heading toward Aldebaran</td><td>1972–2003</td><td>Its nuclear power source decayed. Last signal 23 January 2003.</td></tr>
+    <tr><td class="n">16</td><td>Pioneer 11</td><td>Heading toward Lambda Aquilae</td><td>1973–1995</td><td>Mission ended in 1995. Last contact 30 September 1995.</td></tr>
+    <tr><td class="n">17</td><td>Kepler space telescope</td><td>In orbit around the Sun</td><td>2009–2018</td><td>Ran out of fuel. Retired on 30 October 2018 in a safe orbit away from Earth.</td></tr>
+  </table>
+</section>
+
+<section class="pb">
+  <h2>8. What is real and what is simplified</h2>
+  <div class="grid">
+    <div class="box"><b>Real, from NASA or JPL</b>
+      <ul>
+        <li>Story text, dates and figures on every card (NASA mission pages).</li>
+        <li>Landing-site coordinates on the Moon and Mars maps.</li>
+        <li>3D models: Apollo Lunar Module, Viking lander, Mars Exploration Rover, InSight, Ingenuity, Dawn, NEAR Shoemaker, Pioneer 10, Kepler, and the shape of asteroid Eros.</li>
+        <li>Gravity: Earth 9.81, Moon 1.62, Mars 3.71 m/s².</li>
+        <li>Planet orbits and spins (JPL and IAU data).</li>
+      </ul></div>
+    <div class="box"><b>Simplified, and labelled as such</b>
+      <ul>
+        <li>Distances and sizes in space are compressed.</li>
+        <li>Surveyor 3, the lunar rover, ALSEP, Pathfinder, Sojourner and Phoenix are stand-in models built in code. Their cards say so.</li>
+        <li>Spirit uses the Opportunity model. Pioneer 11 uses the Pioneer 10 model.</li>
+        <li>Terrain at each site is generated, not real elevation data.</li>
+        <li>Positions of Dawn, NEAR, Kepler and the Pioneers are approximate. NASA's pages give no exact position.</li>
+        <li>A shuttle could not really fly to the Moon or Mars. That part is fiction.</li>
+      </ul></div>
+  </div>
+  <div class="box warn"><b>Before the pitch.</b> The team's researcher should re-read the story cards against the linked NASA pages. The text was drafted with AI from those pages and has not had a full human check.</div>
+</section>
+
+<section>
+  <h2>9. How it is built</h2>
+  <ul>
+    <li><b>Type:</b> a static website. No server, no accounts, no data collected. Progress stays in the player's browser.</li>
+    <li><b>Tools:</b> Vite, React and TypeScript, with three.js (React Three Fiber) for 3D and Rapier for physics.</li>
+    <li><b>Content is data-driven:</b> all 17 entries live in one file, <code>artifacts.json</code>. Adding a piece of equipment means adding one entry.</li>
+    <li><b>Assets:</b> models, textures and fonts are bundled with the game. The exception is the intro, which loads the team's Wix page and needs internet. Offline, a text version of the story appears instead.</li>
+    <li><b>No NASA logos or insignia</b> are used. The project is not affiliated with or endorsed by NASA.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>10. Use of AI (say this openly)</h2>
+  <ul>
+    <li>The game's code was written with Claude Code (Anthropic), directed by the team's design decisions and revision requests.</li>
+    <li>The astronaut, shuttle and stand-in equipment models are generated from code.</li>
+    <li>Story text was drafted by AI from NASA pages the team supplied, with the sources linked on each card.</li>
+    <li>The intro page design and its artwork are the team's own Wix site. Image sources for it still need to be listed.</li>
+    <li>The full log is in <code>AI_USE.md</code>.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>11. Suggested pitch flow (about 4 minutes)</h2>
+  <ol>
+    <li><b>Hook (20 s).</b> "Hundreds of machines sit on the Moon and Mars. Were they forgotten, or did someone decide?"</li>
+    <li><b>The idea (30 s).</b> You are a space archaeologist. You go there and find out.</li>
+    <li><b>Live demo (2 min).</b> Start mission, skip to orbit, Missions list, warp to the Moon, land, walk to the equipment, minigame, dossier.</li>
+    <li><b>Why it works (40 s).</b> Real coordinates, real models, sourced facts, real gravity. "???" makes each find feel earned.</li>
+    <li><b>Honesty and next steps (30 s).</b> What is simplified, AI use, and what comes next.</li>
+  </ol>
+  <div class="box"><b>Demo tips.</b> Use a laptop with a mouse. Hold right-click to turn the camera. Press M for the map and E to inspect. Surveyor 3 (Moon) always gives the wires minigame, which is quick. Check the venue's internet first, because the intro needs it. Have a recorded video as backup.</div>
+</section>
+
+<section class="qa">
+  <h2>12. Questions judges may ask</h2>
+  <p><b>How do you know the facts are right?</b> Each card is written from a NASA mission page and links to it. Where NASA's page gives no reason or position, the card says that instead of guessing.</p>
+  <p><b>Is this really where the equipment is?</b> The landing sites are at NASA's coordinates on the maps. Inside a site, the ground and the exact spot are generated for gameplay.</p>
+  <p><b>Why include spacecraft that are not on the Moon or Mars?</b> The challenge's resource list includes them. They show that "left behind" also happens in orbit and in deep space.</p>
+  <p><b>What did the team do, and what did AI do?</b> The team chose the concept, the story, the hardware list, the look and every revision. AI wrote the code and drafted text from NASA sources.</p>
+  <p><b>Does it work on a phone?</b> It has touch controls and a phone layout. Performance on low-end phones has not been measured.</p>
+  <p><b>What is next?</b> Flashback videos for each object, a human fact-check of every card, real terrain data, and hosting it publicly.</p>
+</section>
+
+<section>
+  <h2>13. Known gaps (do not be caught off guard)</h2>
+  <ul>
+    <li>The game is not hosted online yet. It runs from the team's laptop.</li>
+    <li>Flashback videos are placeholders. Without a video file the game skips straight to the story.</li>
+    <li>The intro needs internet, and its "Built on Wix" banner is cropped out. Check Wix's terms before publishing.</li>
+    <li>Team member names are still missing from the About screen.</li>
+    <li>Not yet tested on a real phone or a low-end laptop since shadows were added.</li>
+  </ul>
+</section>
+</body></html>
