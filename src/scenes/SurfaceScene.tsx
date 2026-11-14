@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/rapier'
 import { useGame } from '../state/game'
 import { gravityOf } from '../data/bodies'
-import { createSpaceship } from '../game/models'
+import { createLaunchStack, createSpaceship } from '../game/models'
 import Stars from './space/Stars'
 import TerrainView, { shipSpot } from './surface/Terrain'
 import Player from './surface/Player'
@@ -17,10 +17,12 @@ const SKY = { earth: '#8fb4ee', moon: '#000000', mars: '#b98363' } as const
 export default function SurfaceScene() {
   const { site, surfaceWorld: world, found } = useGame()
   const ship = useMemo(() => {
+    // On Earth the ship stands on the pad as a full launch stack; elsewhere the orbiter is parked on its gear.
+    if (world === 'earth') return createLaunchStack()
     const s = createSpaceship()
     s.userData.setGearDown(true)
     return s
-  }, [])
+  }, [world])
 
   const { terrain, spot, spots } = useMemo(() => {
     const spot = shipSpot(site ? site.surfacePosition : null)
@@ -47,7 +49,7 @@ export default function SurfaceScene() {
           <Player artifact={site} terrain={terrain} />
           {site && <ArtifactModel artifact={site} found={found.includes(site.id)} terrain={terrain} />}
         </Physics>
-        <primitive object={ship} position={[spot.x, terrain.height(spot.x, spot.z), spot.z]} rotation-y={0.6} />
+        <primitive object={ship} position={[spot.x, terrain.height(spot.x, spot.z), spot.z]} rotation-y={world === 'earth' ? 0 : 0.6} />
       </Suspense>
     </Canvas>
   )

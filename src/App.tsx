@@ -27,9 +27,10 @@ import Joystick from './ui/Joystick'
 
 const SpaceScene = lazy(() => import('./scenes/SpaceScene'))
 const SurfaceScene = lazy(() => import('./scenes/SurfaceScene'))
+const LaunchScene = lazy(() => import('./scenes/LaunchScene'))
 
 function Game() {
-  const { scene, site, overlay, fading, warping, near, nearProbe, inspect, canInspect, canBoard, surfaceWorld, setOverlay, setSelected, setSpawn, goTo } = useGame()
+  const { scene, site, overlay, fading, warping, near, nearProbe, inspect, board, canInspect, canBoard, setOverlay, setSelected } = useGame()
 
   // Show the controls once on first load of the space scene; H toggles them any time.
   useEffect(() => {
@@ -54,14 +55,13 @@ function Game() {
       else if (e.code === 'KeyM' && scene === 'surface' && (overlay === 'none' || overlay === 'map')) setOverlay(overlay === 'map' ? 'none' : 'map')
       else if (e.code === 'KeyL' && scene === 'space' && near && overlay === 'none') setOverlay('sites')
       else if (e.code === 'KeyE' && scene === 'surface' && canBoard && !canInspect && overlay === 'none') {
-        setSpawn(surfaceWorld)
-        goTo('space')
+        board()
       }
       else if (e.code === 'Escape') { setOverlay('none'); setSelected(null) }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [scene, site, nearProbe, inspect, near, canInspect, canBoard, surfaceWorld, overlay, setOverlay, setSelected, setSpawn, goTo])
+  }, [scene, site, nearProbe, inspect, board, near, canInspect, canBoard, overlay, setOverlay, setSelected])
 
   return (
     <div className={`stage ${warping ? 'warping' : ''}`}>
@@ -69,6 +69,7 @@ function Game() {
       <Suspense fallback={<p className="hud">Loading…</p>}>
         {scene === 'space' && <SpaceScene />}
         {scene === 'surface' && <SurfaceScene />}
+        {scene === 'launch' && <LaunchScene />}
       </Suspense>
       {scene === 'title' && <TitleScreen />}
       {scene === 'space' && <InfoPanel />}

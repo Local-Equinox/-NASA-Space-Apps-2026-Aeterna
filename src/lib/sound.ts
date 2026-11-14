@@ -33,6 +33,7 @@ export const sfx = {
   select: () => tone(660, 0.12, 'triangle'),
   inspect: () => { tone(520, 0.12, 'triangle'); tone(780, 0.18, 'triangle', 0.08, undefined, 0.1) },
   right: () => { tone(523, 0.15, 'triangle'); tone(784, 0.25, 'triangle', 0.08, undefined, 0.12) },
+  launch: () => { tone(55, 7, 'sawtooth', 0.07, 120); tone(38, 9, 'square', 0.04, 70) },
   thud: () => tone(95, 0.14, 'square', 0.05, 45),
   brush: () => tone(2200 + Math.random() * 600, 0.04, 'sawtooth', 0.01),
   wrong: () => tone(220, 0.3, 'square', 0.05, 140),

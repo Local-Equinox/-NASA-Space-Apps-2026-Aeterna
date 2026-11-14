@@ -26,7 +26,7 @@ export default function TopBar() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
-  if (scene === 'title' || overlay !== 'none') return null
+  if (scene === 'title' || scene === 'launch' || overlay !== 'none') return null
   const set = (k: ViewKey, v: boolean) => { view[k] = v; force((n) => n + 1) }
   return (
     <nav className="topbar" aria-label="Menu">

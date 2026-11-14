@@ -31,3 +31,5 @@ TODO
 - Deep-space 3D models (Dawn, Kepler, NEAR Shoemaker, Pioneer 10) and their preview images: NASA 3D Resources (https://github.com/nasa/NASA-3D-Resources). Shown larger than life.
 - Asteroid Eros shape: NASA 3D Resources, "Asteroid 433 Eros" (3D-printing model), its two printed halves joined and simplified for the game.
 - Orbits of Ceres and Eros: NASA/JPL Small-Body Database elements (https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html), rounded. Deep-space story text: NASA Science mission pages and NASA news releases linked on each story card.
+
+- Launch cutscene facts: NASA, "The Space Shuttle" (https://www.nasa.gov/reference/the-space-shuttle/). The shuttle, tank and boosters are simplified models built for this game.

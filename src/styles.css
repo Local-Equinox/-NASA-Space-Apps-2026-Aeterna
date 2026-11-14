@@ -138,3 +138,10 @@ h3 { margin: 1rem 0 .25rem; font-size: 1rem; color: var(--accent); }
 .switch[aria-checked='true'] i { background: #5bd18a; }
 .switch[aria-checked='true'] i::after { transform: translateX(20px); }
 .switch:focus-visible { outline: 2px solid #7cc4ff; border-radius: .4rem; }
+.launch-caption { position: absolute; left: 50%; bottom: 1.25rem; transform: translateX(-50%); width: min(40rem, calc(100% - 2rem)); background: rgba(10,16,32,.82); border: 1px solid #2a3558; border-radius: .75rem; padding: .75rem 1rem; z-index: 10; text-align: center; }
+.launch-caption h2 { margin: .1rem 0 .3rem; }
+.launch-caption p { margin: 0; }
+.launch-dots { display: flex; gap: .4rem; justify-content: center; margin-top: .6rem; }
+.launch-dots i { width: 2.2rem; height: 5px; border-radius: 999px; background: #3a4263; }
+.launch-dots i.on { background: #ffd166; }
+.launch-skip { position: absolute; right: 1rem; top: 1rem; z-index: 11; }

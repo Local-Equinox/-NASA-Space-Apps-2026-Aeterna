@@ -2,7 +2,7 @@ import { BODY_DATA, JUMP_SPEED } from '../data/bodies'
 import { useGame } from '../state/game'
 
 export default function SurfaceHud() {
-  const { scene, site, surfaceWorld, overlay, goTo, setSpawn } = useGame()
+  const { scene, site, surfaceWorld, overlay, board } = useGame()
   if (scene !== 'surface') return null
   const body = BODY_DATA[surfaceWorld]
   const g = body.gravity
@@ -16,7 +16,7 @@ export default function SurfaceHud() {
       </div>
       {overlay === 'none' && surfaceWorld !== 'earth' && (
         <div className="return-button">
-          <button className="button secondary" onClick={() => { setSpawn(surfaceWorld); goTo('space') }}>Return to ship</button>
+          <button className="button secondary" onClick={board}>Return to ship</button>
         </div>
       )}
       <p className="small controls-hint">WASD walk · Shift run · Space jump · drag to look · wheel to zoom · E inspect / board</p>
