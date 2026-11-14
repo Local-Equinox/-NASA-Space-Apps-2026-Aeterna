@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { useGame } from '../state/game'
-import { isMuted } from '../lib/sound'
 
 // Flashback video between the minigame and the story. The files are placeholders the team fills in later
 // (see public/assets/cutscenes/README.md). If a file is missing, players go straight to the story.
@@ -15,7 +14,14 @@ export default function Cutscene() {
     if (!site) return
     if (!src) { setOverlay('story'); return }
     const v = video.current
-    if (v) { v.muted = isMuted(); v.play().catch(() => { /* autoplay blocked: the controls are visible */ }) }
+    if (v) {
+      // The game Sound setting controls synthesized effects only. Flashback audio
+      // starts at full volume and the player can change it with native controls.
+      v.defaultMuted = false
+      v.muted = false
+      v.volume = 1
+      v.play().catch(() => { /* autoplay blocked: the controls are visible */ })
+    }
   }, [site, src, setOverlay])
 
   // A missing file: skip for players, but show the team where the video goes while developing.
@@ -23,8 +29,9 @@ export default function Cutscene() {
 
   if (!site || !src) return null
   return (
-    <section className="overlay wide cutscene" role="dialog" aria-labelledby="cutscene-title">
+    <section className="overlay cutscene" role="dialog" aria-labelledby="cutscene-title">
       <h2 id="cutscene-title">Flashback: {site.name}</h2>
+      <button className="button cutscene-skip" onClick={next}>Skip flashback</button>
       {missing ? (
         <div className="cutscene-placeholder">
           <p><b>Flashback video placeholder</b></p>
@@ -35,9 +42,6 @@ export default function Cutscene() {
       ) : (
         <video ref={video} src={`./${src}`} controls playsInline onEnded={next} onError={onError} />
       )}
-      <div className="row">
-        <button className="button" onClick={next}>{missing ? 'Continue to the story' : 'Skip flashback'}</button>
-      </div>
     </section>
   )
 }

@@ -59,7 +59,7 @@ export default function Wires() {
   const path = (x1: number, y1: number, x2: number, y2: number) => `M ${x1} ${y1} C ${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}`
   if (!site) return null
   return (
-    <section className="overlay wide" role="dialog" aria-labelledby="wires-title">
+    <section className="overlay minigame-overlay" role="dialog" aria-labelledby="wires-title">
       <h2 id="wires-title">{done ? 'Module powered' : 'Power up the module'}</h2>
       <p role="status" className="small">
         {done

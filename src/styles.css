@@ -95,6 +95,7 @@ h3 { margin: 1rem 0 .25rem; font-size: 1rem; color: var(--accent); }
 .credits { margin-top: .75rem; } .credits summary { cursor: pointer; opacity: .85; }
 .site-dot.alt span { top: -4px; transform: translateY(-100%); }
 .overlay.wide { max-width: 60rem; }
+.overlay.minigame-overlay { inset: 50% auto auto 50%; transform: translate(-50%, -50%); width: min(48rem, calc(100% - 2rem)); max-width: 48rem; max-height: calc(100% - 2rem); }
 .site-dot.here::after { content: ''; position: absolute; width: 26px; height: 26px; border-radius: 50%; border: 2px solid #7cc4ff; }
 .minimap { cursor: pointer; }
 .clean-area { position: relative; padding: 4.5rem 3rem; border-radius: .6rem; touch-action: none; user-select: none; -webkit-user-select: none; margin: .5rem 0; overflow: hidden; }
@@ -129,7 +130,11 @@ h3 { margin: 1rem 0 .25rem; font-size: 1rem; color: var(--accent); }
 .walk-controls .button { min-width: 8rem; min-height: 3rem; touch-action: none; }
 .label.label-probe, .label.label-asteroid { color: #ffd166; }
 .stage canvas.walk { position: static; inset: auto; }
-.cutscene video { width: 100%; max-height: 62vh; background: #000; border-radius: .5rem; margin: .5rem 0; }
+.overlay.cutscene { position: fixed; inset: 0; z-index: 30; width: 100%; max-width: none; max-height: none; margin: 0; overflow: auto; border: 0; border-radius: 0; padding: clamp(1rem, 3vw, 3rem); background: rgba(4, 7, 15, .97); display: flex; flex-direction: column; justify-content: center; }
+.cutscene h2 { width: min(100%, 80rem); margin: 0 auto 1rem; }
+.cutscene video, .cutscene-placeholder { width: min(100%, 80rem); max-height: min(72vh, 56rem); margin: 0 auto; }
+.cutscene video { display: block; height: min(72vh, 56rem); object-fit: contain; background: #000; border-radius: .5rem; }
+.cutscene-skip { position: fixed; top: max(1rem, env(safe-area-inset-top)); right: max(1rem, env(safe-area-inset-right)); z-index: 2; }
 .cutscene-placeholder { border: 2px dashed #5b6b8f; border-radius: .6rem; padding: 2rem 1rem; text-align: center; margin: .5rem 0; aspect-ratio: 16 / 9; display: flex; flex-direction: column; justify-content: center; }
 .cutscene-placeholder code { background: #0d1428; padding: .2rem .5rem; border-radius: .3rem; word-break: break-all; }
 .gear { font-size: 1.35rem; min-width: 44px; padding: 0 .6rem; }
