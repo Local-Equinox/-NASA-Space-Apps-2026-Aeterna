@@ -1,0 +1,371 @@
+[
+  {
+    "id": "apollo-lunar-module-descent-stages",
+    "name": "Apollo Lunar Module descent stages",
+    "world": "moon",
+    "mission": "TODO",
+    "year": "TODO",
+    "siteImage": "/assets/placeholder.svg",
+    "siteImageCredit": "TODO",
+    "hotspot": {
+      "x": 0.5,
+      "y": 0.5,
+      "radius": 0.1
+    },
+    "decision": {
+      "question": "TODO",
+      "options": [
+        {
+          "text": "TODO",
+          "correct": true,
+          "feedback": "TODO"
+        },
+        {
+          "text": "TODO",
+          "correct": false,
+          "feedback": "TODO"
+        }
+      ]
+    },
+    "story": {
+      "whatItIs": "DRAFT – verify: The descent stages (such as Apollo 11's Eagle) were left behind as launch pads.",
+      "whyLeft": "TODO",
+      "science": "TODO",
+      "nowStatus": "TODO"
+    },
+    "sources": [
+      {
+        "title": "TODO",
+        "url": "TODO"
+      }
+    ]
+  },
+  {
+    "id": "lunar-roving-vehicles",
+    "name": "Lunar Roving Vehicles (LRVs)",
+    "world": "moon",
+    "mission": "Apollo 15, 16 and 17",
+    "year": "1971–1972",
+    "siteImage": "/assets/placeholder.svg",
+    "siteImageCredit": "TODO",
+    "hotspot": {
+      "x": 0.5,
+      "y": 0.5,
+      "radius": 0.1
+    },
+    "decision": {
+      "question": "TODO",
+      "options": [
+        {
+          "text": "TODO",
+          "correct": true,
+          "feedback": "TODO"
+        },
+        {
+          "text": "TODO",
+          "correct": false,
+          "feedback": "TODO"
+        }
+      ]
+    },
+    "story": {
+      "whatItIs": "DRAFT – verify: Three electric \"moon buggies\" driven by astronauts, parked permanently on the Moon.",
+      "whyLeft": "TODO",
+      "science": "TODO",
+      "nowStatus": "TODO"
+    },
+    "sources": [
+      {
+        "title": "TODO",
+        "url": "TODO"
+      }
+    ]
+  },
+  {
+    "id": "alsep-science-packages",
+    "name": "ALSEP science packages",
+    "world": "moon",
+    "mission": "TODO",
+    "year": "TODO",
+    "siteImage": "/assets/placeholder.svg",
+    "siteImageCredit": "TODO",
+    "hotspot": {
+      "x": 0.5,
+      "y": 0.5,
+      "radius": 0.1
+    },
+    "decision": {
+      "question": "TODO",
+      "options": [
+        {
+          "text": "TODO",
+          "correct": true,
+          "feedback": "TODO"
+        },
+        {
+          "text": "TODO",
+          "correct": false,
+          "feedback": "TODO"
+        }
+      ]
+    },
+    "story": {
+      "whatItIs": "DRAFT – verify: The Apollo Lunar Surface Experiments Packages (seismometers, retroreflectors and more) were left to keep doing science after the astronauts departed.",
+      "whyLeft": "TODO",
+      "science": "TODO",
+      "nowStatus": "TODO"
+    },
+    "sources": [
+      {
+        "title": "TODO",
+        "url": "TODO"
+      }
+    ]
+  },
+  {
+    "id": "surveyor-landers",
+    "name": "Surveyor landers",
+    "world": "moon",
+    "mission": "TODO",
+    "year": "1960s (DRAFT – verify)",
+    "siteImage": "/assets/placeholder.svg",
+    "siteImageCredit": "TODO",
+    "hotspot": {
+      "x": 0.5,
+      "y": 0.5,
+      "radius": 0.1
+    },
+    "decision": {
+      "question": "TODO",
+      "options": [
+        {
+          "text": "TODO",
+          "correct": true,
+          "feedback": "TODO"
+        },
+        {
+          "text": "TODO",
+          "correct": false,
+          "feedback": "TODO"
+        }
+      ]
+    },
+    "story": {
+      "whatItIs": "DRAFT – verify: Robotic probes sent in the 1960s to prove soft landings were possible.",
+      "whyLeft": "TODO",
+      "science": "TODO",
+      "nowStatus": "TODO"
+    },
+    "sources": [
+      {
+        "title": "TODO",
+        "url": "TODO"
+      }
+    ]
+  },
+  {
+    "id": "sojourner",
+    "name": "Sojourner",
+    "world": "mars",
+    "mission": "Mars Pathfinder",
+    "year": "1997",
+    "siteImage": "/assets/placeholder.svg",
+    "siteImageCredit": "TODO",
+    "hotspot": {
+      "x": 0.5,
+      "y": 0.5,
+      "radius": 0.1
+    },
+    "decision": {
+      "question": "TODO",
+      "options": [
+        {
+          "text": "TODO",
+          "correct": true,
+          "feedback": "TODO"
+        },
+        {
+          "text": "TODO",
+          "correct": false,
+          "feedback": "TODO"
+        }
+      ]
+    },
+    "story": {
+      "whatItIs": "DRAFT – verify: The first rover on Mars (1997), delivered by the Pathfinder lander; now permanently parked.",
+      "whyLeft": "TODO",
+      "science": "TODO",
+      "nowStatus": "TODO"
+    },
+    "sources": [
+      {
+        "title": "TODO",
+        "url": "TODO"
+      }
+    ]
+  },
+  {
+    "id": "spirit-and-opportunity",
+    "name": "Spirit and Opportunity",
+    "world": "mars",
+    "mission": "TODO",
+    "year": "TODO",
+    "siteImage": "/assets/placeholder.svg",
+    "siteImageCredit": "TODO",
+    "hotspot": {
+      "x": 0.5,
+      "y": 0.5,
+      "radius": 0.1
+    },
+    "decision": {
+      "question": "TODO",
+      "options": [
+        {
+          "text": "TODO",
+          "correct": true,
+          "feedback": "TODO"
+        },
+        {
+          "text": "TODO",
+          "correct": false,
+          "feedback": "TODO"
+        }
+      ]
+    },
+    "story": {
+      "whatItIs": "DRAFT – verify: Twin rovers that operated for years; both now inactive.",
+      "whyLeft": "TODO",
+      "science": "TODO",
+      "nowStatus": "TODO"
+    },
+    "sources": [
+      {
+        "title": "TODO",
+        "url": "TODO"
+      }
+    ]
+  },
+  {
+    "id": "viking-landers",
+    "name": "Viking 1 and 2 landers",
+    "world": "mars",
+    "mission": "Viking 1 and 2",
+    "year": "1976",
+    "siteImage": "/assets/placeholder.svg",
+    "siteImageCredit": "TODO",
+    "hotspot": {
+      "x": 0.5,
+      "y": 0.5,
+      "radius": 0.1
+    },
+    "decision": {
+      "question": "TODO",
+      "options": [
+        {
+          "text": "TODO",
+          "correct": true,
+          "feedback": "TODO"
+        },
+        {
+          "text": "TODO",
+          "correct": false,
+          "feedback": "TODO"
+        }
+      ]
+    },
+    "story": {
+      "whatItIs": "DRAFT – verify: The first U.S. landers to operate successfully on Mars (1976), still where they touched down.",
+      "whyLeft": "TODO",
+      "science": "TODO",
+      "nowStatus": "TODO"
+    },
+    "sources": [
+      {
+        "title": "TODO",
+        "url": "TODO"
+      }
+    ]
+  },
+  {
+    "id": "phoenix-and-insight",
+    "name": "Phoenix and InSight landers",
+    "world": "mars",
+    "mission": "TODO",
+    "year": "TODO",
+    "siteImage": "/assets/placeholder.svg",
+    "siteImageCredit": "TODO",
+    "hotspot": {
+      "x": 0.5,
+      "y": 0.5,
+      "radius": 0.1
+    },
+    "decision": {
+      "question": "TODO",
+      "options": [
+        {
+          "text": "TODO",
+          "correct": true,
+          "feedback": "TODO"
+        },
+        {
+          "text": "TODO",
+          "correct": false,
+          "feedback": "TODO"
+        }
+      ]
+    },
+    "story": {
+      "whatItIs": "DRAFT – verify: Phoenix dug for water ice and InSight listened for marsquakes; both eventually lost power.",
+      "whyLeft": "TODO",
+      "science": "TODO",
+      "nowStatus": "TODO"
+    },
+    "sources": [
+      {
+        "title": "TODO",
+        "url": "TODO"
+      }
+    ]
+  },
+  {
+    "id": "ingenuity-helicopter",
+    "name": "Ingenuity helicopter",
+    "world": "mars",
+    "mission": "TODO",
+    "year": "TODO",
+    "siteImage": "/assets/placeholder.svg",
+    "siteImageCredit": "TODO",
+    "hotspot": {
+      "x": 0.5,
+      "y": 0.5,
+      "radius": 0.1
+    },
+    "decision": {
+      "question": "TODO",
+      "options": [
+        {
+          "text": "TODO",
+          "correct": true,
+          "feedback": "TODO"
+        },
+        {
+          "text": "TODO",
+          "correct": false,
+          "feedback": "TODO"
+        }
+      ]
+    },
+    "story": {
+      "whatItIs": "DRAFT – verify: The first aircraft on another planet; it sustained rotor damage and became a stationary artifact.",
+      "whyLeft": "TODO",
+      "science": "TODO",
+      "nowStatus": "TODO"
+    },
+    "sources": [
+      {
+        "title": "TODO",
+        "url": "TODO"
+      }
+    ]
+  }
+]
