@@ -134,7 +134,10 @@ export default function SpaceWorld() {
   useEffect(() => {
     const el = gl.domElement
     let last: { x: number; y: number } | null = null
-    const down = (e: PointerEvent) => { last = { x: e.clientX, y: e.clientY }; try { el.setPointerCapture(e.pointerId) } catch { /* ignore */ } }
+    const down = (e: PointerEvent) => {
+      // Mouse: hold the right button to look around. Touch and pen: any drag.
+      if (e.pointerType === 'mouse' && e.button !== 2) return
+      last = { x: e.clientX, y: e.clientY }; try { el.setPointerCapture(e.pointerId) } catch { /* ignore */ } }
     const move = (e: PointerEvent) => {
       if (!last || locked.current || s.current.warp) return
       s.current.yaw -= (e.clientX - last.x) * 0.004
@@ -142,11 +145,14 @@ export default function SpaceWorld() {
       last = { x: e.clientX, y: e.clientY }
     }
     const end = () => { last = null }
+    const noMenu = (e: Event) => e.preventDefault()
+    el.addEventListener('contextmenu', noMenu)
     el.addEventListener('pointerdown', down)
     el.addEventListener('pointermove', move)
     el.addEventListener('pointerup', end)
     el.addEventListener('pointercancel', end)
     return () => {
+      el.removeEventListener('contextmenu', noMenu)
       el.removeEventListener('pointerdown', down)
       el.removeEventListener('pointermove', move)
       el.removeEventListener('pointerup', end)

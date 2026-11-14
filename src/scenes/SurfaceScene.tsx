@@ -1,5 +1,7 @@
-import { Suspense, useMemo } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Suspense, useMemo, useRef } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { DirectionalLight } from 'three'
+import { track } from '../lib/track'
 import { Physics } from '@react-three/rapier'
 import { useGame } from '../state/game'
 import { gravityOf } from '../data/bodies'
@@ -11,6 +13,27 @@ import ArtifactModel from './surface/ArtifactModel'
 import EarthScenery, { earthFlats } from './surface/EarthScenery'
 import { makeTerrain, type Spot } from './surface/terrain-math'
 
+const SUN_DIR = [0.89, 0.25, 0.39] as const // low in the sky, so everything throws a long shadow
+
+/** The Sun: one shadow-casting light whose shadow area follows the player. */
+function Sun({ intensity }: { intensity: number }) {
+  const light = useRef<DirectionalLight>(null)
+  useFrame(() => {
+    const l = light.current
+    if (!l) return
+    // Snap to whole metres so the shadow edges do not shimmer as the player walks
+    const x = Math.round(track.x), z = Math.round(track.z)
+    l.position.set(x + SUN_DIR[0] * 160, SUN_DIR[1] * 160, z + SUN_DIR[2] * 160)
+    l.target.position.set(x, 0, z)
+    l.target.updateMatrixWorld()
+  })
+  return (
+    <directionalLight ref={light} intensity={intensity} castShadow shadow-mapSize={[2048, 2048]} shadow-bias={-0.0006} shadow-normalBias={0.06}>
+      <orthographicCamera attach="shadow-camera" args={[-55, 55, 55, -55, 1, 420]} />
+    </directionalLight>
+  )
+}
+
 const SKY = { earth: '#8fb4ee', moon: '#000000', mars: '#b98363' } as const
 
 // A separate scene and physics world in real metres. It shares no coordinates with space.
@@ -18,9 +41,9 @@ export default function SurfaceScene() {
   const { site, surfaceWorld: world, found } = useGame()
   const ship = useMemo(() => {
     // On Earth the ship stands on the pad as a full launch stack; elsewhere the orbiter is parked on its gear.
-    if (world === 'earth') return createLaunchStack()
-    const s = createSpaceship()
-    s.userData.setGearDown(true)
+    const s = world === 'earth' ? createLaunchStack() : createSpaceship()
+    if (world !== 'earth') s.userData.setGearDown(true)
+    s.traverse((o) => { o.castShadow = true })
     return s
   }, [world])
 
@@ -36,11 +59,11 @@ export default function SurfaceScene() {
   }, [site, world])
 
   return (
-    <Canvas dpr={[1, 2]} camera={{ position: [0, 4, 10], fov: 60, near: 0.1, far: 3000 }}>
+    <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 4, 10], fov: 60, near: 0.1, far: 3000 }}>
       <color attach="background" args={[SKY[world]]} />
       {world !== 'moon' && <fog attach="fog" args={[SKY[world], 150, 900]} />}
       <ambientLight intensity={world === 'moon' ? 0.28 : 0.4} />
-      <directionalLight position={[80, 22, 35]} intensity={world === 'moon' ? 3.4 : 2.8} />
+      <Sun intensity={world === 'moon' ? 3.4 : 2.8} />
       <Suspense fallback={null}>
         {world === 'moon' && <Stars />}
         <Physics gravity={[0, -gravityOf(world), 0]} timeStep="vary">

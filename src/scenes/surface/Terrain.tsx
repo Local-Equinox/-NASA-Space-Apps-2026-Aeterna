@@ -1,6 +1,6 @@
 import { useLayoutEffect, useMemo, useRef } from 'react'
 import { RigidBody, TrimeshCollider } from '@react-three/rapier'
-import { BufferAttribute, BufferGeometry, Color, InstancedMesh, Matrix4, Quaternion, Vector3 } from 'three'
+import { BufferAttribute, BufferGeometry, CanvasTexture, Color, InstancedMesh, Matrix4, Quaternion, RepeatWrapping, SRGBColorSpace, Vector3 } from 'three'
 import type { LandId } from '../../data/bodies'
 import { GRID_SEGMENTS as SEGMENTS, GRID_SIZE as SIZE, PATCH_RADIUS, rng, shade, type Spot, type Terrain } from './terrain-math'
 
@@ -52,10 +52,38 @@ export default function TerrainView({ world, seed, terrain, avoid }: Props) {
     const geometry = new BufferGeometry()
     geometry.setAttribute('position', new BufferAttribute(vertices, 3))
     geometry.setAttribute('color', new BufferAttribute(col, 3))
+    // Texture coordinates for the fine grain: one tile every 5 m
+    const uv = new Float32Array(n * n * 2)
+    for (let k = 0; k < n * n; k++) { uv[k * 2] = vertices[k * 3] / 3.5; uv[k * 2 + 1] = vertices[k * 3 + 2] / 3.5 }
+    geometry.setAttribute('uv', new BufferAttribute(uv, 2))
     geometry.setIndex(new BufferAttribute(indices, 1))
     geometry.computeVertexNormals()
     return { geometry, vertices, indices }
   }, [terrain, colors.ground])
+
+  // Fine speckled grain (dust, grit and tiny pits), drawn once into a canvas and tiled over the ground
+  const grain = useMemo(() => {
+    const c = document.createElement('canvas')
+    c.width = c.height = 256
+    const g = c.getContext('2d')!
+    const rand = rng(seed + 'grain')
+    const img = g.createImageData(256, 256)
+    for (let i = 0; i < 256 * 256; i++) {
+      const v = 178 + Math.floor(rand() * 77)
+      img.data[i * 4] = img.data[i * 4 + 1] = img.data[i * 4 + 2] = v; img.data[i * 4 + 3] = 255
+    }
+    g.putImageData(img, 0, 0)
+    for (let i = 0; i < 260; i++) { // darker pits and lighter flecks
+      const x = rand() * 256, y = rand() * 256, r = 0.6 + rand() * 2.2
+      g.fillStyle = rand() < 0.6 ? `rgba(70,70,70,${0.25 + rand() * 0.35})` : `rgba(255,255,255,${0.3 + rand() * 0.4})`
+      g.beginPath(); g.arc(x, y, r, 0, 6.3); g.fill()
+    }
+    const t = new CanvasTexture(c)
+    t.wrapS = t.wrapT = RepeatWrapping
+    t.colorSpace = SRGBColorSpace
+    t.anisotropy = 8
+    return t
+  }, [seed])
 
   const rocks = useMemo(() => {
     const rand = rng(seed + 'rocks')
@@ -101,7 +129,7 @@ export default function TerrainView({ world, seed, terrain, avoid }: Props) {
         <TrimeshCollider args={[vertices, indices]} friction={0.8} />
       </RigidBody>
       <mesh geometry={geometry} receiveShadow>
-        <meshStandardMaterial vertexColors roughness={1} />
+        <meshStandardMaterial vertexColors roughness={1} map={grain} bumpMap={grain} bumpScale={world === 'earth' ? 0.25 : 0.5} />
       </mesh>
       {/* Level ground only BEYOND the detailed patch (a ring), so the horizon is never an edge.
           It must not cover the patch: a full disc hid every dip and crater under a fake flat floor. */}
@@ -111,13 +139,13 @@ export default function TerrainView({ world, seed, terrain, avoid }: Props) {
       </mesh>
       {rocks.map((rock, i) => (
         <RigidBody key={i} type="fixed" colliders="ball" position={[rock.x, rock.y + rock.r * rock.sy * 0.4, rock.z]}>
-          <mesh scale={[rock.r * rock.sx, rock.r * rock.sy, rock.r * rock.sz]} rotation-y={rock.ry}>
+          <mesh castShadow receiveShadow scale={[rock.r * rock.sx, rock.r * rock.sy, rock.r * rock.sz]} rotation-y={rock.ry}>
             <dodecahedronGeometry args={[1, 0]} />
             <meshStandardMaterial color={colors.rock} roughness={1} flatShading />
           </mesh>
         </RigidBody>
       ))}
-      <instancedMesh ref={pebbles} args={[undefined, undefined, PEBBLES]}>
+      <instancedMesh ref={pebbles} args={[undefined, undefined, PEBBLES]} castShadow>
         <dodecahedronGeometry args={[1, 0]} />
         <meshStandardMaterial color={colors.rock} roughness={1} flatShading />
       </instancedMesh>

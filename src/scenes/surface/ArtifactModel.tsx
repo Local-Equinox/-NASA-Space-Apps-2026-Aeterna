@@ -5,6 +5,7 @@ import { Box3, CanvasTexture, Group, Mesh, SRGBColorSpace, Vector3 } from 'three
 import { PROPS } from '../../game/props'
 import type { Artifact } from '../../types/artifact'
 import type { Terrain } from './terrain-math'
+import { useGame } from '../../state/game'
 
 // Draco decoder is bundled locally (public/draco), so nothing is fetched from a CDN.
 useGLTF.setDecoderPath('./draco/')
@@ -59,6 +60,7 @@ function Glb({ model, size = 3, cutAbove }: ModelSpec) {
     const center = fit.getCenter(new Vector3())
     root.scale.setScalar(k)
     root.position.set(-center.x * k, -fit.min.y * k, -center.z * k)
+    root.traverse((o) => { o.castShadow = true; o.receiveShadow = true })
     const holder = new Group()
     holder.add(root)
     return holder
@@ -69,7 +71,10 @@ function Glb({ model, size = 3, cutAbove }: ModelSpec) {
 function Model(spec: ModelSpec) {
   if (spec.model.startsWith('procedural:')) {
     const build = PROPS[spec.model.slice('procedural:'.length)]
-    return build ? <primitive object={build()} /> : null
+    if (!build) return null
+    const prop = build()
+    prop.traverse((o) => { o.castShadow = true; o.receiveShadow = true })
+    return <primitive object={prop} />
   }
   return <Glb {...spec} />
 }
@@ -82,6 +87,8 @@ interface Props {
 
 // Equipment stays unidentified (???) until the player inspects it.
 export default function ArtifactModel({ artifact, found, terrain }: Props) {
+  // The floating name tag would fill the screen in the close-up dossier view
+  const hideTags = useGame().overlay === 'story'
   const items = [
     { label: artifact.tagLabel ?? artifact.name, model: artifact.model, size: artifact.modelSize, cutAbove: artifact.modelCutAbove, ...artifact.surfacePosition },
     ...(artifact.pairedModels ?? []).map((m) => ({ label: m.label, model: m.model, size: m.modelSize, cutAbove: m.modelCutAbove, ...m.surfacePosition })),
@@ -97,7 +104,7 @@ export default function ArtifactModel({ artifact, found, terrain }: Props) {
           <Suspense fallback={null}>
             <Model model={it.model} size={it.size} cutAbove={it.cutAbove} />
           </Suspense>
-          <Tag text={found ? it.label : '???'} found={found} height={(it.size ?? 3) + 1.4} />
+          {!hideTags && <Tag text={found ? it.label : '???'} found={found} height={(it.size ?? 3) + 1.4} />}
         </group>
       ))}
     </>

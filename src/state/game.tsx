@@ -33,6 +33,9 @@ interface Game {
   setNearProbe: (id: string | null) => void
   /** Start inspecting equipment: picks the minigame (or the story if it was already found). */
   inspect: (a: Artifact) => void
+  /** A story opened from the missions list (not the equipment in front of the player). */
+  reading: Artifact | null
+  readStory: (a: Artifact | null) => void
   /** Board the ship and take off. From Earth this plays the launch cutscene first. */
   board: () => void
   surfaceWorld: LandId
@@ -66,6 +69,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [near, setNear] = useState<SiteWorld | null>(null)
   const [orbitOf, setOrbitOf] = useState<string | null>(null)
   const [nearProbe, setNearProbe] = useState<string | null>(null)
+  const [reading, setReading] = useState<Artifact | null>(null)
   const [surfaceWorld, setSurfaceWorld] = useState<LandId>('earth')
   const [canBoard, setCanBoard] = useState(false)
   const [warping, setWarping] = useState(false)
@@ -105,6 +109,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
   )
   const resetProgress = useCallback(() => setFound([]), [])
 
+  const readStory = useCallback((a: Artifact | null) => {
+    setReading(a)
+    setOverlay(a ? 'story' : 'none')
+  }, [])
+
   const board = useCallback(() => {
     setSpawn(surfaceWorld)
     goTo(surfaceWorld === 'earth' ? 'launch' : 'space')
@@ -122,7 +131,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   }, [found])
 
   return (
-    <Ctx.Provider value={{ scene, site, overlay, found, fading, selected, near, orbitOf, setOrbitOf, nearProbe, setNearProbe, inspect, board, surfaceWorld, canBoard, setCanBoard, warping, canInspect, setCanInspect, warpRequest, spawn, setSelected, setNear, setWarping, requestWarp, setSpawn, goTo, setOverlay, markFound, resetProgress }}>
+    <Ctx.Provider value={{ scene, site, overlay, found, fading, selected, near, orbitOf, setOrbitOf, nearProbe, setNearProbe, inspect, reading, readStory, board, surfaceWorld, canBoard, setCanBoard, warping, canInspect, setCanInspect, warpRequest, spawn, setSelected, setNear, setWarping, requestWarp, setSpawn, goTo, setOverlay, markFound, resetProgress }}>
       {children}
     </Ctx.Provider>
   )

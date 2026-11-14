@@ -19,7 +19,7 @@ export default function TitleScreen() {
       </p>
       <button className="button big" onClick={() => goTo('surface', null, 'earth')}>Start mission</button>
       <div className="row">
-        <button className="button secondary" onClick={() => setOverlay('collection')}>Collection</button>
+        <button className="button secondary" onClick={() => setOverlay('collection')}>Missions</button>
         <button className="button secondary" onClick={() => setOverlay('about')}>About</button>
       </div>
       <ol className="how">

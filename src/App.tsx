@@ -15,8 +15,7 @@ import Cutscene from './ui/Cutscene'
 import Spacewalk from './ui/Spacewalk'
 import BoardPrompt from './ui/BoardPrompt'
 import MiniMap from './ui/MiniMap'
-import BodiesList from './ui/BodiesList'
-import TimeControls from './ui/TimeControls'
+import Brand from './ui/Brand'
 import Clean from './ui/Clean'
 import MapOverlay from './ui/MapOverlay'
 import Story from './ui/Story'
@@ -79,8 +78,7 @@ function Game() {
       <ProbePrompt />
       <BoardPrompt />
       <MiniMap />
-      <BodiesList />
-      <TimeControls />
+      <Brand />
       {overlay === 'clean' && <Clean />}
       {overlay === 'wires' && <Wires />}
       {overlay === 'cutscene' && <Cutscene />}

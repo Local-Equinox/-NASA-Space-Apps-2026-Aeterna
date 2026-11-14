@@ -18,14 +18,23 @@ const BOARD_RANGE = 16
 const KEYS = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD', 'Space', 'ShiftLeft', 'ShiftRight'])
 
 export default function Player({ artifact, terrain }: { artifact: Artifact | null; terrain: Terrain }) {
-  const { overlay, setCanInspect, setCanBoard, found, surfaceWorld } = useGame()
+  const { overlay, reading, setCanInspect, setCanBoard, found, surfaceWorld } = useGame()
+  const viewport = useThree((s) => s.size)
+  // While the dossier is open, the camera leaves the astronaut and frames the equipment
+  const focusing = useRef(false)
+  focusing.current = overlay === 'story' && !reading && !!artifact
+  const focus = useRef({ pos: new Vector3(), look: new Vector3(), active: false, dragging: false })
   // On Earth the camera stays above the river's water line
   const cameraFloor = surfaceWorld === 'earth' ? -0.2 : -Infinity
   const camera = useThree((s) => s.camera)
   const gl = useThree((s) => s.gl)
   const body = useRef<RapierRigidBody>(null)
   const visual = useRef<Group>(null)
-  const model = useMemo(() => createAstronaut(), [])
+  const model = useMemo(() => {
+    const m = createAstronaut()
+    m.traverse((o) => { o.castShadow = true })
+    return m
+  }, [])
 
   const keys = useRef(new Set<string>())
   const locked = useRef(false)
@@ -73,21 +82,28 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
   useEffect(() => {
     const el = gl.domElement
     let last: { x: number; y: number } | null = null
-    const down = (e: PointerEvent) => { last = { x: e.clientX, y: e.clientY }; try { el.setPointerCapture(e.pointerId) } catch { /* ignore */ } }
+    const down = (e: PointerEvent) => {
+      // Mouse: hold the right button to look around. Touch and pen: any drag.
+      if (e.pointerType === 'mouse' && e.button !== 2) return
+      last = { x: e.clientX, y: e.clientY }; try { el.setPointerCapture(e.pointerId) } catch { /* ignore */ } }
     const move = (e: PointerEvent) => {
-      if (!last || locked.current) return
+      if (!last || (locked.current && !focusing.current)) return
+      focus.current.dragging = true
       view.current.yaw -= (e.clientX - last.x) * 0.005
       view.current.pitch = MathUtils.clamp(view.current.pitch + (e.clientY - last.y) * 0.005, -0.2, 1.3)
       last = { x: e.clientX, y: e.clientY }
     }
-    const end = () => { last = null }
+    const end = () => { last = null; focus.current.dragging = false }
     const wheel = (e: WheelEvent) => { view.current.dist = MathUtils.clamp(view.current.dist + e.deltaY * 0.01, 2.6, 30) }
+    const noMenu = (e: Event) => e.preventDefault()
+    el.addEventListener('contextmenu', noMenu)
     el.addEventListener('pointerdown', down)
     el.addEventListener('pointermove', move)
     el.addEventListener('pointerup', end)
     el.addEventListener('pointercancel', end)
     el.addEventListener('wheel', wheel, { passive: true })
     return () => {
+      el.removeEventListener('contextmenu', noMenu)
       el.removeEventListener('pointerdown', down)
       el.removeEventListener('pointermove', move)
       el.removeEventListener('pointerup', end)
@@ -173,12 +189,36 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
     sm.head.x += (head.x - sm.head.x) * follow; sm.head.z += (head.z - sm.head.z) * follow
     sm.head.y += (head.y - sm.head.y) * (1 - Math.exp(-10 * dt))
     head.copy(sm.head)
-    camera.position.set(
-      head.x + Math.sin(yaw) * Math.cos(pitch) * dist,
-      Math.max(terrain.surface(head.x + Math.sin(yaw) * Math.cos(pitch) * dist, head.z + Math.cos(yaw) * Math.cos(pitch) * dist) + 0.5, head.y + Math.sin(pitch) * dist, cameraFloor),
-      head.z + Math.cos(yaw) * Math.cos(pitch) * dist,
-    )
-    camera.lookAt(head)
+    const f = focus.current
+    // The astronaut steps out of shot while the equipment is being shown
+    if (visual.current) visual.current.visible = !focusing.current
+    if (focusing.current && artifact) {
+      // Frame the nearest piece of equipment: orbit it slowly, lit from the side so its shadow shows.
+      const spots = [{ ...artifact.surfacePosition, size: artifact.modelSize ?? 3 }, ...(artifact.pairedModels ?? []).map((m) => ({ ...m.surfacePosition, size: m.modelSize ?? 3 }))]
+      const spot = spots.reduce((best, sp) => (Math.hypot(sp.x - pos.x, sp.z - pos.z) < Math.hypot(best.x - pos.x, best.z - pos.z) ? sp : best))
+      if (!f.dragging) view.current.yaw += dt * 0.06
+      const a = view.current.yaw, p = MathUtils.clamp(view.current.pitch, 0.14, 1.1)
+      const radius = Math.max(spot.size * 2.1, 5.5)
+      const cy = terrain.surface(spot.x, spot.z) + spot.size * 0.42
+      const cx = spot.x + Math.sin(a) * Math.cos(p) * radius, cz = spot.z + Math.cos(a) * Math.cos(p) * radius
+      wish.set(cx, Math.max(terrain.surface(cx, cz) + 0.6, cy + Math.sin(p) * radius), cz)
+      // The panel covers the right of a wide screen (the bottom of a narrow one): aim off-centre so the equipment stays in view
+      const wide = viewport.width > 820
+      fwd.set(spot.x + (wide ? Math.cos(a) * radius * 0.3 : 0), cy - (wide ? 0 : radius * 0.32), spot.z + (wide ? -Math.sin(a) * radius * 0.3 : 0))
+      if (!f.active) { f.active = true; f.pos.copy(camera.position); f.look.copy(head) }
+      const ease = 1 - Math.exp(-3.5 * dt)
+      f.pos.lerp(wish, ease); f.look.lerp(fwd, ease)
+      camera.position.copy(f.pos)
+      camera.lookAt(f.look)
+    } else {
+      f.active = false
+      camera.position.set(
+        head.x + Math.sin(yaw) * Math.cos(pitch) * dist,
+        Math.max(terrain.surface(head.x + Math.sin(yaw) * Math.cos(pitch) * dist, head.z + Math.cos(yaw) * Math.cos(pitch) * dist) + 0.5, head.y + Math.sin(pitch) * dist, cameraFloor),
+        head.z + Math.cos(yaw) * Math.cos(pitch) * dist,
+      )
+      camera.lookAt(head)
+    }
 
     track.x = pos.x; track.z = pos.z; track.yaw = yaw
 

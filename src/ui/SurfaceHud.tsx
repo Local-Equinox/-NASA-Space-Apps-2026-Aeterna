@@ -3,7 +3,7 @@ import { useGame } from '../state/game'
 
 export default function SurfaceHud() {
   const { scene, site, surfaceWorld, overlay, board } = useGame()
-  if (scene !== 'surface') return null
+  if (scene !== 'surface' || overlay === 'story') return null
   const body = BODY_DATA[surfaceWorld]
   const g = body.gravity
   const height = JUMP_SPEED ** 2 / (2 * g)
@@ -19,7 +19,7 @@ export default function SurfaceHud() {
           <button className="button secondary" onClick={board}>Return to ship</button>
         </div>
       )}
-      <p className="small controls-hint">WASD walk · Shift run · Space jump · drag to look · wheel to zoom · E inspect / board</p>
+      <p className="small controls-hint">WASD walk · Shift run · Space jump · right-drag to look · wheel to zoom · E inspect / board</p>
     </>
   )
 }

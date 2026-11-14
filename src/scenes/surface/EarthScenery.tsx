@@ -116,7 +116,7 @@ export default function EarthScenery({ terrain, pad }: Props) {
     <>
       {/* Launch pad under the ship */}
       <group position={[pad.x, padY, pad.z]}>
-        <mesh position={[0, -0.47, 0]}>
+        <mesh receiveShadow position={[0, -0.47, 0]}>
           <cylinderGeometry args={[PAD_RADIUS, PAD_RADIUS + 1.5, 1, 40]} />
           <meshStandardMaterial color="#8d9096" roughness={0.9} />
         </mesh>
@@ -141,7 +141,7 @@ export default function EarthScenery({ terrain, pad }: Props) {
           <CuboidCollider args={[BUILDING.w / 2, BUILDING.h / 2, BUILDING.d / 2]} position={[0, BUILDING.h / 2, 0]} />
           <CuboidCollider args={[11, 6, 9]} position={[-BUILDING.w / 2 - 7, 6, frontZ - 3]} />
         </RigidBody>
-        <mesh position={[0, BUILDING.h / 2, 0]}>
+        <mesh castShadow position={[0, BUILDING.h / 2, 0]}>
           <boxGeometry args={[BUILDING.w, BUILDING.h, BUILDING.d]} />
           <meshStandardMaterial color="#ecece8" roughness={0.85} />
         </mesh>
@@ -190,11 +190,11 @@ export default function EarthScenery({ terrain, pad }: Props) {
             <cylinderGeometry args={[0.22 * t.s, 0.3 * t.s, 2.2 * t.s, 7]} />
             <meshStandardMaterial color="#6b4a2b" roughness={1} />
           </mesh>
-          <mesh position={[0, 3.6 * t.s, 0]}>
+          <mesh castShadow position={[0, 3.6 * t.s, 0]}>
             <coneGeometry args={[1.9 * t.s, 3.6 * t.s, 8]} />
             <meshStandardMaterial color={i % 3 ? '#2e6b34' : '#3d7d3a'} roughness={1} flatShading />
           </mesh>
-          <mesh position={[0, 5.4 * t.s, 0]}>
+          <mesh castShadow position={[0, 5.4 * t.s, 0]}>
             <coneGeometry args={[1.3 * t.s, 2.8 * t.s, 8]} />
             <meshStandardMaterial color={i % 3 ? '#347a3b' : '#46903f'} roughness={1} flatShading />
           </mesh>

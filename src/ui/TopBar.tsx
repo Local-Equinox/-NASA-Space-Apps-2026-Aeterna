@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { isMuted, setMuted } from '../lib/sound'
-import { view } from '../lib/sim'
+import { sim, view } from '../lib/sim'
+import { artifacts } from '../data/artifacts'
 import { useGame } from '../state/game'
 
 type ViewKey = 'orbits' | 'labels' | 'constellations'
@@ -14,9 +15,9 @@ function Switch({ label, on, onChange }: { label: string; on: boolean; onChange:
   )
 }
 
-// Map and Collection stay on the main screen; everything else lives behind the gear.
+// Map, Missions and the Orbits pause button stay on the main screen; everything else lives behind the gear.
 export default function TopBar() {
-  const { scene, overlay, setOverlay } = useGame()
+  const { scene, overlay, found, setOverlay } = useGame()
   const [open, setOpen] = useState(false)
   const [muted, setM] = useState(isMuted)
   const [, force] = useState(0)
@@ -31,17 +32,22 @@ export default function TopBar() {
   return (
     <nav className="topbar" aria-label="Menu">
       {scene === 'surface' && <button className="button secondary" onClick={() => setOverlay('map')}>Map (M)</button>}
-      <button className="button secondary" onClick={() => setOverlay('collection')}>Collection</button>
+      <button className="button secondary" onClick={() => setOverlay('collection')}>Missions ({found.length}/{artifacts.length})</button>
+      {scene === 'space' && (
+        <button className="button secondary" aria-pressed={!sim.paused} onClick={() => { sim.paused = !sim.paused; force((n) => n + 1) }}>
+          Orbits: {sim.paused ? 'Paused' : 'Moving'}
+        </button>
+      )}
       <button className="button secondary gear" aria-label="Settings" aria-expanded={open} title="Settings" onClick={() => setOpen(!open)}>⚙</button>
       {open && (
         <div className="settings" role="group" aria-label="Settings">
           <h2>Settings</h2>
           <button className="button secondary" onClick={() => { setOpen(false); setOverlay('help') }}>Controls</button>
-          <Switch label="Orbits" on={view.orbits} onChange={(v) => set('orbits', v)} />
+          <Switch label="Orbit lines" on={view.orbits} onChange={(v) => set('orbits', v)} />
           <Switch label="Names" on={view.labels} onChange={(v) => set('labels', v)} />
           <Switch label="Stars" on={view.constellations} onChange={(v) => set('constellations', v)} />
           <Switch label="Sound" on={!muted} onChange={(v) => { setMuted(!v); setM(!v) }} />
-          {scene !== 'space' && <p className="small">Orbits, Names and Stars apply to the space view.</p>}
+          {scene !== 'space' && <p className="small">Orbit lines, Names and Stars apply to the space view.</p>}
         </div>
       )}
     </nav>
