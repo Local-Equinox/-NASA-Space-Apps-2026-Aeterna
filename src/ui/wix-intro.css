@@ -1,34 +1,54 @@
 /*
-  Intro: the Wix site in a cropped, full-screen iframe.
+  Intro: the Wix site in a cropped iframe, with the game's Start mission button laid over the Wix one.
 
   HOW THE CROP WORKS
-  The frame is shifted up by --crop-top and made taller by --crop-top + --crop-bottom, and the box around
-  it hides whatever sticks out. The Wix banner is pinned to the top of the Wix page, so it always sits in
-  the hidden strip at the top. The Wix footer is the last thing on the page, so when the story is scrolled
-  to its end the footer sits in the hidden strip at the bottom.
+  The iframe is made as tall as the whole Wix page, so it never scrolls inside; the box around it scrolls.
+  It is pulled up by --crop-top (hiding the Wix banner) and the box is shortened by --crop-top +
+  --crop-bottom (cutting off the Wix footer). The Wix page's height grows with its width:
+      page height = width x --content-ratio + --crop-top + --crop-bottom
+  Measured on 14 Nov 2026: banner 30px, footer 90px, content 4.386 x the width (390 to 1440px wide).
 
   HOW TO ADJUST IT
-  - Banner still showing at the top      -> make --crop-top bigger.  Top of the page cut off -> smaller.
-  - Footer still showing at the very end -> make --crop-bottom bigger. End of the story cut off -> smaller.
-  - Only wrong on phones or tablets      -> change the values in the matching @media block.
-  Measured on 14 Nov 2026 at 390, 768, 1024 and 1440px wide: the banner is 30px tall and the footer 90px.
+  - Banner still showing at the top      -> make --crop-top bigger.   Top cut off -> smaller.
+  - Footer still showing at the end      -> make --crop-bottom bigger.
+  - Blank space or a cut-off ending      -> fix --content-ratio. On the Wix site, in the browser console:
+      (document.documentElement.scrollHeight - 30 - 90) / innerWidth
+    Re-measure it whenever sections are added to or removed from the Wix page.
+  - Start mission button not covering the Wix one -> adjust the four --start-* values. They are fractions
+    of the page WIDTH: --start-left and --start-width across, --start-top (from the top of the story,
+    below the banner) and --start-height down. Measured: the Wix button is 536 x 145px at 452, 6026 on a
+    1440px-wide page.
+  - Only wrong on phones or tablets      -> override the values in the matching @media block.
 */
 .wix-intro {
-  --crop-top: 30px;     /* height of the Wix banner */
-  --crop-bottom: 90px;  /* height of the Wix footer */
+  --crop-top: 30px;        /* height of the Wix banner */
+  --crop-bottom: 90px;     /* height of the Wix footer */
+  --content-ratio: 4.386;  /* story height divided by page width */
+  --start-left: 0.3139;
+  --start-width: 0.3722;
+  --start-top: 4.1847;
+  --start-height: 0.1007;
   --amber: #ff9a3c;
   --surface: #05070d;
   position: absolute; inset: 0; overflow: hidden; background: var(--surface); isolation: isolate; color: #f4f3f0;
 }
 /* Phones */
-@media (max-width: 700px) { .wix-intro { --crop-top: 30px; --crop-bottom: 90px; } }
+@media (max-width: 700px) { .wix-intro { --crop-top: 30px; --crop-bottom: 90px; --content-ratio: 4.386; } }
 /* Small tablets */
-@media (min-width: 701px) and (max-width: 1024px) { .wix-intro { --crop-top: 30px; --crop-bottom: 90px; } }
-/* Laptops and desktops */
-@media (min-width: 1025px) { .wix-intro { --crop-top: 30px; --crop-bottom: 90px; } }
+@media (min-width: 701px) and (max-width: 1024px) { .wix-intro { --crop-top: 30px; --crop-bottom: 90px; --content-ratio: 4.386; } }
 
-.wix-frame { position: absolute; left: 0; top: calc(-1 * var(--crop-top)); width: 100%; height: calc(100% + var(--crop-top) + var(--crop-bottom)); border: 0; opacity: 0; transition: opacity 700ms ease; background: var(--surface); }
-.wix-frame.is-loaded { opacity: 1; }
+.wix-scroll { container-type: inline-size; position: absolute; inset: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; outline: none; }
+.wix-scroll::-webkit-scrollbar { display: none; }
+.wix-crop { position: relative; overflow: hidden; height: calc(100cqw * var(--content-ratio)); opacity: 0; transition: opacity 700ms ease; }
+.wix-crop.is-loaded { opacity: 1; }
+.wix-frame { position: absolute; left: 0; top: calc(-1 * var(--crop-top)); width: 100%; height: calc(100cqw * var(--content-ratio) + var(--crop-top) + var(--crop-bottom)); border: 0; background: var(--surface); }
+/* The game's button, placed and sized to cover the button drawn in the Wix page */
+.wix-crop .wix-start {
+  position: absolute;
+  left: calc(100cqw * var(--start-left)); top: calc(100cqw * var(--start-top));
+  width: calc(100cqw * var(--start-width)); height: calc(100cqw * var(--start-height));
+  min-height: 0; padding: 0; font-size: 2.9cqw; letter-spacing: .16em; color: #fff; text-shadow: 0 1px 2px rgba(0, 40, 70, .6);
+}
 
 .wix-status { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; gap: 12px; padding: 24px 24px 7rem; text-align: center; background: var(--surface); overflow-y: auto; }
 .wix-status h1 { margin: 0; font-size: clamp(1.3rem, 4vw, 2rem); letter-spacing: .04em; }
@@ -42,11 +62,11 @@
 .wix-story li { counter-increment: step; padding-left: 2.4rem; position: relative; line-height: 1.55; }
 .wix-story li::before { content: counter(step); position: absolute; left: 0; top: .1rem; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: #22d3ee; color: #06101f; font-weight: 700; display: flex; align-items: center; justify-content: center; }
 .wix-story b { display: block; font-size: 1.1rem; }
-.wix-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.wix-sr-only { position: absolute; top: 0; left: 0; margin: 0; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-/* The game's own buttons float over the bottom of the intro */
-.wix-bar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; display: flex; align-items: center; justify-content: center; gap: .9rem; flex-wrap: wrap; padding: 2.2rem 1rem calc(1.1rem + env(safe-area-inset-bottom)); background: linear-gradient(transparent, rgba(5, 7, 13, .78) 55%); pointer-events: none; }
-.wix-bar > * { pointer-events: auto; }
-.wix-bar .wix-start { min-height: 3.6rem; padding: 0 2.8rem; font-size: clamp(.95rem, 1.6vw, 1.15rem); }
-@media (max-width: 520px) { .wix-bar { gap: .5rem; } .wix-bar .wix-start { order: -1; flex-basis: 100%; max-width: 20rem; padding: 0 1.5rem; } }
-@media (prefers-reduced-motion: reduce) { .wix-frame { transition: none; } .wix-spinner { animation-duration: 2.5s; } }
+/* In the loading and fallback screens the button is an ordinary large pill */
+.wix-status .wix-start { justify-self: center; min-height: 3.6rem; padding: 0 2.8rem; margin-top: .5rem; font-size: 1.05rem; }
+/* Missions and About sit quietly in the top-right corner */
+.wix-corner { position: absolute; right: 1rem; top: 1rem; z-index: 3; display: flex; gap: .5rem; }
+.wix-status { padding-bottom: 24px; }
+@media (prefers-reduced-motion: reduce) { .wix-crop { transition: none; } .wix-spinner { animation-duration: 2.5s; } }

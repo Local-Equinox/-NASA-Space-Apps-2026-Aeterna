@@ -76,9 +76,9 @@ The gear button opens Settings: Controls, and switches for Orbits, Names, Stars 
 
 ## Intro (Wix embed)
 
-The first screen embeds the team's Wix Studio site (`INTRO_URL` in `src/ui/WixIntro.tsx`) in a full-screen iframe, cropped to hide the Wix banner and footer. **It needs an internet connection**; offline, the storyline is shown as text with a link to the site. The game's own "Start mission" button floats over the intro and starts the game (the button drawn inside the Wix page cannot reach the game).
+The first screen embeds the team's Wix Studio site (`INTRO_URL` in `src/ui/WixIntro.tsx`) in an iframe as tall as the whole Wix page, cropped to hide the Wix banner and footer. **It needs an internet connection**; offline, the storyline is shown as text with a Start mission button.
 
-To adjust the crop, edit `--crop-top` (banner height) and `--crop-bottom` (footer height) at the top of `src/ui/wix-intro.css`; instructions are in that file.
+The "START MISSION" drawn in the Wix page is only a picture, so the game lays its own working button exactly over it. If the Wix page changes (sections added, button moved), update the variables at the top of `src/ui/wix-intro.css`: `--crop-top`, `--crop-bottom`, `--content-ratio` and the four `--start-*` values. Instructions are in that file.
 
 **Do not replace the root `index.html`.** It is the file that loads the game. The intro lives in `src/ui/WixIntro.tsx`.
 
