@@ -131,7 +131,7 @@ export default function Spacewalk() {
     onPointerLeave: () => { held.current[k] = false },
   })
   return (
-    <section className="overlay wide" role="dialog" aria-labelledby="walk-title">
+    <section className="overlay minigame-overlay" role="dialog" aria-labelledby="walk-title">
       <h2 id="walk-title">{done ? 'You reached it' : 'Spacewalk'}</h2>
       <p role="status" className="small">
         {done

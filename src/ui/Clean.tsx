@@ -129,7 +129,7 @@ export default function Clean() {
   const pct = Math.min(100, Math.round(Math.min(progress / GOAL, 1) * 100))
 
   return (
-    <section className="overlay wide" role="dialog" aria-labelledby="clean-title">
+    <section className="overlay minigame-overlay" role="dialog" aria-labelledby="clean-title">
       <h2 id="clean-title">{done ? 'Nameplate uncovered' : 'Uncover the nameplate'}</h2>
       <p role="status" className="small">
         {done

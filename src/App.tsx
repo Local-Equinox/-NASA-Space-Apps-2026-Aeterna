@@ -55,6 +55,7 @@ function Game() {
       else if (e.code === 'KeyE' && scene === 'surface' && canBoard && !canInspect && overlay === 'none') {
         board()
       }
+      else if (e.code === 'Escape' && overlay === 'cutscene') return
       else if (e.code === 'Escape') { setOverlay('none'); setSelected(null) }
     }
     window.addEventListener('keydown', onKey)
