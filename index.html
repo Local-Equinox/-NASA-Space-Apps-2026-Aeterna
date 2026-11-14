@@ -1,14 +1,96 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Left Behind: fly to the Moon and Mars and find the hardware NASA left there." />
-    <title>Left Behind</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 10 10%27%3E%3Ccircle cx=%275%27 cy=%275%27 r=%274%27 fill=%27%237cc4ff%27/%3E%3C/svg%3E" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05070d">
+  <title>Left Behind — Mission Introduction</title>
+  <style>
+    /* The top value hides the Wix banner; the bottom value hides the Wix footer. */
+    :root {
+      color-scheme: dark;
+      --crop-top: 90px;
+      --crop-bottom: 120px;
+      --amber: #ff9a3c;
+      --surface: #05070d;
+    }
+    /* Adjust these estimates after checking each device size. */
+    @media (max-width: 700px) {
+      :root { --crop-top: 90px; --crop-bottom: 120px; }
+    }
+    @media (min-width: 701px) and (max-width: 1024px) {
+      :root { --crop-top: 90px; --crop-bottom: 120px; }
+    }
+    @media (min-width: 1025px) {
+      :root { --crop-top: 90px; --crop-bottom: 120px; }
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%; height: 100%; margin: 0; background: var(--surface);
+      overflow: auto; scrollbar-width: none; /* Keep scrolling; hide its scrollbar. */
+    }
+    html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+    body { color: #f4f3f0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+    .stage {
+      position: fixed; inset: 0; overflow: hidden; background: var(--surface);
+      isolation: isolate;
+    }
+    .intro-frame {
+      position: absolute;
+      /* Keep the iframe at real viewport dimensions. Only offset it to crop Wix chrome. */
+      top: calc(-1 * var(--crop-top)); left: 0;
+      width: 100%; height: calc(100% + var(--crop-top) + var(--crop-bottom));
+      border: 0; opacity: 0; transition: opacity 700ms ease;
+      background: var(--surface);
+    }
+    .intro-frame.is-loaded { opacity: 1; }
+    .status {
+      position: absolute; inset: 0; display: grid; place-content: center; gap: 12px;
+      padding: 24px; text-align: center; background: var(--surface); z-index: 2;
+      transition: opacity 450ms ease;
+    }
+    .status[hidden] { display: none; }
+    .status h1 { margin: 0; font-size: clamp(1.3rem, 4vw, 2rem); letter-spacing: .04em; }
+    .status p { max-width: 34rem; margin: 0 auto; color: #c4c5cc; line-height: 1.55; }
+    .status a { color: var(--amber); text-underline-offset: .2em; }
+    .spinner { width: 32px; height: 32px; margin: 0 auto 6px; border: 2px solid #ffffff35; border-top-color: var(--amber); border-radius: 50%; animation: spin 900ms linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    :focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" aria-label="Left Behind mission introduction">
+    <iframe id="introFrame" class="intro-frame"
+      src="https://hannahbellaatay.wixstudio.com/my-site-5"
+      title="AETERNA: Beyond time, beyond stars — animated mission introduction"
+      allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <section id="status" class="status" aria-live="polite">
+      <div class="spinner" aria-hidden="true"></div>
+      <h1>Loading the intro…</h1>
+      <p id="fallback" hidden>The intro is taking longer than expected. Wix may block this site from being embedded. <a href="https://hannahbellaatay.wixstudio.com/my-site-5" target="_blank" rel="noopener">Open the intro in a new tab</a></p>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const frame = document.getElementById('introFrame');
+      const status = document.getElementById('status');
+      const fallback = document.getElementById('fallback');
+      let loaded = false;
+
+      frame.addEventListener('load', () => {
+        loaded = true;
+        frame.classList.add('is-loaded');
+        status.hidden = true;
+      });
+      window.setTimeout(() => {
+        if (!loaded) fallback.hidden = false;
+      }, 8000);
+
+    })();
+  </script>
+</body>
 </html>
