@@ -1,1 +1,1 @@
-# -NASA-Space-Apps-2026-Aeterna
+# [NASA-Space-Apps-2026] Aeterna
