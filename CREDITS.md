@@ -33,3 +33,5 @@ TODO
 - Orbits of Ceres and Eros: NASA/JPL Small-Body Database elements (https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html), rounded. Deep-space story text: NASA Science mission pages and NASA news releases linked on each story card.
 
 - Launch cutscene facts: NASA, "The Space Shuttle" (https://www.nasa.gov/reference/the-space-shuttle/). The shuttle, tank and boosters are simplified models built for this game.
+
+- Intro story page: the team's own Wix Studio site (https://hannahbellaatay.wixstudio.com/my-site-5), embedded at runtime. TODO: list the sources and licences of the images used on that site.

@@ -1,0 +1,57 @@
+/*
+  Intro: the Wix site in a cropped iframe.
+
+  HOW THE CROP WORKS
+  The iframe is made as tall as the whole Wix page, so it never scrolls inside. It is pulled up by
+  --wix-crop-top, which pushes the Wix banner out of view, and the box around it is shortened by
+  --wix-crop-top + --wix-crop-bottom, which cuts the footer off. The box scrolls instead.
+
+  The Wix page's height grows with its width, so its height is worked out as:
+      page height = width x --wix-content-ratio + --wix-crop-top + --wix-crop-bottom
+  Measured on 14 Nov 2026: banner 30px, footer 90px, content 4.387 x the width, at 390, 768, 1024 and 1440px.
+
+  HOW TO ADJUST IT
+  - Banner still showing at the top     -> make --wix-crop-top bigger (it is the banner's height in px).
+  - Top of the story cut off            -> make --wix-crop-top smaller.
+  - Footer still showing at the end     -> make --wix-crop-bottom bigger (the footer's height in px).
+  - Blank space, or the story ends early, at the bottom -> fix --wix-content-ratio. On the Wix site, in the
+    browser console: (document.documentElement.scrollHeight - banner - footer) / innerWidth
+    You will need this whenever sections are added to or removed from the Wix page.
+  - Only wrong on phones or tablets     -> change the values inside the matching @media block below.
+*/
+.wix-intro {
+  --wix-crop-top: 30px;        /* height of the Wix banner to hide */
+  --wix-crop-bottom: 90px;     /* height of the Wix footer to hide */
+  --wix-content-ratio: 4.387;  /* story height divided by page width */
+  --wix-bar-height: 5.25rem;
+  position: absolute; inset: 0; display: flex; flex-direction: column; background: #000;
+}
+/* Small tablets */
+@media (max-width: 1000px) { .wix-intro { --wix-crop-top: 30px; --wix-crop-bottom: 90px; --wix-content-ratio: 4.387; } }
+/* Phones */
+@media (max-width: 750px)  { .wix-intro { --wix-crop-top: 30px; --wix-crop-bottom: 90px; --wix-content-ratio: 4.387; --wix-bar-height: 6.5rem; } }
+
+.wix-scroll { container-type: inline-size; flex: 1; min-height: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+.wix-crop { --wix-page-height: calc(100cqw * var(--wix-content-ratio) + var(--wix-crop-top) + var(--wix-crop-bottom)); position: relative; overflow: hidden; height: calc(100cqw * var(--wix-content-ratio)); transition: opacity .6s; }
+.wix-crop.loading { opacity: 0; height: 0; }
+.wix-crop iframe { position: absolute; left: 0; top: calc(-1 * var(--wix-crop-top)); width: 100%; height: var(--wix-page-height); border: 0; display: block; }
+.wix-status { margin: 0; padding: 40vh 1rem 0; text-align: center; opacity: .85; }
+
+.wix-fallback { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 1.5rem 1rem; text-align: center; }
+.wix-fallback h1 { margin: 0; font-family: 'Bungee', system-ui, sans-serif; font-size: clamp(2.2rem, 8vw, 4.5rem); }
+.wix-story { margin: 0; padding: 0; list-style: none; max-width: 36rem; display: grid; gap: .9rem; text-align: left; counter-reset: step; }
+.wix-story li { counter-increment: step; padding-left: 2.4rem; position: relative; line-height: 1.55; }
+.wix-story li::before { content: counter(step); position: absolute; left: 0; top: .1rem; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--accent); color: #06101f; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.wix-story b { display: block; font-size: 1.1rem; }
+.wix-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.wix-bar { flex: none; min-height: var(--wix-bar-height); display: flex; align-items: center; justify-content: center; gap: .75rem 1.5rem; flex-wrap: wrap; padding: .6rem 1rem calc(.6rem + env(safe-area-inset-bottom)); background: linear-gradient(rgba(5, 7, 15, .9), #05070f); border-top: 1px solid #2a3558; }
+.wix-open { color: #cfd8ee; font-size: .85rem; }
+.wix-begin { box-shadow: 0 0 24px rgba(124, 196, 255, .45); transition: transform .15s, filter .15s; }
+.wix-begin:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .wix-scroll { scroll-behavior: auto; }
+  .wix-crop, .wix-begin { transition: none; }
+  .wix-begin:hover { transform: none; }
+}

@@ -1,8 +1,15 @@
+import { useState } from 'react'
 import { useGame } from '../state/game'
+import WixIntro from './WixIntro'
+
+// The intro story plays once per visit, before the title screen.
+let introSeen = false
 
 export default function TitleScreen() {
   const { goTo, setOverlay, overlay } = useGame()
+  const [intro, setIntro] = useState(!introSeen)
   if (overlay === 'collection' || overlay === 'about' || overlay === 'stories') return null
+  if (intro) return <WixIntro onBegin={() => { introSeen = true; setIntro(false) }} />
   return (
     <section className="title-screen">
       <h1>Left Behind</h1>

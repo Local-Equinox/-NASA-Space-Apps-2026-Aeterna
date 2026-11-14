@@ -73,3 +73,9 @@ After each minigame the game plays `public/assets/cutscenes/<artifact id>.mp4`, 
 ## Settings
 
 The gear button opens Settings: Controls, and switches for Orbits, Names, Stars and Sound.
+
+## Intro (Wix embed)
+
+The first screen embeds the team's Wix Studio site (`INTRO_URL` in `src/ui/WixIntro.tsx`) in an iframe, cropped to hide the Wix banner and footer. **It needs an internet connection**; offline, the storyline is shown as text with a link to the site. "Begin the mission" goes to the title screen.
+
+To adjust the crop, edit the three variables at the top of `src/ui/wix-intro.css` (instructions are in that file): `--wix-crop-top` (banner height), `--wix-crop-bottom` (footer height) and `--wix-content-ratio` (story height divided by page width; re-measure it when sections are added to or removed from the Wix page).
