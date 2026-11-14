@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 import { artifacts } from '../data/artifacts'
 import type { Artifact } from '../types/artifact'
-import type { LandId } from '../data/bodies'
+import type { LandId, SiteWorld } from '../data/bodies'
 
 export type SceneName = 'title' | 'space' | 'surface'
 export type Overlay = 'none' | 'collection' | 'about' | 'help' | 'sites' | 'decision' | 'story' | 'stories'
@@ -24,7 +24,9 @@ interface Game {
   found: string[]
   fading: boolean
   selected: string | null
-  near: LandId | null
+  near: SiteWorld | null
+  orbitOf: string | null
+  setOrbitOf: (w: string | null) => void
   surfaceWorld: LandId
   canBoard: boolean
   setCanBoard: (b: boolean) => void
@@ -34,7 +36,7 @@ interface Game {
   warpRequest: { id: string; n: number } | null
   spawn: string
   setSelected: (w: string | null) => void
-  setNear: (w: LandId | null) => void
+  setNear: (w: SiteWorld | null) => void
   setWarping: (b: boolean) => void
   requestWarp: (w: string) => void
   setSpawn: (b: string) => void
@@ -53,7 +55,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [found, setFound] = useState<string[]>(loadFound)
   const [fading, setFading] = useState(false)
   const [selected, setSelected] = useState<string | null>(null)
-  const [near, setNear] = useState<LandId | null>(null)
+  const [near, setNear] = useState<SiteWorld | null>(null)
+  const [orbitOf, setOrbitOf] = useState<string | null>(null)
   const [surfaceWorld, setSurfaceWorld] = useState<LandId>('earth')
   const [canBoard, setCanBoard] = useState(false)
   const [warping, setWarping] = useState(false)
@@ -93,7 +96,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const resetProgress = useCallback(() => setFound([]), [])
 
   return (
-    <Ctx.Provider value={{ scene, site, overlay, found, fading, selected, near, surfaceWorld, canBoard, setCanBoard, warping, canInspect, setCanInspect, warpRequest, spawn, setSelected, setNear, setWarping, requestWarp, setSpawn, goTo, setOverlay, markFound, resetProgress }}>
+    <Ctx.Provider value={{ scene, site, overlay, found, fading, selected, near, orbitOf, setOrbitOf, surfaceWorld, canBoard, setCanBoard, warping, canInspect, setCanInspect, warpRequest, spawn, setSelected, setNear, setWarping, requestWarp, setSpawn, goTo, setOverlay, markFound, resetProgress }}>
       {children}
     </Ctx.Provider>
   )

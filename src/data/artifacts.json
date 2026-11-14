@@ -1,226 +1,329 @@
 [
   {
-    "id": "apollo-lunar-module-descent-stages",
-    "name": "Apollo Lunar Module descent stages",
+    "id": "apollo-11-eagle",
+    "name": "Apollo 11 Lunar Module Eagle (descent stage)",
     "world": "moon",
     "site": {
-      "name": "DRAFT – verify: Apollo 11 site",
-      "lat": null,
-      "lon": null
+      "name": "Apollo 11 site: Sea of Tranquility",
+      "lat": 0.67416,
+      "lon": 23.47314
     },
-    "mission": "TODO",
-    "year": "TODO",
-    "model": "/assets/models/apollo-lunar-module-descent-stages.glb",
-    "modelCredit": "TODO",
+    "mission": "Apollo 11",
+    "year": "1969",
+    "model": "/assets/models/apollo-lunar-module.glb",
+    "modelSize": 9.4,
+    "modelCutAbove": 0.5,
+    "modelCredit": "NASA 3D Resources, Apollo Lunar Module (only the descent stage is shown)",
     "surfacePosition": {
-      "x": -45,
-      "z": 30
+      "x": -62,
+      "z": 48
     },
+    "pairedModels": [
+      {
+        "label": "EASEP",
+        "model": "procedural:easep",
+        "modelSize": 2.5,
+        "modelCredit": "Simplified model built for this game (no NASA 3D model exists for it)",
+        "surfacePosition": {
+          "x": -62,
+          "z": 65
+        }
+      }
+    ],
     "decision": {
-      "question": "TODO",
+      "question": "Eagle's two crew members have finished on the Moon and must lift off again. Which part of the lunar module stays behind?",
       "options": [
         {
-          "text": "TODO",
+          "text": "The descent stage, which served as the launch platform for the ascent stage",
           "correct": true,
-          "feedback": "TODO"
+          "feedback": "The descent stage was left on the Moon as the launch platform. Only the ascent stage lifted off, on 21 July 1969, to dock with the Command/Service Module."
         },
         {
-          "text": "TODO",
+          "text": "Nothing: the whole lunar module lifts off together",
           "correct": false,
-          "feedback": "TODO"
+          "feedback": "The module had two stages for a reason. The descent stage (2,034 kg dry, plus 8,248 kg of propellant at the start) stayed on the Moon, and only the ascent stage lifted off."
+        },
+        {
+          "text": "The ascent stage, which is left as a monument",
+          "correct": false,
+          "feedback": "It is the other way round. The ascent stage carried the crew back up, then was jettisoned into lunar orbit on 22 July. NASA's record says its fate is not known."
         }
       ]
     },
     "story": {
-      "whatItIs": "DRAFT – verify: The descent stages (such as Apollo 11's Eagle) were left behind as launch pads.",
-      "whyLeft": "TODO",
-      "science": "TODO",
-      "nowStatus": "TODO"
+      "whatItIs": "Eagle was the two-stage lunar module that carried Neil Armstrong and Buzz Aldrin to the Moon's surface. Its descent stage, which you found, is what remains at the landing site.",
+      "whyLeft": "The descent stage was the launch platform for the ascent stage, so it stayed on the Moon when the ascent stage lifted off on 21 July 1969. The ascent stage docked with the Command/Service Module and was then jettisoned into lunar orbit on 22 July.",
+      "science": "Eagle carried the Early Apollo Scientific Experiment Package (EASEP), a 48 kg set of self-contained instruments: a passive seismometer, a lunar dust detector and a laser ranging retroreflector, with solar panels for power. It was turned on on 21 July 1969, worked even though temperatures ran 30 °C above the planned maximum, and stopped accepting commands on 27 August 1969.",
+      "nowStatus": "The descent stage is at 0.67416° N, 23.47314° E in Mare Tranquilitatis, a position NASA determined from Lunar Reconnaissance Orbiter images. NASA's catalog page does not describe its present condition."
     },
     "sources": [
       {
-        "title": "TODO",
-        "url": "TODO"
+        "title": "NASA NSSDCA: Apollo 11 Lunar Module / EASEP (1969-059C)",
+        "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C"
+      },
+      {
+        "title": "NASA 3D Resources: Apollo Lunar Module",
+        "url": "https://science.nasa.gov/3d-resources/apollo-lunar-module/"
       }
     ]
   },
   {
-    "id": "lunar-roving-vehicles",
-    "name": "Lunar Roving Vehicles (LRVs)",
+    "id": "apollo-15-falcon",
+    "name": "Apollo 15 Lunar Module Falcon, ALSEP and rover",
     "world": "moon",
     "site": {
       "name": "Apollo 15 site: Hadley–Apennine",
-      "lat": null,
-      "lon": null
+      "lat": 26.13239,
+      "lon": 3.6333
     },
-    "mission": "Apollo 15, 16 and 17",
-    "year": "1971–1972",
-    "model": "/assets/models/lunar-roving-vehicles.glb",
-    "modelCredit": "TODO",
+    "mission": "Apollo 15",
+    "year": "1971",
+    "model": "/assets/models/apollo-lunar-module.glb",
+    "modelSize": 9.4,
+    "modelCutAbove": 0.5,
+    "modelCredit": "NASA 3D Resources, Apollo Lunar Module (only the descent stage is shown)",
     "surfacePosition": {
-      "x": 40,
-      "z": -65
+      "x": 55,
+      "z": -62
     },
+    "pairedModels": [
+      {
+        "label": "ALSEP",
+        "model": "procedural:alsep",
+        "modelSize": 4,
+        "modelCredit": "Simplified model built for this game (no NASA 3D model exists for it)",
+        "surfacePosition": {
+          "x": 78,
+          "z": -50
+        }
+      },
+      {
+        "label": "Lunar Roving Vehicle",
+        "model": "procedural:lrv",
+        "modelSize": 3.1,
+        "modelCredit": "Simplified model built for this game (no NASA 3D model exists for it)",
+        "surfacePosition": {
+          "x": 40,
+          "z": -84
+        }
+      }
+    ],
     "decision": {
-      "question": "TODO",
+      "question": "Before leaving, the crew set up an ALSEP: a science station powered by a radioisotope generator. What was it for?",
       "options": [
         {
-          "text": "TODO",
+          "text": "To keep measuring the Moon after the astronauts had gone",
           "correct": true,
-          "feedback": "TODO"
+          "feedback": "The ALSEP's seven instruments measured seismic activity, the magnetic field, solar wind, suprathermal ions, the atmosphere, dust and heat flow. Its central station ran from 31 July 1971 until it was shut down on 30 September 1977."
         },
         {
-          "text": "TODO",
+          "text": "To light the landing site at night",
           "correct": false,
-          "feedback": "TODO"
+          "feedback": "It was a science station, not a lamp. It recorded data from seven instruments for years after the crew left."
+        },
+        {
+          "text": "To guide the crew back to the Command Module",
+          "correct": false,
+          "feedback": "The crew flew back in the ascent stage. The ALSEP stayed behind to do science until it was shut down in 1977."
         }
       ]
     },
     "story": {
-      "whatItIs": "DRAFT – verify: Three electric \"moon buggies\" driven by astronauts, parked permanently on the Moon.",
-      "whyLeft": "TODO",
-      "science": "TODO",
-      "nowStatus": "TODO"
+      "whatItIs": "Falcon was Apollo 15's two-stage lunar module. David Scott and James Irwin landed in it at the foot of the Apennine Mountains, and over three moonwalks (18 hours 35 minutes) the crew covered 27.9 km in the Lunar Roving Vehicle and collected 77.31 kg of samples.",
+      "whyLeft": "The descent stage was left on the Moon as the launch platform for the ascent stage. The ascent stage lifted off on 2 August 1971, docked with the Command/Service Module, and was jettisoned on 3 August. The ALSEP stayed to keep recording until 1977.",
+      "science": "The ALSEP had seven instruments: they measured seismic activity, the magnetic field, solar wind, suprathermal ions, the atmosphere, dust and heat flow. A SNAP-27 radioisotope thermoelectric generator powered it with about 70 W at launch and 63.5 W after one year.",
+      "nowStatus": "The descent stage is at 26.13239° N, 3.63330° E, and the ALSEP central station nearby (26.1341° N, 3.6298° E) was shut down on 30 September 1977. The ascent stage crashed into the Moon at 26.36° N, 0.25° E."
     },
     "sources": [
       {
-        "title": "TODO",
-        "url": "TODO"
+        "title": "NASA NSSDCA: Apollo 15 Lunar Module / ALSEP (1971-063C)",
+        "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C"
+      },
+      {
+        "title": "NASA 3D Resources: Apollo Lunar Module",
+        "url": "https://science.nasa.gov/3d-resources/apollo-lunar-module/"
       }
     ]
   },
   {
-    "id": "alsep-science-packages",
-    "name": "ALSEP science packages",
+    "id": "apollo-12-intrepid",
+    "name": "Apollo 12 Lunar Module Intrepid and ALSEP",
     "world": "moon",
     "site": {
-      "name": "DRAFT – verify: Apollo 12 site",
-      "lat": null,
-      "lon": null
+      "name": "Apollo 12 site: Ocean of Storms",
+      "lat": -3.0128,
+      "lon": -23.4219
     },
-    "mission": "TODO",
-    "year": "TODO",
-    "model": "/assets/models/alsep-science-packages.glb",
-    "modelCredit": "TODO",
+    "mission": "Apollo 12",
+    "year": "1969",
+    "model": "/assets/models/apollo-lunar-module.glb",
+    "modelSize": 9.4,
+    "modelCutAbove": 0.5,
+    "modelCredit": "NASA 3D Resources, Apollo Lunar Module (only the descent stage is shown)",
     "surfacePosition": {
-      "x": 60,
-      "z": 50
+      "x": -58,
+      "z": -60
     },
+    "pairedModels": [
+      {
+        "label": "ALSEP",
+        "model": "procedural:alsep",
+        "modelSize": 4,
+        "modelCredit": "Simplified model built for this game (no NASA 3D model exists for it)",
+        "surfacePosition": {
+          "x": -80,
+          "z": -48
+        }
+      }
+    ],
     "decision": {
-      "question": "TODO",
+      "question": "Apollo 12 landed about 180 m from Surveyor 3, a robotic lander that had sat there since 1967. What did Pete Conrad and Alan Bean do with it?",
       "options": [
         {
-          "text": "TODO",
+          "text": "They took parts home so scientists could study how they had weathered on the Moon",
           "correct": true,
-          "feedback": "TODO"
+          "feedback": "They collected about 10 kg of Surveyor 3 parts, including the soil scoop and camera system, so scientists could study the effects of roughly two and a half years on the Moon's surface."
         },
         {
-          "text": "TODO",
+          "text": "They repaired it and switched it back on",
           "correct": false,
-          "feedback": "TODO"
+          "feedback": "Surveyor 3 was inactive: its last contact had been in May 1967. The astronauts brought parts back to Earth for study instead."
+        },
+        {
+          "text": "They left it untouched",
+          "correct": false,
+          "feedback": "They did not. They recovered parts including the soil scoop and the camera system."
         }
       ]
     },
     "story": {
-      "whatItIs": "DRAFT – verify: The Apollo Lunar Surface Experiments Packages (seismometers, retroreflectors and more) were left to keep doing science after the astronauts departed.",
-      "whyLeft": "TODO",
-      "science": "TODO",
-      "nowStatus": "TODO"
+      "whatItIs": "Intrepid carried Pete Conrad and Alan Bean to Oceanus Procellarum, the Ocean of Storms. It landed on 19 November 1969, within about 180 m of the Surveyor 3 lander.",
+      "whyLeft": "The descent stage was left on the Moon as the launch platform for the ascent stage, which lifted off on 20 November 1969 and docked with the command module. The ascent stage was then jettisoned and deliberately crashed into the Moon about 60 km from the Apollo 12 seismic station, creating the first recorded artificial moonquake.",
+      "science": "The astronauts set up an ALSEP with a passive seismometer, suprathermal ion detector, cold cathode ion gauge, lunar dust detector, lunar surface magnetometer and solar wind spectrometer, powered by a SNAP-27 generator. The crew also collected about 34.35 kg of rock and soil, a solar wind foil, and about 10 kg of Surveyor 3 parts.",
+      "nowStatus": "The descent stage is at 3.0128° S, 23.4219° W. The ALSEP central station (3.0094° S, 23.4246° W) was shut down, with all ALSEP stations, on 30 September 1977."
     },
     "sources": [
       {
-        "title": "TODO",
-        "url": "TODO"
+        "title": "NASA NSSDCA: Apollo 12 Lunar Module / ALSEP (1969-099C)",
+        "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-099C"
+      },
+      {
+        "title": "NASA 3D Resources: Apollo Lunar Module",
+        "url": "https://science.nasa.gov/3d-resources/apollo-lunar-module/"
       }
     ]
   },
   {
-    "id": "surveyor-landers",
-    "name": "Surveyor landers",
+    "id": "surveyor-3",
+    "name": "Surveyor 3",
     "world": "moon",
     "site": {
-      "name": "TODO",
-      "lat": null,
-      "lon": null
+      "name": "Surveyor 3 site: Southeastern Oceanus Procellarum",
+      "lat": -3.0,
+      "lon": -23.41
     },
-    "mission": "TODO",
-    "year": "1960s",
-    "model": "/assets/models/surveyor-landers.glb",
-    "modelCredit": "TODO",
+    "mission": "Surveyor 3",
+    "year": "1967",
+    "model": "procedural:surveyor",
+    "modelSize": 4.3,
+    "modelCredit": "Simplified model built for this game (no NASA 3D model exists for it)",
     "surfacePosition": {
-      "x": -70,
-      "z": -40
+      "x": 66,
+      "z": 58
     },
     "decision": {
-      "question": "TODO",
+      "question": "Before sending astronauts, NASA needed to know whether the Moon's surface could support a heavy lander. Surveyor 3 dug trenches and ran bearing tests. What did it find?",
       "options": [
         {
-          "text": "TODO",
+          "text": "The soil behaved like wet sand and was solid enough to support an Apollo Lunar Module",
           "correct": true,
-          "feedback": "TODO"
+          "feedback": "The soil's bearing strength was about 10 psi (98 kPa). Scientists concluded the surface was solid enough to support an Apollo Lunar Module."
         },
         {
-          "text": "TODO",
+          "text": "The surface was loose dust deep enough to swallow a lander",
           "correct": false,
-          "feedback": "TODO"
+          "feedback": "Surveyor 3's tests showed the opposite: the soil behaved like wet sand and could support an Apollo Lunar Module."
+        },
+        {
+          "text": "The surface was bare, hard rock with no soil at all",
+          "correct": false,
+          "feedback": "The lander dug four trenches in soil that behaved like wet sand."
         }
       ]
     },
     "story": {
-      "whatItIs": "DRAFT – verify: Robotic probes sent in the 1960s to prove soft landings were possible.",
-      "whyLeft": "TODO",
-      "science": "TODO",
-      "nowStatus": "TODO"
+      "whatItIs": "A robotic lander launched on 17 April 1967 and landed on 20 April 1967. It sent back 6,326 TV pictures and used a surface sampler, which could reach up to 5 feet and dig 7 inches deep, to dig four trenches, run four bearing tests and perform thirteen impact tests.",
+      "whyLeft": "Its landing was rough: reflective rocks confused the descent radar and the main engine did not cut off at the right altitude, so it bounced twice before settling. Its last contact was on 4 May 1967, two days after the lunar night began, and it stayed where it landed.",
+      "science": "The soil behaved like wet sand with a bearing strength of about 10 psi (98 kPa), so the surface was judged solid enough to support an Apollo Lunar Module. In November 1969 Apollo 12 landed about 180 m away, and astronauts recovered parts, including the soil scoop and camera system, to study the effects of about two and a half years on the Moon.",
+      "nowStatus": "Surveyor 3 is inactive at its landing site in southeastern Oceanus Procellarum (about 3° S, 23.41° W). NASA's page does not describe its present condition."
     },
     "sources": [
       {
-        "title": "TODO",
-        "url": "TODO"
+        "title": "NASA Science: Surveyor 3",
+        "url": "https://science.nasa.gov/mission/surveyor-3/"
       }
     ]
   },
   {
     "id": "sojourner",
-    "name": "Sojourner",
+    "name": "Sojourner rover and Pathfinder lander",
     "world": "mars",
     "site": {
-      "name": "DRAFT – verify: Mars Pathfinder site",
+      "name": "Mars Pathfinder site: Ares Vallis",
       "lat": null,
       "lon": null
     },
     "mission": "Mars Pathfinder",
     "year": "1997",
-    "model": "/assets/models/sojourner.glb",
-    "modelCredit": "TODO",
+    "model": "procedural:sojourner",
+    "modelSize": 0.65,
+    "modelCredit": "Simplified model built for this game (no NASA 3D model exists for it)",
     "surfacePosition": {
-      "x": 35,
-      "z": 55
+      "x": 48,
+      "z": 62
     },
+    "pairedModels": [
+      {
+        "label": "Pathfinder lander",
+        "model": "procedural:pathfinder",
+        "modelSize": 2.8,
+        "modelCredit": "Simplified model built for this game (no NASA 3D model exists for it)",
+        "surfacePosition": {
+          "x": 38,
+          "z": 70
+        }
+      }
+    ],
     "decision": {
-      "question": "TODO",
+      "question": "Mars Pathfinder was a technology demonstration to put an instrumented lander and a rover on Mars. How did the lander reach the ground?",
       "options": [
         {
-          "text": "TODO",
+          "text": "With a parachute and airbags: it bounced about 15 times before it stopped",
           "correct": true,
-          "feedback": "TODO"
+          "feedback": "The lander used a parachute and a system of airbags. It bounced about 15 times and stopped roughly 1 kilometer from its first impact point."
         },
         {
-          "text": "TODO",
+          "text": "It floated down gently on a single balloon",
           "correct": false,
-          "feedback": "TODO"
+          "feedback": "Pathfinder used a parachute and airbags, and it bounced about 15 times after touchdown."
+        },
+        {
+          "text": "It was lowered by a crane from a hovering spacecraft",
+          "correct": false,
+          "feedback": "That did not happen on Pathfinder. It used a parachute and airbags and bounced about 15 times."
         }
       ]
     },
     "story": {
-      "whatItIs": "DRAFT – verify: The first rover on Mars (1997), delivered by the Pathfinder lander; now permanently parked.",
-      "whyLeft": "TODO",
-      "science": "TODO",
-      "nowStatus": "TODO"
+      "whatItIs": "Sojourner was a 10.6 kg (23 lb) rover, the first robotic rover delivered to the Martian surface. It rolled down the ramp of the Pathfinder lander, named the Carl Sagan Memorial Station, late on sol 2 (the night of 5 July 1997).",
+      "whyLeft": "Pathfinder landed at Ares Vallis on 4 July 1997 and the mission ended on 27 September 1997 with its final data transmission. NASA's mission page does not give a reason for the end of operations.",
+      "science": "The instruments included an Alpha Proton X-ray Spectrometer, three cameras and an atmospheric structure and weather package. Rounded pebbles and cobbles pointed to rock formed in running water, suggesting Mars was once warm and wet. The mission also found magnetic airborne dust, dust devils and early morning water-ice clouds, and returned 2.3 billion bits of data, including over 16,500 lander images and 550 rover images.",
+      "nowStatus": "The mission ended in 1997. NASA's mission page does not give coordinates for the site or describe the condition of the hardware."
     },
     "sources": [
       {
-        "title": "TODO",
-        "url": "TODO"
+        "title": "NASA Science: Mars Pathfinder",
+        "url": "https://science.nasa.gov/mission/mars-pathfinder/"
       }
     ]
   },
@@ -229,211 +332,230 @@
     "name": "Spirit and Opportunity",
     "world": "mars",
     "site": {
-      "name": "TODO",
+      "name": "Gusev Crater (Spirit) and Meridiani Planum (Opportunity)",
       "lat": null,
       "lon": null
     },
-    "mission": "TODO",
-    "year": "TODO",
-    "model": "/assets/models/spirit-and-opportunity.glb",
-    "modelCredit": "TODO",
+    "mission": "Mars Exploration Rovers",
+    "year": "2004–2018",
+    "model": "/assets/models/mer-opportunity.glb",
+    "modelSize": 2.3,
+    "modelCredit": "NASA 3D Resources, Mars Exploration Rover (Opportunity, MER-B); used for both rovers",
     "surfacePosition": {
-      "x": -50,
-      "z": 45
+      "x": -62,
+      "z": -40
     },
-    "decision": {
-      "question": "TODO",
-      "options": [
-        {
-          "text": "TODO",
-          "correct": true,
-          "feedback": "TODO"
-        },
-        {
-          "text": "TODO",
-          "correct": false,
-          "feedback": "TODO"
-        }
-      ]
-    },
-    "story": {
-      "whatItIs": "DRAFT – verify: Twin rovers that operated for years; both now inactive.",
-      "whyLeft": "TODO",
-      "science": "TODO",
-      "nowStatus": "TODO"
-    },
-    "sources": [
-      {
-        "title": "TODO",
-        "url": "TODO"
-      }
-    ],
     "pairedModels": [
       {
         "label": "Opportunity",
-        "model": "/assets/models/spirit-and-opportunity-2.glb",
-        "modelCredit": "TODO",
+        "model": "/assets/models/mer-opportunity.glb",
+        "modelSize": 2.3,
+        "modelCredit": "NASA 3D Resources, Mars Exploration Rover (Opportunity, MER-B)",
         "surfacePosition": {
-          "x": -85,
-          "z": -30
+          "x": -88,
+          "z": -58
         }
+      }
+    ],
+    "decision": {
+      "question": "Opportunity's last message to Earth came on 10 June 2018. What was happening around it?",
+      "options": [
+        {
+          "text": "A planet-wide dust storm had blanketed its solar-powered location",
+          "correct": true,
+          "feedback": "Opportunity's last communication was on 10 June 2018, during a planet-wide dust storm that covered its solar-powered site. It fell silent."
+        },
+        {
+          "text": "It had driven into a crater it could not climb out of",
+          "correct": false,
+          "feedback": "NASA's page gives a different cause: a planet-wide dust storm blanketed its solar-powered location."
+        },
+        {
+          "text": "Its mission was switched off on purpose to save money",
+          "correct": false,
+          "feedback": "NASA's page records a planet-wide dust storm over its solar-powered site on 10 June 2018, when it last communicated."
+        }
+      ]
+    },
+    "story": {
+      "whatItIs": "Spirit and Opportunity were twin Mars Exploration Rovers. Spirit landed on 3 January 2004 in Gusev Crater, a possible former lake in a giant impact crater, at the Columbia Memorial Station. Opportunity landed on 24 January 2004 on Meridiani Planum, where mineral deposits suggested a wet past.",
+      "whyLeft": "Spirit's mission concluded in 2010. Opportunity's last communication with Earth was on 10 June 2018, when a planet-wide dust storm blanketed its solar-powered location, and it fell silent. NASA's page gives no reason for Spirit's end.",
+      "science": "The rovers studied the rock record and confirmed that water was long-standing on Mars' surface in ancient times. Spirit drove 4.8 miles (7.7 km) and Opportunity drove 28.06 miles (45.16 km).",
+      "nowStatus": "Neither rover is operating. NASA's page gives no coordinates for either site."
+    },
+    "sources": [
+      {
+        "title": "NASA Science: Mars Exploration Rovers, Spirit and Opportunity",
+        "url": "https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/"
+      },
+      {
+        "title": "NASA 3D Resources: Mars Exploration Rover (Opportunity)",
+        "url": "https://science.nasa.gov/3d-resources/mars-exploration-rover-opportunity-mer-b/"
       }
     ]
   },
   {
-    "id": "viking-landers",
-    "name": "Viking 1 and 2 landers",
+    "id": "viking-1",
+    "name": "Viking 1 lander",
     "world": "mars",
     "site": {
-      "name": "TODO",
-      "lat": null,
-      "lon": null
+      "name": "Viking 1 site: Chryse Planitia",
+      "lat": 22.483,
+      "lon": -47.94
     },
-    "mission": "Viking 1 and 2",
+    "mission": "Viking 1",
     "year": "1976",
-    "model": "/assets/models/viking-landers.glb",
-    "modelCredit": "TODO",
+    "model": "/assets/models/viking-lander.glb",
+    "modelSize": 3.0,
+    "modelCredit": "NASA 3D Resources, Viking Lander",
     "surfacePosition": {
-      "x": 55,
-      "z": -35
+      "x": 58,
+      "z": -52
     },
     "decision": {
-      "question": "TODO",
+      "question": "Viking 1's soil experiments produced data that could be read as a weak sign of life. What did the major organic-compound test show?",
       "options": [
         {
-          "text": "TODO",
+          "text": "It was negative",
           "correct": true,
-          "feedback": "TODO"
+          "feedback": "The cumulative data could have been read as a weak indication of life, but the major organic-compound test was negative. The soil also showed an abundance of sulfur."
         },
         {
-          "text": "TODO",
+          "text": "It found large amounts of organic compounds",
           "correct": false,
-          "feedback": "TODO"
+          "feedback": "The major organic-compound test was negative."
+        },
+        {
+          "text": "The test could not be run because the robot arm failed",
+          "correct": false,
+          "feedback": "The arm worked: on 28 July 1976 it collected the first soil samples for the biology lab and the gas chromatograph mass spectrometer. (The seismometer was the instrument that did not work.)"
         }
       ]
     },
     "story": {
-      "whatItIs": "DRAFT – verify: The first U.S. landers to operate successfully on Mars (1976), still where they touched down.",
-      "whyLeft": "TODO",
-      "science": "TODO",
-      "nowStatus": "TODO"
+      "whatItIs": "Viking 1 landed on 20 July 1976 on the western slopes of Chryse Planitia, about 28 km from its planned target. It sent back high-quality color photographs and a 300-degree panorama, and recorded temperatures from about −86 °C before dawn to about −33 °C in the afternoon.",
+      "whyLeft": "The lander stopped operating on 11 November 1982 after a faulty command sent from Earth interrupted communications. Later attempts to regain contact failed. It had operated for just over six years after landing.",
+      "science": "On 28 July 1976 its robot arm collected the first soil samples for its biological lab and gas chromatograph mass spectrometer. The data could have been read as a weak indication of life, but the major organic-compound test was negative, and the soil showed an abundance of sulfur. Its seismometer did not work.",
+      "nowStatus": "The lander is no longer operating, at 22.483° N, 47.94° W. It was renamed the Thomas Mutch Memorial Station in January 1982."
     },
     "sources": [
       {
-        "title": "TODO",
-        "url": "TODO"
-      }
-    ],
-    "pairedModels": [
+        "title": "NASA Science: Viking 1",
+        "url": "https://science.nasa.gov/mission/viking-1/"
+      },
       {
-        "label": "Viking 2",
-        "model": "/assets/models/viking-landers-2.glb",
-        "modelCredit": "TODO",
-        "surfacePosition": {
-          "x": -60,
-          "z": 70
-        }
+        "title": "NASA 3D Resources: Viking Lander",
+        "url": "https://science.nasa.gov/3d-resources/viking-lander/"
       }
     ]
   },
   {
-    "id": "phoenix-and-insight",
-    "name": "Phoenix and InSight landers",
+    "id": "insight",
+    "name": "InSight lander",
     "world": "mars",
     "site": {
-      "name": "TODO",
-      "lat": null,
-      "lon": null
+      "name": "InSight site: Elysium Planitia",
+      "lat": 4.5,
+      "lon": 135.9
     },
-    "mission": "TODO",
-    "year": "TODO",
-    "model": "/assets/models/phoenix-and-insight.glb",
-    "modelCredit": "TODO",
+    "mission": "InSight",
+    "year": "2018–2022",
+    "model": "/assets/models/insight.glb",
+    "modelSize": 6.0,
+    "modelCredit": "NASA 3D Resources, InSight Cruise Lander (arm deployed)",
     "surfacePosition": {
-      "x": -40,
-      "z": -60
+      "x": -55,
+      "z": 60
     },
     "decision": {
-      "question": "TODO",
+      "question": "InSight's robotic arm placed a seismometer and a heat flow probe on the ground. What was the mission trying to study?",
       "options": [
         {
-          "text": "TODO",
+          "text": "The deep interior of Mars",
           "correct": true,
-          "feedback": "TODO"
+          "feedback": "InSight studied Mars' deep interior, with goals centered on seismic investigations, geodesy and heat transport."
         },
         {
-          "text": "TODO",
+          "text": "Only the surface weather",
           "correct": false,
-          "feedback": "TODO"
+          "feedback": "Its sensors did record wind vibrations, but the mission's goal was Mars' deep interior: seismic investigations, geodesy and heat transport."
+        },
+        {
+          "text": "Where to land the first astronauts",
+          "correct": false,
+          "feedback": "InSight was a science mission about the planet's deep interior."
         }
       ]
     },
     "story": {
-      "whatItIs": "DRAFT – verify: Phoenix dug for water ice and InSight listened for marsquakes; both eventually lost power.",
-      "whyLeft": "TODO",
-      "science": "TODO",
-      "nowStatus": "TODO"
+      "whatItIs": "InSight launched on 5 May 2018 and landed on 26 November 2018 on the western side of Elysium Planitia. It carried a seismometer and a heat flow probe, which its robotic arm placed on the surface.",
+      "whyLeft": "NASA lists the mission as ended on 15 December 2022. The challenge description says the lander eventually lost power; the mission page does not spell out a cause.",
+      "science": "Marsquake data revealed a \"lumpy\" interior, with rocky impact material scattered through the mantle. The lander's sensors also recorded the vibrations of wind.",
+      "nowStatus": "The lander is retired at its landing site, centered at about 4.5° N, 135.9° E."
     },
     "sources": [
       {
-        "title": "TODO",
-        "url": "TODO"
-      }
-    ],
-    "pairedModels": [
+        "title": "NASA Science: InSight",
+        "url": "https://science.nasa.gov/mission/insight/"
+      },
       {
-        "label": "InSight",
-        "model": "/assets/models/phoenix-and-insight-2.glb",
-        "modelCredit": "TODO",
-        "surfacePosition": {
-          "x": 80,
-          "z": 60
-        }
+        "title": "NASA 3D Resources: InSight Cruise Lander",
+        "url": "https://science.nasa.gov/3d-resources/insight-cruise-lander/"
       }
     ]
   },
   {
-    "id": "ingenuity-helicopter",
+    "id": "ingenuity",
     "name": "Ingenuity helicopter",
     "world": "mars",
     "site": {
-      "name": "TODO",
+      "name": "Ingenuity site: Jezero Crater",
       "lat": null,
       "lon": null
     },
-    "mission": "TODO",
-    "year": "TODO",
-    "model": "/assets/models/ingenuity-helicopter.glb",
-    "modelCredit": "TODO",
+    "mission": "Mars 2020 Perseverance (Ingenuity)",
+    "year": "2021–2024",
+    "model": "/assets/models/ingenuity.glb",
+    "modelSize": 1.2,
+    "modelCredit": "NASA 3D Resources, Ingenuity Mars Helicopter",
     "surfacePosition": {
-      "x": 70,
-      "z": 20
+      "x": -52,
+      "z": -62
     },
     "decision": {
-      "question": "TODO",
+      "question": "On 19 April 2021, Ingenuity flew over Jezero Crater. What made that flight special?",
       "options": [
         {
-          "text": "TODO",
+          "text": "It was the first powered flight on another planet",
           "correct": true,
-          "feedback": "TODO"
+          "feedback": "NASA describes it as the first powered flight on another planet. Ingenuity went on to fly 72 times."
         },
         {
-          "text": "TODO",
+          "text": "It was the first time a rover had flown back to Earth",
           "correct": false,
-          "feedback": "TODO"
+          "feedback": "Nothing returned from Mars on that flight. It was the first powered flight on another planet."
+        },
+        {
+          "text": "It was the first flight with astronauts on board",
+          "correct": false,
+          "feedback": "Ingenuity was an uncrewed helicopter, and its first flight was the first powered flight on another planet."
         }
       ]
     },
     "story": {
-      "whatItIs": "DRAFT – verify: The first aircraft on another planet; it sustained rotor damage and became a stationary artifact.",
-      "whyLeft": "TODO",
-      "science": "TODO",
-      "nowStatus": "TODO"
+      "whatItIs": "Ingenuity was a small helicopter that flew at Jezero Crater, Mars. It made its first flight on 19 April 2021 and flew 72 times.",
+      "whyLeft": "Ingenuity flew for the last time on 18 January 2024, and its mission was completed on 25 January 2024. NASA's mission page gives no cause; the challenge description says rotor damage left it a stationary artifact.",
+      "science": "NASA describes its first flight, on 19 April 2021, as the first powered flight on another planet, and it flew 72 times in total.",
+      "nowStatus": "It remains at Jezero Crater. NASA's mission page does not give coordinates or describe its present condition."
     },
     "sources": [
       {
-        "title": "TODO",
-        "url": "TODO"
+        "title": "NASA Science: Ingenuity Mars Helicopter",
+        "url": "https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/"
+      },
+      {
+        "title": "NASA 3D Resources: Ingenuity Mars Helicopter",
+        "url": "https://science.nasa.gov/3d-resources/ingenuity-mars-helicopter/"
       }
     ]
   }

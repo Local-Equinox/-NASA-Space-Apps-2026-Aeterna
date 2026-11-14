@@ -7,7 +7,8 @@ import { useGame } from '../../state/game'
 import { JUMP_SPEED } from '../../data/bodies'
 import { touch } from '../../lib/touch'
 import type { Artifact } from '../../types/artifact'
-import { PATCH_RADIUS, shipSpot } from './Terrain'
+import { shipSpot } from './Terrain'
+import { PATCH_RADIUS, type Terrain } from './terrain-math'
 import { track } from '../../lib/track'
 
 const WALK = 5
@@ -16,7 +17,7 @@ const INSPECT_RANGE = 4
 const BOARD_RANGE = 16
 const KEYS = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD', 'Space', 'ShiftLeft', 'ShiftRight'])
 
-export default function Player({ artifact }: { artifact: Artifact | null }) {
+export default function Player({ artifact, terrain }: { artifact: Artifact | null; terrain: Terrain }) {
   const { overlay, setCanInspect, setCanBoard, found } = useGame()
   const camera = useThree((s) => s.camera)
   const gl = useThree((s) => s.gl)
@@ -30,7 +31,7 @@ export default function Player({ artifact }: { artifact: Artifact | null }) {
   // The camera starts on the open side, looking toward the artifact's general direction.
   const view = useRef({ yaw: 0, pitch: 0.3, dist: 6 })
   const state = useRef({ canInspect: false, canBoard: false, facing: 0 })
-  const ship = useMemo(() => shipSpot(artifact), [artifact])
+  const ship = useMemo(() => shipSpot(artifact ? artifact.surfacePosition : null), [artifact])
   // Start looking toward the artifact (or the ship, on Earth) so the camera is on the open side.
   useMemo(() => {
     const look = artifact ? artifact.surfacePosition : ship
@@ -103,7 +104,8 @@ export default function Player({ artifact }: { artifact: Artifact | null }) {
     const { wish, fwd, right, head } = tmp
     const pos = rb.translation()
     const vel = rb.linvel()
-    const grounded = pos.y < 0.96 && Math.abs(vel.y) < 0.1
+    const ground = terrain.height(pos.x, pos.z)
+    const grounded = pos.y - ground < 0.99 && vel.y < 2.5
 
     fwd.set(-Math.sin(yaw), 0, -Math.cos(yaw))
     right.set(Math.cos(yaw), 0, -Math.sin(yaw))
@@ -135,7 +137,7 @@ export default function Player({ artifact }: { artifact: Artifact | null }) {
     const r = Math.hypot(pos.x, pos.z)
     if (r > PATCH_RADIUS && pos.x * vx + pos.z * vz > 0) { vx = 0; vz = 0 }
     rb.setLinvel({ x: vx, y: vy, z: vz }, true)
-    if (pos.y < -20) { rb.setTranslation({ x: 0, y: 1, z: 0 }, true); rb.setLinvel({ x: 0, y: 0, z: 0 }, true) }
+    if (pos.y < -60) { rb.setTranslation({ x: 0, y: terrain.height(0, 0) + 1, z: 0 }, true); rb.setLinvel({ x: 0, y: 0, z: 0 }, true) }
 
     // Face the direction of travel and animate
     const groundSpeed = Math.hypot(vx, vz)
@@ -150,7 +152,7 @@ export default function Player({ artifact }: { artifact: Artifact | null }) {
     head.set(pos.x, pos.y + 0.5, pos.z)
     camera.position.set(
       head.x + Math.sin(yaw) * Math.cos(pitch) * dist,
-      Math.max(0.4, head.y + Math.sin(pitch) * dist),
+      Math.max(terrain.height(head.x + Math.sin(yaw) * Math.cos(pitch) * dist, head.z + Math.cos(yaw) * Math.cos(pitch) * dist) + 0.5, head.y + Math.sin(pitch) * dist),
       head.z + Math.cos(yaw) * Math.cos(pitch) * dist,
     )
     camera.lookAt(head)
@@ -171,7 +173,7 @@ export default function Player({ artifact }: { artifact: Artifact | null }) {
   })
 
   return (
-    <RigidBody ref={body} position={[0, 0.95, 0]} lockRotations colliders={false} linearDamping={0} ccd>
+    <RigidBody ref={body} position={[0, terrain.height(0, 0) + 0.95, 0]} lockRotations colliders={false} linearDamping={0} ccd>
       <CapsuleCollider args={[0.5, 0.4]} friction={0} />
       <group ref={visual} position={[0, -0.9, 0]}>
         <primitive object={model} />

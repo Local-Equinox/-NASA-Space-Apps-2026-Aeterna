@@ -5,10 +5,14 @@ import type { BodyData } from '../solar/solar'
 export const CATALOG = BODIES
 export const BODY_DATA: Record<string, BodyData> = Object.fromEntries(BODIES.map((b) => [b.id, b]))
 
-/** Worlds the player can walk on. Moon and Mars have artifact sites; Earth is the home pad. */
+/** Worlds the player can walk on. Earth is only the home launch pad; Moon and Mars have the artifact sites. */
 export type LandId = 'earth' | 'moon' | 'mars'
-export const LANDABLE: LandId[] = ['earth', 'moon', 'mars']
-export const isLandable = (id: string): id is LandId => (LANDABLE as string[]).includes(id)
+/** Destinations the ship can select, warp to and orbit. */
+export const DESTINATIONS = ['earth', 'moon', 'mars']
+export const isDestination = (id: string) => DESTINATIONS.includes(id)
+/** Only the Moon and Mars can be landed on. */
+export type SiteWorld = 'moon' | 'mars'
+export const isLandable = (id: string): id is SiteWorld => id === 'moon' || id === 'mars'
 
 /** Same launch speed on every world (m/s), so gravity alone changes the jump. */
 export const JUMP_SPEED = 4

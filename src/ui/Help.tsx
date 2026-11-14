@@ -10,7 +10,7 @@ export default function Help() {
         <li><b>Space / C</b>: up / down</li>
         <li><b>Shift</b>: boost</li>
         <li><b>Drag</b>: look around</li>
-        <li><b>Click a world</b> (or use Bodies): select it, then Warp</li>
+        <li><b>After take-off</b> you circle Earth. Click the Moon or Mars (or use Bodies), then Warp. Any flight key takes the controls.</li>
         <li><b>On foot:</b> WASD walk, Shift run, Space jump, E board your ship when you are next to it</li>
         <li><b>L</b>: land when close to a world</li>
         <li><b>H</b>: show this help</li>

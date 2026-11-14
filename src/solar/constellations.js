@@ -96,7 +96,7 @@ export function buildConstellationNames(constellations, pixelRatio, resolution) 
         vUv = uv;
         vec4 clip = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         // The atlas is drawn at twice display size, for crispness on high-DPI screens.
-        clip.xy += corner * 0.42 * pixelRatio * 2.0 / resolution * clip.w;
+        clip.xy += corner * 0.2 * pixelRatio * 2.0 / resolution * clip.w;
         gl_Position = clip;
       }
     `,

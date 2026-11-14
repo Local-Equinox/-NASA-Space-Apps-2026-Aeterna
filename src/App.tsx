@@ -41,10 +41,8 @@ function Game() {
       if (scene === 'title') return
       if (e.code === 'KeyH' && (overlay === 'none' || overlay === 'help')) setOverlay(overlay === 'help' ? 'none' : 'help')
       else if (e.code === 'KeyE' && scene === 'surface' && canInspect && overlay === 'none') setOverlay('decision')
-      else if (e.code === 'KeyL' && scene === 'space' && near && overlay === 'none') {
-        if (near === 'earth') goTo('surface', null, 'earth')
-        else setOverlay('sites')
-      } else if (e.code === 'KeyE' && scene === 'surface' && canBoard && !canInspect && overlay === 'none') {
+      else if (e.code === 'KeyL' && scene === 'space' && near && overlay === 'none') setOverlay('sites')
+      else if (e.code === 'KeyE' && scene === 'surface' && canBoard && !canInspect && overlay === 'none') {
         setSpawn(surfaceWorld)
         goTo('space')
       }

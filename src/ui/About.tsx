@@ -11,8 +11,8 @@ export default function About() {
       </p>
       <h3>Distances are compressed</h3>
       <p>Planet orbits, spins and constellations follow real data, starting from today's date, but distances and sizes are compressed (logarithmically) so the trip is quick to fly. Real distances would make Earth a speck.</p>
-      <h3>Placeholders</h3>
-      <p>Artifact models marked “PLACEHOLDER MODEL” are stand-ins until real NASA 3D models are added. Story text marked “DRAFT – verify” or “TODO” has not been checked against NASA sources yet.</p>
+      <h3>Models and accuracy</h3>
+      <p>Real NASA 3D models are used where NASA publishes them. Surveyor 3, the Lunar Roving Vehicle, the ALSEP/EASEP stations, the Pathfinder lander and Sojourner have no NASA model, so those are simplified models built for this game, and each story card says so. Map-tracker positions inside a landing site are placeholders; only the landing-site coordinates come from NASA records.</p>
       <h3>Credits</h3>
       <ul>
         <li>Sun, planet and Moon textures: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noreferrer">Solar System Scope</a>, CC BY 4.0, based on NASA data. Other moon maps: NASA/JPL (Caltech/JPL/USGS).</li>
@@ -21,6 +21,7 @@ export default function About() {
         <li>Font: Bungee, SIL Open Font License.</li>
         <li>Built with React, three.js, React Three Fiber, drei and Rapier.</li>
         <li>Gravity values: NASA/JPL planetary fact sheets (Earth 9.81, Moon 1.62, Mars 3.71 m/s²).</li>
+        <li>3D models and mission facts: NASA 3D Resources and NASA Science / NSSDCA mission pages (links on each story card).</li>
         <li>Full list: <code>CREDITS.md</code> in the project.</li>
       </ul>
       <h3>Team</h3>

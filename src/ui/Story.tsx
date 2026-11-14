@@ -17,6 +17,8 @@ export default function Story() {
       <h3>Why it was left</h3><p>{story.whyLeft}</p>
       <h3>The science it enabled</h3><p>{story.science}</p>
       <h3>Where it is now</h3><p>{story.nowStatus}</p>
+      <h3>3D model</h3>
+      <p className="small">{site.modelCredit}</p>
       <h3>Sources</h3>
       <ul>
         {site.sources.map((s, i) => (

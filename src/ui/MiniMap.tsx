@@ -47,17 +47,16 @@ export default function MiniMap() {
       g.font = '10px system-ui'; g.textAlign = 'center'
       g.fillText('ship', ship.x, ship.y + 15)
 
-      for (const m of track.markers) {
+      track.markers.forEach((m, mi) => {
         const p = place(m.x, m.z)
         g.globalAlpha = p.clamped ? 0.65 : 1
         g.fillStyle = m.found ? '#5bd18a' : '#ffd166'
         g.beginPath(); g.arc(p.x, p.y, 6, 0, Math.PI * 2); g.fill()
         g.fillStyle = '#06101f'; g.font = 'bold 9px system-ui'
         g.fillText(m.found ? '✔' : '?', p.x, p.y + 3)
-        g.fillStyle = '#ffd166'; g.font = 'bold 11px system-ui'
-        g.fillText(m.found ? 'found' : '???', p.x, p.y + 18)
+        if (mi === 0) { g.fillStyle = '#ffd166'; g.font = 'bold 11px system-ui'; g.fillText(m.found ? 'found' : '???', p.x, p.y + 18) }
         g.globalAlpha = 1
-      }
+      })
 
       // The player always points up
       g.fillStyle = '#7cc4ff'
@@ -68,6 +67,8 @@ export default function MiniMap() {
     return () => cancelAnimationFrame(raf)
   }, [visible])
 
-  if (!visible || overlay === 'story' || overlay === 'decision') return null
-  return <canvas ref={ref} className="minimap" style={{ width: SIZE, height: SIZE }} role="img" aria-label="Map tracker. Undiscovered artifacts are shown as question marks." />
+  if (!visible) return null
+  // Stay mounted during the decision and story (just hidden): unmounting it used to leave the map blank afterwards.
+  const hidden = overlay === 'story' || overlay === 'decision' || overlay === 'collection' || overlay === 'stories'
+  return <canvas ref={ref} className="minimap" style={{ width: SIZE, height: SIZE, visibility: hidden ? 'hidden' : 'visible' }} role="img" aria-label="Map tracker. Undiscovered artifacts are shown as question marks." />
 }

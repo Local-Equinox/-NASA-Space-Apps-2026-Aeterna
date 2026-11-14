@@ -18,13 +18,17 @@ export interface Artifact {
   }
   mission: string
   year: string
-  /** Path under /assets/models/. Missing file = labelled placeholder box. */
+  /** A GLB under /assets/models/, or "procedural:<name>" for a simplified model built in code (see src/game/props.ts). */
   model: string
+  /** Real size in metres of the model's largest dimension. */
+  modelSize?: number
+  /** Hide the part of the model above this fraction of its height (0–1), e.g. the Lunar Module's ascent stage. */
+  modelCutAbove?: number
   modelCredit: string
   /** Metres from the spawn point on that site's terrain patch. */
   surfacePosition: { x: number; z: number }
   /** Optional extra models for paired artifacts (e.g. two rovers). Inspecting any of them opens the same story. */
-  pairedModels?: { label: string; model: string; modelCredit: string; surfacePosition: { x: number; z: number } }[]
+  pairedModels?: { label: string; model: string; modelSize?: number; modelCutAbove?: number; modelCredit: string; surfacePosition: { x: number; z: number } }[]
   decision: {
     question: string
     options: DecisionOption[]

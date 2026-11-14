@@ -5,7 +5,7 @@ import { SolarSystem, type SolarBody } from '../../solar/solarSystem.js'
 import { Picker } from '../../solar/picker.js'
 import { Labels } from '../../solar/labels.js'
 import { createSpaceship } from '../../game/models'
-import { isLandable, type LandId } from '../../data/bodies'
+import { isDestination, isLandable, type SiteWorld } from '../../data/bodies'
 import { useGame } from '../../state/game'
 import { sim, view, daysPerSecond } from '../../lib/sim'
 import { touch } from '../../lib/touch'
@@ -40,7 +40,7 @@ interface Warp {
 }
 
 export default function SpaceWorld() {
-  const { spawn, overlay, warpRequest, setNear, setWarping, setSelected, selected } = useGame()
+  const { spawn, overlay, warpRequest, setNear, setOrbitOf, setWarping, setSelected, selected } = useGame()
   const { gl, camera: cam, size } = useThree()
   const camera = cam as PerspectiveCamera
 
@@ -72,7 +72,10 @@ export default function SpaceWorld() {
     pitch: 0,
     anchor: null as SolarBody | null,
     offset: new Vector3(),
-    near: null as LandId | null,
+    near: null as SiteWorld | null,
+    orbitOf: null as string | null,
+    // Autopilot: circle the body we just arrived at, until the player takes the controls
+    orbit: null as { body: SolarBody; turn: number } | null,
     warp: null as Warp | null,
     handled: warpRequest?.n ?? 0,
     selected: null as string | null,
@@ -100,7 +103,8 @@ export default function SpaceWorld() {
     gl.domElement.parentElement?.append(container)
     labels.current = new Labels(container, system, sysCam)
     const picker = new Picker(gl.domElement, sysCam, camera, system, {
-      onSelect: (body: SolarBody) => { setSelected(body.id); sfx.select() },
+      // Only Earth, the Moon and Mars are destinations; everything else is scenery.
+      onSelect: (body: SolarBody) => { if (isDestination(body.id)) { setSelected(body.id); sfx.select() } },
     })
     ;(window as unknown as { __picker?: Picker }).__picker = picker
     return () => { container.remove(); labels.current = null; picker.enabled = false }
@@ -203,8 +207,29 @@ export default function SpaceWorld() {
       st.yaw += wrap(a.yaw - st.yaw) * turn
       st.pitch += (a.pitch - st.pitch) * turn
       thrust = 1
-      if (w.t >= 1) { st.warp = null; setWarping(false) }
+      if (w.t >= 1) {
+        st.warp = null
+        setWarping(false)
+        st.orbit = { body: w.target, turn: 0 }
+      }
+    } else if (st.orbit && !keys.current.size && !(touch.x || touch.y || touch.jump) && !locked.current) {
+      // Autopilot: revolve around the body in a circular orbit, facing the way we are travelling.
+      const o = st.orbit
+      dir.copy(st.pos).sub(o.body.worldPosition)
+      dir.applyAxisAngle(up, 0.11 * dt)
+      st.pos.copy(o.body.worldPosition).add(dir)
+      const tangent = target.crossVectors(up, dir).normalize()
+      if (o.turn < 2) {
+        o.turn += dt
+        const a = lookAngles(tangent)
+        const k2 = 1 - Math.exp(-2.5 * dt)
+        st.yaw += wrap(a.yaw - st.yaw) * k2
+        st.pitch += (a.pitch - st.pitch) * k2
+      }
+      st.vel.set(0, 0, 0)
+      thrust = 0.25
     } else {
+      st.orbit = null
       // Speed scales with altitude: careful near a world, fast between them.
       let altitude = Infinity
       for (const b of system.bodies) altitude = Math.min(altitude, st.pos.distanceTo(b.worldPosition) - b.radius)
@@ -257,15 +282,20 @@ export default function SpaceWorld() {
     } else st.anchor = null
 
     // Land prompt: of the landable bodies in range, the smallest wins.
-    let near: LandId | null = null
+    let near: SiteWorld | null = null
     let nearR = Infinity
+    let orbitOf: string | null = null
+    let orbitR = Infinity
     if (!st.warp) {
       for (const b of system.bodies) {
-        if (!isLandable(b.id)) continue
-        if (st.pos.distanceTo(b.worldPosition) < landRange(b) && b.radius < nearR) { near = b.id as LandId; nearR = b.radius }
+        if (!isDestination(b.id)) continue
+        if (st.pos.distanceTo(b.worldPosition) >= landRange(b)) continue
+        if (b.radius < orbitR) { orbitOf = b.id; orbitR = b.radius }
+        if (isLandable(b.id) && b.radius < nearR) { near = b.id; nearR = b.radius }
       }
     }
     if (near !== st.near) { st.near = near; setNear(near) }
+    if (orbitOf !== st.orbitOf) { st.orbitOf = orbitOf; setOrbitOf(orbitOf) }
 
     // Floating origin: shift the whole system so the ship sits at (0,0,0)
     system.setOrigin(st.pos)
