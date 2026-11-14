@@ -1,38 +1,41 @@
+import { Suspense, useMemo } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Physics, RigidBody } from '@react-three/rapier'
+import { Physics } from '@react-three/rapier'
 import { useGame } from '../state/game'
 import { BODIES } from '../data/bodies'
+import { createSpaceship } from '../game/models'
+import Stars from './space/Stars'
+import Terrain, { shipSpot } from './surface/Terrain'
+import Player from './surface/Player'
+import ArtifactModel from './surface/ArtifactModel'
 
-// Phase 3: terrain, 3rd-person character, artifact model, Inspect.
+const SKY = { moon: '#000000', mars: '#b98363' } as const
+
+// A separate scene and physics world in real metres. It shares no coordinates with space.
 export default function SurfaceScene() {
   const { site } = useGame()
+  const ship = useMemo(() => {
+    const s = createSpaceship()
+    s.userData.setGearDown(true)
+    return s
+  }, [])
   if (!site) return null
-  const g = BODIES[site.world].gravity
-  const color = site.world === 'moon' ? '#8a8a8a' : '#a0522d'
+  const world = site.world
   return (
-    <Canvas dpr={[1, 2]} camera={{ position: [0, 6, 14], fov: 60 }}>
-      <color attach="background" args={['#05070f']} />
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[20, 30, 10]} intensity={1.5} />
-      <Physics gravity={[0, -g, 0]}>
-        <RigidBody type="fixed">
-          <mesh rotation-x={-Math.PI / 2}>
-            <planeGeometry args={[400, 400]} />
-            <meshStandardMaterial color={color} />
-          </mesh>
-        </RigidBody>
-        <RigidBody position={[0, 8, 0]} colliders="ball">
-          <mesh>
-            <sphereGeometry args={[0.5, 16, 16]} />
-            <meshStandardMaterial color="#fff" />
-          </mesh>
-        </RigidBody>
-      </Physics>
-      {/* Placeholder artifact: replaced by the GLB model in Phase 3 */}
-      <mesh position={[site.surfacePosition.x, 0.5, site.surfacePosition.z]}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color="#ffcc00" />
-      </mesh>
+    <Canvas dpr={[1, 2]} shadows={false} camera={{ position: [0, 4, 10], fov: 60, near: 0.1, far: 3000 }}>
+      <color attach="background" args={[SKY[world]]} />
+      {world === 'mars' && <fog attach="fog" args={[SKY[world], 150, 900]} />}
+      <ambientLight intensity={world === 'moon' ? 0.25 : 0.5} />
+      <directionalLight position={[60, 40, 30]} intensity={world === 'moon' ? 3 : 2.4} />
+      <Suspense fallback={null}>
+        {world === 'moon' && <Stars />}
+        <Physics gravity={[0, -BODIES[world].gravity, 0]}>
+          <Terrain artifact={site} />
+          <Player artifact={site} />
+        </Physics>
+        <ArtifactModel artifact={site} />
+        <primitive object={ship} position={[shipSpot(site).x, 0, shipSpot(site).z]} rotation-y={0.6} />
+      </Suspense>
     </Canvas>
   )
 }

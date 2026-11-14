@@ -4,6 +4,8 @@ import { Euler, Group, MathUtils, PerspectiveCamera, Quaternion, Vector3 } from 
 import { createSpaceship } from '../../game/models'
 import { BODIES, SUN_DIR, landRange, orbitRadius, type BodyId } from '../../data/bodies'
 import { useGame } from '../../state/game'
+import { touch } from '../../lib/touch'
+import { sfx } from '../../lib/sound'
 import type { World } from '../../types/artifact'
 
 const SHIP_SCALE = 0.05 // the 20 m ship model becomes 1 scene unit
@@ -115,6 +117,7 @@ export default function Ship() {
       s.warp = { t: 0, from: s.pos.clone(), to: arrivalPoint(warpRequest.id), target: warpRequest.id }
       s.vel.set(0, 0, 0)
       setWarping(true)
+      sfx.warp()
     }
 
     let thrust = 0
@@ -155,6 +158,8 @@ export default function Ship() {
         if (k.has('KeyA')) target.sub(right)
         if (k.has('Space')) target.add(up)
         if (k.has('KeyC')) target.sub(up)
+        target.addScaledVector(fwd, touch.y).addScaledVector(right, touch.x)
+        if (touch.jump) target.add(up)
       }
       if (target.lengthSq() > 0) target.normalize().multiplyScalar(speed)
       s.vel.lerp(target, 1 - Math.exp(-3.2 * dt))

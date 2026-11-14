@@ -4,7 +4,7 @@ import type { Artifact, World } from '../types/artifact'
 import type { BodyId } from '../data/bodies'
 
 export type SceneName = 'title' | 'space' | 'surface'
-export type Overlay = 'none' | 'collection' | 'about' | 'help' | 'sites'
+export type Overlay = 'none' | 'collection' | 'about' | 'help' | 'sites' | 'decision' | 'story' | 'stories'
 
 const STORAGE_KEY = 'left-behind-found'
 
@@ -26,6 +26,8 @@ interface Game {
   selected: World | null
   near: World | null
   warping: boolean
+  canInspect: boolean
+  setCanInspect: (b: boolean) => void
   warpRequest: { id: World; n: number } | null
   spawn: BodyId
   setSelected: (w: World | null) => void
@@ -50,6 +52,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [selected, setSelected] = useState<World | null>(null)
   const [near, setNear] = useState<World | null>(null)
   const [warping, setWarping] = useState(false)
+  const [canInspect, setCanInspect] = useState(false)
   const [warpRequest, setWarpRequest] = useState<{ id: World; n: number } | null>(null)
   const [spawn, setSpawn] = useState<BodyId>('earth')
   const requestWarp = useCallback((id: World) => setWarpRequest((r) => ({ id, n: (r?.n ?? 0) + 1 })), [])
@@ -70,6 +73,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
       setSelected(null)
       setNear(null)
       setWarping(false)
+      setCanInspect(false)
       setSite(nextSite)
       setFading(false)
     }, 400)
@@ -82,7 +86,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const resetProgress = useCallback(() => setFound([]), [])
 
   return (
-    <Ctx.Provider value={{ scene, site, overlay, found, fading, selected, near, warping, warpRequest, spawn, setSelected, setNear, setWarping, requestWarp, setSpawn, goTo, setOverlay, markFound, resetProgress }}>
+    <Ctx.Provider value={{ scene, site, overlay, found, fading, selected, near, warping, canInspect, setCanInspect, warpRequest, spawn, setSelected, setNear, setWarping, requestWarp, setSpawn, goTo, setOverlay, markFound, resetProgress }}>
       {children}
     </Ctx.Provider>
   )

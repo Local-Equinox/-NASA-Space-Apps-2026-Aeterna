@@ -23,6 +23,8 @@ export interface Artifact {
   modelCredit: string
   /** Metres from the spawn point on that site's terrain patch. */
   surfacePosition: { x: number; z: number }
+  /** Optional extra models for paired artifacts (e.g. two rovers). Inspecting any of them opens the same story. */
+  pairedModels?: { label: string; model: string; modelCredit: string; surfacePosition: { x: number; z: number } }[]
   decision: {
     question: string
     options: DecisionOption[]

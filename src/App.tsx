@@ -8,12 +8,18 @@ import LandPrompt from './ui/LandPrompt'
 import SitePicker from './ui/SitePicker'
 import Help from './ui/Help'
 import SurfaceHud from './ui/SurfaceHud'
+import InspectPrompt from './ui/InspectPrompt'
+import Decision from './ui/Decision'
+import Story from './ui/Story'
+import Stories from './ui/Stories'
+import TopBar from './ui/TopBar'
+import Joystick from './ui/Joystick'
 
 const SpaceScene = lazy(() => import('./scenes/SpaceScene'))
 const SurfaceScene = lazy(() => import('./scenes/SurfaceScene'))
 
 function Game() {
-  const { scene, overlay, fading, warping, near, setOverlay } = useGame()
+  const { scene, overlay, fading, warping, near, canInspect, setOverlay } = useGame()
 
   // Show the controls once on first load of the space scene; H toggles them any time.
   useEffect(() => {
@@ -29,13 +35,14 @@ function Game() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (scene === 'title') return
-      if (e.code === 'KeyH') setOverlay(overlay === 'help' ? 'none' : 'help')
+      if (e.code === 'KeyH' && (overlay === 'none' || overlay === 'help')) setOverlay(overlay === 'help' ? 'none' : 'help')
+      else if (e.code === 'KeyE' && scene === 'surface' && canInspect && overlay === 'none') setOverlay('decision')
       else if (e.code === 'KeyL' && scene === 'space' && near && overlay === 'none') setOverlay('sites')
       else if (e.code === 'Escape') setOverlay('none')
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [scene, near, overlay, setOverlay])
+  }, [scene, near, canInspect, overlay, setOverlay])
 
   return (
     <div className={`stage ${warping ? 'warping' : ''}`}>
@@ -48,6 +55,12 @@ function Game() {
       {scene === 'space' && <InfoPanel />}
       {scene === 'space' && <LandPrompt />}
       <SurfaceHud />
+      <InspectPrompt />
+      {overlay === 'decision' && <Decision />}
+      {overlay === 'story' && <Story />}
+      {overlay === 'stories' && <Stories />}
+      <TopBar />
+      {(scene === 'space' || scene === 'surface') && overlay === 'none' && <Joystick />}
       {overlay === 'sites' && <SitePicker />}
       {overlay === 'help' && <Help />}
       {overlay === 'collection' && <Collection />}

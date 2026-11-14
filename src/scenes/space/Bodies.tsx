@@ -4,6 +4,7 @@ import { useTexture } from '@react-three/drei'
 import { BackSide, Mesh, Quaternion, SRGBColorSpace, Vector3, type Texture } from 'three'
 import { BODIES, type BodyId } from '../../data/bodies'
 import { useGame } from '../../state/game'
+import { sfx } from '../../lib/sound'
 
 const HIT_PIXELS = 24 // far bodies are tiny: give them a generous invisible click target
 const srgb = (t: Texture) => ((t.colorSpace = SRGBColorSpace), t)
@@ -64,6 +65,7 @@ function SelectableBody({ id }: { id: 'moon' | 'mars' }) {
     if (e.delta > 8) return // a drag, not a click
     e.stopPropagation()
     setSelected(id)
+    sfx.select()
   }
 
   return (

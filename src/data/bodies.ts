@@ -29,3 +29,6 @@ export const SUN_DIR = new Vector3(0.7, 0.25, 0.65).normalize()
 /** Warp arrives, and Land is offered, at these distances from a body's centre. */
 export const orbitRadius = (b: BodyInfo) => b.radius * 2.4 + 0.3
 export const landRange = (b: BodyInfo) => b.radius * 3.4
+
+/** Same launch speed on every world (m/s), so gravity alone changes the jump. */
+export const JUMP_SPEED = 4

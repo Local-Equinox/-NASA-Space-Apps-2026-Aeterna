@@ -267,6 +267,17 @@
         "title": "TODO",
         "url": "TODO"
       }
+    ],
+    "pairedModels": [
+      {
+        "label": "Opportunity",
+        "model": "/assets/models/spirit-and-opportunity-2.glb",
+        "modelCredit": "TODO",
+        "surfacePosition": {
+          "x": -85,
+          "z": -30
+        }
+      }
     ]
   },
   {
@@ -312,6 +323,17 @@
         "title": "TODO",
         "url": "TODO"
       }
+    ],
+    "pairedModels": [
+      {
+        "label": "Viking 2",
+        "model": "/assets/models/viking-landers-2.glb",
+        "modelCredit": "TODO",
+        "surfacePosition": {
+          "x": -60,
+          "z": 70
+        }
+      }
     ]
   },
   {
@@ -356,6 +378,17 @@
       {
         "title": "TODO",
         "url": "TODO"
+      }
+    ],
+    "pairedModels": [
+      {
+        "label": "InSight",
+        "model": "/assets/models/phoenix-and-insight-2.glb",
+        "modelCredit": "TODO",
+        "surfacePosition": {
+          "x": 80,
+          "z": 60
+        }
       }
     ]
   },

@@ -17,7 +17,7 @@ export default function Collection() {
           )
         })}
       </ul>
-      {/* Phase 4: "View all stories" link (readable without playing 3D) */}
+      <p><button className="button secondary" onClick={() => setOverlay('stories')}>View all stories</button></p>
       <div className="row">
         <button className="button secondary" onClick={resetProgress}>Reset progress</button>
         <button className="button" onClick={() => setOverlay('none')}>Close</button>

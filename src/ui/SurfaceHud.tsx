@@ -1,19 +1,20 @@
-import { BODIES } from '../data/bodies'
+import { BODIES, JUMP_SPEED } from '../data/bodies'
 import { useGame } from '../state/game'
 
-// Phase 3 replaces this with the full surface HUD and Inspect prompt.
 export default function SurfaceHud() {
-  const { scene, site, goTo, setSpawn } = useGame()
+  const { scene, site, overlay, goTo, setSpawn } = useGame()
   if (scene !== 'surface' || !site) return null
+  const g = BODIES[site.world].gravity
   return (
-    <div className="hud">
-      <span className="pill">{site.site.name} · gravity {BODIES[site.world].gravity} m/s²</span>
-      <button
-        className="button"
-        onClick={() => { setSpawn(site.world); goTo('space') }}
-      >
-        Return to ship
-      </button>
-    </div>
+    <>
+      <div className="hud">
+        <span className="pill">{site.site.name}</span>
+        <span className="pill">Gravity {g} m/s² · jump {(JUMP_SPEED ** 2 / (2 * g)).toFixed(1)} m</span>
+        {overlay === 'none' && (
+          <button className="button" onClick={() => { setSpawn(site.world); goTo('space') }}>Return to ship</button>
+        )}
+      </div>
+      <p className="small controls-hint">WASD walk · Shift run · Space jump · drag to look · wheel to zoom · E inspect</p>
+    </>
   )
 }
