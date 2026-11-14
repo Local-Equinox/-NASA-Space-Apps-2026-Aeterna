@@ -12,6 +12,8 @@ export default function Help() {
         <li><b>Drag</b>: look around</li>
         <li><b>After take-off</b> you circle Earth. Click the Moon or Mars (or use Bodies), then Warp. Any flight key takes the controls.</li>
         <li><b>On foot:</b> WASD walk, Shift run, Space jump, E board your ship when you are next to it</li>
+        <li><b>M</b>: open the world map (or tap the mini-map)</li>
+        <li><b>E</b>: inspect equipment, then clear the debris and brush off the dust to read its nameplate</li>
         <li><b>L</b>: land when close to a world</li>
         <li><b>H</b>: show this help</li>
       </ul>

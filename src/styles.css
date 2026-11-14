@@ -91,3 +91,22 @@ h3 { margin: 1rem 0 .25rem; font-size: 1rem; color: var(--accent); }
 .marker-label.found { background: #5bd18a; }
 .credits { margin-top: .75rem; } .credits summary { cursor: pointer; opacity: .85; }
 .site-dot.alt span { top: -4px; transform: translateY(-100%); }
+.overlay.wide { max-width: 60rem; }
+.site-dot.here::after { content: ''; position: absolute; width: 26px; height: 26px; border-radius: 50%; border: 2px solid #7cc4ff; }
+.minimap { cursor: pointer; }
+.clean-area { position: relative; padding: 4.5rem 3rem; border-radius: .6rem; touch-action: none; user-select: none; -webkit-user-select: none; margin: .5rem 0; overflow: hidden; }
+.clean-area.moon { background: radial-gradient(circle at 30% 30%, #8a8a87, #4b4b49); }
+.clean-area.mars { background: radial-gradient(circle at 30% 30%, #b8643b, #6a2e17); }
+.clean-area.brushing, .clean-area.brushing * { cursor: none; }
+.plate { position: relative; width: 100%; border-radius: .4rem; background: linear-gradient(135deg, #cfd5dd, #8c95a3 55%, #b9c0cb); border: 3px solid #5a6270; box-shadow: 0 6px 16px rgba(0,0,0,.5); }
+.plate-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .3rem; padding: .5rem; text-align: center; color: #1c2230; text-shadow: 0 1px 0 rgba(255,255,255,.5); }
+.plate-text b { font-size: clamp(.9rem, 3.4vw, 1.5rem); letter-spacing: .04em; text-transform: uppercase; }
+.dust { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: .4rem; transition: opacity .8s; }
+.dust.gone { opacity: 0; pointer-events: none; }
+.rock { position: absolute; background: radial-gradient(circle at 30% 30%, #8d8780, #3d3a36); box-shadow: 0 4px 8px rgba(0,0,0,.55); cursor: grab; touch-action: none; z-index: 2; }
+.rock.off { opacity: .85; }
+.rock:active { cursor: grabbing; }
+.brush { position: absolute; transform: translate(-20%, -80%); font-size: 2rem; pointer-events: none; z-index: 3; }
+.progress { height: 8px; border-radius: 999px; background: #1a2340; overflow: hidden; margin: .25rem 0 .75rem; }
+.progress i { display: block; height: 100%; background: #5bd18a; transition: width .15s; }
+@media (max-width: 600px) { .clean-area { padding: 3rem 1.25rem; } }

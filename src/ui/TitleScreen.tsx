@@ -18,7 +18,7 @@ export default function TitleScreen() {
       <ol className="how">
         <li>Walk to your ship on Earth and take off.</li>
         <li>Fly the solar system (WASD, drag to look). Select the Moon or Mars, warp there, and land at a site.</li>
-        <li>Explore on foot, find the artifact marked ??? on your map, and make the call NASA faced.</li>
+        <li>Explore on foot, find the equipment marked ??? on your map (press M for the full Moon and Mars map), then clean the dust and debris off its nameplate.</li>
       </ol>
     </section>
   )

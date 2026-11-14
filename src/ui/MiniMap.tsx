@@ -8,7 +8,7 @@ const RANGE = 120 // metres from the player to the edge of the map
 // Tracker: artifacts appear as ??? until the player finds them. Positions are the site's placeholder
 // coordinates until the researcher adds real ones.
 export default function MiniMap() {
-  const { scene, overlay } = useGame()
+  const { scene, overlay, setOverlay } = useGame()
   const ref = useRef<HTMLCanvasElement>(null)
   const visible = scene === 'surface'
 
@@ -69,6 +69,6 @@ export default function MiniMap() {
 
   if (!visible) return null
   // Stay mounted during the decision and story (just hidden): unmounting it used to leave the map blank afterwards.
-  const hidden = overlay === 'story' || overlay === 'decision' || overlay === 'collection' || overlay === 'stories'
-  return <canvas ref={ref} className="minimap" style={{ width: SIZE, height: SIZE, visibility: hidden ? 'hidden' : 'visible' }} role="img" aria-label="Map tracker. Undiscovered artifacts are shown as question marks." />
+  const hidden = overlay === 'story' || overlay === 'clean' || overlay === 'map' || overlay === 'collection' || overlay === 'stories'
+  return <canvas ref={ref} className="minimap" style={{ width: SIZE, height: SIZE, visibility: hidden ? 'hidden' : 'visible' }} role="button" tabIndex={0} onClick={() => setOverlay('map')} onKeyDown={(e) => { if (e.key === 'Enter') setOverlay('map') }} aria-label="Map tracker. Undiscovered equipment shows as question marks. Press to open the world map (M)." title="Open world map (M)" />
 }

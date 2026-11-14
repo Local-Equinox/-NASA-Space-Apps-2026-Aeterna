@@ -13,7 +13,8 @@ import BoardPrompt from './ui/BoardPrompt'
 import MiniMap from './ui/MiniMap'
 import BodiesList from './ui/BodiesList'
 import TimeControls from './ui/TimeControls'
-import Decision from './ui/Decision'
+import Clean from './ui/Clean'
+import MapOverlay from './ui/MapOverlay'
 import Story from './ui/Story'
 import Stories from './ui/Stories'
 import TopBar from './ui/TopBar'
@@ -40,7 +41,8 @@ function Game() {
     const onKey = (e: KeyboardEvent) => {
       if (scene === 'title') return
       if (e.code === 'KeyH' && (overlay === 'none' || overlay === 'help')) setOverlay(overlay === 'help' ? 'none' : 'help')
-      else if (e.code === 'KeyE' && scene === 'surface' && canInspect && overlay === 'none') setOverlay('decision')
+      else if (e.code === 'KeyE' && scene === 'surface' && canInspect && overlay === 'none') setOverlay('clean')
+      else if (e.code === 'KeyM' && scene === 'surface' && (overlay === 'none' || overlay === 'map')) setOverlay(overlay === 'map' ? 'none' : 'map')
       else if (e.code === 'KeyL' && scene === 'space' && near && overlay === 'none') setOverlay('sites')
       else if (e.code === 'KeyE' && scene === 'surface' && canBoard && !canInspect && overlay === 'none') {
         setSpawn(surfaceWorld)
@@ -68,7 +70,8 @@ function Game() {
       <MiniMap />
       <BodiesList />
       <TimeControls />
-      {overlay === 'decision' && <Decision />}
+      {overlay === 'clean' && <Clean />}
+      {overlay === 'map' && <MapOverlay />}
       {overlay === 'story' && <Story />}
       {overlay === 'stories' && <Stories />}
       <TopBar />

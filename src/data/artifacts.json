@@ -30,26 +30,6 @@
         }
       }
     ],
-    "decision": {
-      "question": "Eagle's two crew members have finished on the Moon and must lift off again. Which part of the lunar module stays behind?",
-      "options": [
-        {
-          "text": "The descent stage, which served as the launch platform for the ascent stage",
-          "correct": true,
-          "feedback": "The descent stage was left on the Moon as the launch platform. Only the ascent stage lifted off, on 21 July 1969, to dock with the Command/Service Module."
-        },
-        {
-          "text": "Nothing: the whole lunar module lifts off together",
-          "correct": false,
-          "feedback": "The module had two stages for a reason. The descent stage (2,034 kg dry, plus 8,248 kg of propellant at the start) stayed on the Moon, and only the ascent stage lifted off."
-        },
-        {
-          "text": "The ascent stage, which is left as a monument",
-          "correct": false,
-          "feedback": "It is the other way round. The ascent stage carried the crew back up, then was jettisoned into lunar orbit on 22 July. NASA's record says its fate is not known."
-        }
-      ]
-    },
     "story": {
       "whatItIs": "Eagle was the two-stage lunar module that carried Neil Armstrong and Buzz Aldrin to the Moon's surface. Its descent stage, which you found, is what remains at the landing site.",
       "whyLeft": "The descent stage was the launch platform for the ascent stage, so it stayed on the Moon when the ascent stage lifted off on 21 July 1969. The ascent stage docked with the Command/Service Module and was then jettisoned into lunar orbit on 22 July.",
@@ -108,26 +88,6 @@
         }
       }
     ],
-    "decision": {
-      "question": "Before leaving, the crew set up an ALSEP: a science station powered by a radioisotope generator. What was it for?",
-      "options": [
-        {
-          "text": "To keep measuring the Moon after the astronauts had gone",
-          "correct": true,
-          "feedback": "The ALSEP's seven instruments measured seismic activity, the magnetic field, solar wind, suprathermal ions, the atmosphere, dust and heat flow. Its central station ran from 31 July 1971 until it was shut down on 30 September 1977."
-        },
-        {
-          "text": "To light the landing site at night",
-          "correct": false,
-          "feedback": "It was a science station, not a lamp. It recorded data from seven instruments for years after the crew left."
-        },
-        {
-          "text": "To guide the crew back to the Command Module",
-          "correct": false,
-          "feedback": "The crew flew back in the ascent stage. The ALSEP stayed behind to do science until it was shut down in 1977."
-        }
-      ]
-    },
     "story": {
       "whatItIs": "Falcon was Apollo 15's two-stage lunar module. David Scott and James Irwin landed in it at the foot of the Apennine Mountains, and over three moonwalks (18 hours 35 minutes) the crew covered 27.9 km in the Lunar Roving Vehicle and collected 77.31 kg of samples.",
       "whyLeft": "The descent stage was left on the Moon as the launch platform for the ascent stage. The ascent stage lifted off on 2 August 1971, docked with the Command/Service Module, and was jettisoned on 3 August. The ALSEP stayed to keep recording until 1977.",
@@ -176,26 +136,6 @@
         }
       }
     ],
-    "decision": {
-      "question": "Apollo 12 landed about 180 m from Surveyor 3, a robotic lander that had sat there since 1967. What did Pete Conrad and Alan Bean do with it?",
-      "options": [
-        {
-          "text": "They took parts home so scientists could study how they had weathered on the Moon",
-          "correct": true,
-          "feedback": "They collected about 10 kg of Surveyor 3 parts, including the soil scoop and camera system, so scientists could study the effects of roughly two and a half years on the Moon's surface."
-        },
-        {
-          "text": "They repaired it and switched it back on",
-          "correct": false,
-          "feedback": "Surveyor 3 was inactive: its last contact had been in May 1967. The astronauts brought parts back to Earth for study instead."
-        },
-        {
-          "text": "They left it untouched",
-          "correct": false,
-          "feedback": "They did not. They recovered parts including the soil scoop and the camera system."
-        }
-      ]
-    },
     "story": {
       "whatItIs": "Intrepid carried Pete Conrad and Alan Bean to Oceanus Procellarum, the Ocean of Storms. It landed on 19 November 1969, within about 180 m of the Surveyor 3 lander.",
       "whyLeft": "The descent stage was left on the Moon as the launch platform for the ascent stage, which lifted off on 20 November 1969 and docked with the command module. The ascent stage was then jettisoned and deliberately crashed into the Moon about 60 km from the Apollo 12 seismic station, creating the first recorded artificial moonquake.",
@@ -231,26 +171,6 @@
       "x": 66,
       "z": 58
     },
-    "decision": {
-      "question": "Before sending astronauts, NASA needed to know whether the Moon's surface could support a heavy lander. Surveyor 3 dug trenches and ran bearing tests. What did it find?",
-      "options": [
-        {
-          "text": "The soil behaved like wet sand and was solid enough to support an Apollo Lunar Module",
-          "correct": true,
-          "feedback": "The soil's bearing strength was about 10 psi (98 kPa). Scientists concluded the surface was solid enough to support an Apollo Lunar Module."
-        },
-        {
-          "text": "The surface was loose dust deep enough to swallow a lander",
-          "correct": false,
-          "feedback": "Surveyor 3's tests showed the opposite: the soil behaved like wet sand and could support an Apollo Lunar Module."
-        },
-        {
-          "text": "The surface was bare, hard rock with no soil at all",
-          "correct": false,
-          "feedback": "The lander dug four trenches in soil that behaved like wet sand."
-        }
-      ]
-    },
     "story": {
       "whatItIs": "A robotic lander launched on 17 April 1967 and landed on 20 April 1967. It sent back 6,326 TV pictures and used a surface sampler, which could reach up to 5 feet and dig 7 inches deep, to dig four trenches, run four bearing tests and perform thirteen impact tests.",
       "whyLeft": "Its landing was rough: reflective rocks confused the descent radar and the main engine did not cut off at the right altitude, so it bounced twice before settling. Its last contact was on 4 May 1967, two days after the lunar night began, and it stayed where it landed.",
@@ -270,8 +190,8 @@
     "world": "mars",
     "site": {
       "name": "Mars Pathfinder site: Ares Vallis",
-      "lat": null,
-      "lon": null
+      "lat": 19.47,
+      "lon": -33.25
     },
     "mission": "Mars Pathfinder",
     "year": "1997",
@@ -294,26 +214,6 @@
         }
       }
     ],
-    "decision": {
-      "question": "Mars Pathfinder was a technology demonstration to put an instrumented lander and a rover on Mars. How did the lander reach the ground?",
-      "options": [
-        {
-          "text": "With a parachute and airbags: it bounced about 15 times before it stopped",
-          "correct": true,
-          "feedback": "The lander used a parachute and a system of airbags. It bounced about 15 times and stopped roughly 1 kilometer from its first impact point."
-        },
-        {
-          "text": "It floated down gently on a single balloon",
-          "correct": false,
-          "feedback": "Pathfinder used a parachute and airbags, and it bounced about 15 times after touchdown."
-        },
-        {
-          "text": "It was lowered by a crane from a hovering spacecraft",
-          "correct": false,
-          "feedback": "That did not happen on Pathfinder. It used a parachute and airbags and bounced about 15 times."
-        }
-      ]
-    },
     "story": {
       "whatItIs": "Sojourner was a 10.6 kg (23 lb) rover, the first robotic rover delivered to the Martian surface. It rolled down the ramp of the Pathfinder lander, named the Carl Sagan Memorial Station, late on sol 2 (the night of 5 July 1997).",
       "whyLeft": "Pathfinder landed at Ares Vallis on 4 July 1997 and the mission ended on 27 September 1997 with its final data transmission. NASA's mission page does not give a reason for the end of operations.",
@@ -324,6 +224,10 @@
       {
         "title": "NASA Science: Mars Pathfinder",
         "url": "https://science.nasa.gov/mission/mars-pathfinder/"
+      },
+      {
+        "title": "NASA GISS Mars24: Mars lander coordinates (map position only; Ingenuity uses the Jezero Crater landing site of Perseverance)",
+        "url": "https://www.giss.nasa.gov/tools/mars24/help/landers.html"
       }
     ]
   },
@@ -333,8 +237,13 @@
     "world": "mars",
     "site": {
       "name": "Gusev Crater (Spirit) and Meridiani Planum (Opportunity)",
-      "lat": null,
-      "lon": null
+      "lat": -14.57,
+      "lon": 175.48,
+      "alt": {
+        "name": "Opportunity: Meridiani Planum",
+        "lat": -1.95,
+        "lon": -5.53
+      }
     },
     "mission": "Mars Exploration Rovers",
     "year": "2004–2018",
@@ -357,26 +266,6 @@
         }
       }
     ],
-    "decision": {
-      "question": "Opportunity's last message to Earth came on 10 June 2018. What was happening around it?",
-      "options": [
-        {
-          "text": "A planet-wide dust storm had blanketed its solar-powered location",
-          "correct": true,
-          "feedback": "Opportunity's last communication was on 10 June 2018, during a planet-wide dust storm that covered its solar-powered site. It fell silent."
-        },
-        {
-          "text": "It had driven into a crater it could not climb out of",
-          "correct": false,
-          "feedback": "NASA's page gives a different cause: a planet-wide dust storm blanketed its solar-powered location."
-        },
-        {
-          "text": "Its mission was switched off on purpose to save money",
-          "correct": false,
-          "feedback": "NASA's page records a planet-wide dust storm over its solar-powered site on 10 June 2018, when it last communicated."
-        }
-      ]
-    },
     "story": {
       "whatItIs": "Spirit and Opportunity were twin Mars Exploration Rovers. Spirit landed on 3 January 2004 in Gusev Crater, a possible former lake in a giant impact crater, at the Columbia Memorial Station. Opportunity landed on 24 January 2004 on Meridiani Planum, where mineral deposits suggested a wet past.",
       "whyLeft": "Spirit's mission concluded in 2010. Opportunity's last communication with Earth was on 10 June 2018, when a planet-wide dust storm blanketed its solar-powered location, and it fell silent. NASA's page gives no reason for Spirit's end.",
@@ -391,6 +280,10 @@
       {
         "title": "NASA 3D Resources: Mars Exploration Rover (Opportunity)",
         "url": "https://science.nasa.gov/3d-resources/mars-exploration-rover-opportunity-mer-b/"
+      },
+      {
+        "title": "NASA GISS Mars24: Mars lander coordinates (map position only; Ingenuity uses the Jezero Crater landing site of Perseverance)",
+        "url": "https://www.giss.nasa.gov/tools/mars24/help/landers.html"
       }
     ]
   },
@@ -411,26 +304,6 @@
     "surfacePosition": {
       "x": 58,
       "z": -52
-    },
-    "decision": {
-      "question": "Viking 1's soil experiments produced data that could be read as a weak sign of life. What did the major organic-compound test show?",
-      "options": [
-        {
-          "text": "It was negative",
-          "correct": true,
-          "feedback": "The cumulative data could have been read as a weak indication of life, but the major organic-compound test was negative. The soil also showed an abundance of sulfur."
-        },
-        {
-          "text": "It found large amounts of organic compounds",
-          "correct": false,
-          "feedback": "The major organic-compound test was negative."
-        },
-        {
-          "text": "The test could not be run because the robot arm failed",
-          "correct": false,
-          "feedback": "The arm worked: on 28 July 1976 it collected the first soil samples for the biology lab and the gas chromatograph mass spectrometer. (The seismometer was the instrument that did not work.)"
-        }
-      ]
     },
     "story": {
       "whatItIs": "Viking 1 landed on 20 July 1976 on the western slopes of Chryse Planitia, about 28 km from its planned target. It sent back high-quality color photographs and a 300-degree panorama, and recorded temperatures from about −86 °C before dawn to about −33 °C in the afternoon.",
@@ -467,26 +340,6 @@
       "x": -55,
       "z": 60
     },
-    "decision": {
-      "question": "InSight's robotic arm placed a seismometer and a heat flow probe on the ground. What was the mission trying to study?",
-      "options": [
-        {
-          "text": "The deep interior of Mars",
-          "correct": true,
-          "feedback": "InSight studied Mars' deep interior, with goals centered on seismic investigations, geodesy and heat transport."
-        },
-        {
-          "text": "Only the surface weather",
-          "correct": false,
-          "feedback": "Its sensors did record wind vibrations, but the mission's goal was Mars' deep interior: seismic investigations, geodesy and heat transport."
-        },
-        {
-          "text": "Where to land the first astronauts",
-          "correct": false,
-          "feedback": "InSight was a science mission about the planet's deep interior."
-        }
-      ]
-    },
     "story": {
       "whatItIs": "InSight launched on 5 May 2018 and landed on 26 November 2018 on the western side of Elysium Planitia. It carried a seismometer and a heat flow probe, which its robotic arm placed on the surface.",
       "whyLeft": "NASA lists the mission as ended on 15 December 2022. The challenge description says the lander eventually lost power; the mission page does not spell out a cause.",
@@ -510,8 +363,8 @@
     "world": "mars",
     "site": {
       "name": "Ingenuity site: Jezero Crater",
-      "lat": null,
-      "lon": null
+      "lat": 18.44,
+      "lon": 77.45
     },
     "mission": "Mars 2020 Perseverance (Ingenuity)",
     "year": "2021–2024",
@@ -521,26 +374,6 @@
     "surfacePosition": {
       "x": -52,
       "z": -62
-    },
-    "decision": {
-      "question": "On 19 April 2021, Ingenuity flew over Jezero Crater. What made that flight special?",
-      "options": [
-        {
-          "text": "It was the first powered flight on another planet",
-          "correct": true,
-          "feedback": "NASA describes it as the first powered flight on another planet. Ingenuity went on to fly 72 times."
-        },
-        {
-          "text": "It was the first time a rover had flown back to Earth",
-          "correct": false,
-          "feedback": "Nothing returned from Mars on that flight. It was the first powered flight on another planet."
-        },
-        {
-          "text": "It was the first flight with astronauts on board",
-          "correct": false,
-          "feedback": "Ingenuity was an uncrewed helicopter, and its first flight was the first powered flight on another planet."
-        }
-      ]
     },
     "story": {
       "whatItIs": "Ingenuity was a small helicopter that flew at Jezero Crater, Mars. It made its first flight on 19 April 2021 and flew 72 times.",
@@ -556,6 +389,10 @@
       {
         "title": "NASA 3D Resources: Ingenuity Mars Helicopter",
         "url": "https://science.nasa.gov/3d-resources/ingenuity-mars-helicopter/"
+      },
+      {
+        "title": "NASA GISS Mars24: Mars lander coordinates (map position only; Ingenuity uses the Jezero Crater landing site of Perseverance)",
+        "url": "https://www.giss.nasa.gov/tools/mars24/help/landers.html"
       }
     ]
   }

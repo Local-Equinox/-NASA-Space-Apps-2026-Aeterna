@@ -18,6 +18,7 @@ export default function TopBar() {
           <button className="button secondary" aria-pressed={view.constellations} onClick={() => toggle('constellations')}>Stars</button>
         </>
       )}
+      {scene === 'surface' && <button className="button secondary" onClick={() => setOverlay('map')}>Map (M)</button>}
       <button className="button secondary" onClick={() => setOverlay('collection')}>Collection</button>
       <button className="button secondary" onClick={() => setOverlay('help')} aria-label="Controls help">?</button>
       <button className="button secondary" aria-pressed={muted} onClick={() => { setMuted(!muted); setM(!muted) }}>

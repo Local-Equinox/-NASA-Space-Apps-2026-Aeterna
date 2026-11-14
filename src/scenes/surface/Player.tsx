@@ -95,6 +95,8 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
   }, [gl])
 
   const tmp = useMemo(() => ({ wish: new Vector3(), fwd: new Vector3(), right: new Vector3(), head: new Vector3() }), [])
+  // Smoothed camera target and a short 'coyote' timer so bumpy ground never flickers the pose or the camera.
+  const smooth = useRef({ head: new Vector3(), ready: false, air: 0 })
 
   useFrame((_, rawDt) => {
     const rb = body.current
@@ -131,7 +133,12 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
     let vx = vel.x + dx * k
     let vz = vel.z + dz * k
     let vy = vel.y
-    if (grounded && !locked.current && (keys.current.has('Space') || touch.jump)) vy = JUMP_SPEED
+    const jumping = grounded && !locked.current && (keys.current.has('Space') || touch.jump)
+    if (jumping) vy = JUMP_SPEED
+    else if (grounded && vel.y < 1) {
+      // Glue to the ground: follow the terrain height instead of bouncing off every bump
+      vy = MathUtils.clamp((ground + 0.9 - pos.y) * 14, -6, 6)
+    }
 
     // Stay inside the patch
     const r = Math.hypot(pos.x, pos.z)
@@ -146,10 +153,17 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
       const diff = Math.atan2(Math.sin(state.current.facing - visual.current.rotation.y), Math.cos(state.current.facing - visual.current.rotation.y))
       visual.current.rotation.y += diff * (1 - Math.exp(-12 * dt))
     }
-    model.userData.animate(dt, groundSpeed, !grounded)
+    const sm = smooth.current
+    sm.air = grounded ? 0 : sm.air + dt
+    model.userData.animate(dt, groundSpeed, sm.air > 0.18)
 
     // Third-person camera
     head.set(pos.x, pos.y + 0.5, pos.z)
+    if (!sm.ready) { sm.head.copy(head); sm.ready = true }
+    // Horizontal follows tightly; vertical is damped so steps and jumps do not shake the view
+    sm.head.x = head.x; sm.head.z = head.z
+    sm.head.y += (head.y - sm.head.y) * (1 - Math.exp(-10 * dt))
+    head.copy(sm.head)
     camera.position.set(
       head.x + Math.sin(yaw) * Math.cos(pitch) * dist,
       Math.max(terrain.height(head.x + Math.sin(yaw) * Math.cos(pitch) * dist, head.z + Math.cos(yaw) * Math.cos(pitch) * dist) + 0.5, head.y + Math.sin(pitch) * dist),
