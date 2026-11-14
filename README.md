@@ -73,3 +73,7 @@ After each minigame the game plays `public/assets/cutscenes/<artifact id>.mp4`, 
 ## Settings
 
 The gear button opens Settings: Controls, and switches for Orbits, Names, Stars and Sound.
+
+## Intro page
+
+The title screen is a scrolling story in seven sections (`src/ui/intro/`). Its images go in `public/assets/intro/` (file names in that folder's README); until a file exists, a labelled placeholder is shown. Fonts are self-hosted in `public/fonts/`; change `--font-display` in `src/ui/intro/intro.css` to swap the display font.
