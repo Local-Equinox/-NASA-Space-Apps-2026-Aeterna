@@ -239,63 +239,76 @@
     "cutscene": "assets/cutscenes/sojourner.mp4"
   },
   {
-    "id": "spirit-and-opportunity",
-    "name": "Spirit and Opportunity",
+    "id": "spirit",
+    "name": "Spirit rover",
     "world": "mars",
     "site": {
-      "name": "Gusev Crater (Spirit) and Meridiani Planum (Opportunity)",
-      "lat": -14.57,
-      "lon": 175.48,
-      "alt": {
-        "name": "Opportunity: Meridiani Planum",
-        "lat": -1.95,
-        "lon": -5.53
-      }
+      "name": "Spirit site: Gusev Crater",
+      "lat": -14.5692,
+      "lon": 175.4729
     },
     "mission": "Mars Exploration Rovers",
     "year": "2004–2018",
     "model": "/assets/models/mer-opportunity.glb",
     "modelSize": 2.3,
-    "modelCredit": "NASA 3D Resources, Mars Exploration Rover (Opportunity, MER-B); used for both rovers",
+    "modelCredit": "NASA 3D Resources, Mars Exploration Rover (Opportunity, MER-B); used here for its twin, Spirit",
     "surfacePosition": {
       "x": -62,
       "z": -40
     },
-    "pairedModels": [
-      {
-        "label": "Opportunity",
-        "model": "/assets/models/mer-opportunity.glb",
-        "modelSize": 2.3,
-        "modelCredit": "NASA 3D Resources, Mars Exploration Rover (Opportunity, MER-B)",
-        "surfacePosition": {
-          "x": -88,
-          "z": -58
-        }
-      }
-    ],
     "story": {
-      "whatItIs": "Spirit and Opportunity were twin Mars Exploration Rovers. Spirit landed on 3 January 2004 in Gusev Crater, a possible former lake in a giant impact crater, at the Columbia Memorial Station. Opportunity landed on 24 January 2004 on Meridiani Planum, where mineral deposits suggested a wet past.",
-      "whyLeft": "Spirit's mission concluded in 2010. Opportunity's last communication with Earth was on 10 June 2018, when a planet-wide dust storm blanketed its solar-powered location, and it fell silent. NASA's page gives no reason for Spirit's end.",
-      "science": "The rovers studied the rock record and confirmed that water was long-standing on Mars' surface in ancient times. Spirit drove 4.8 miles (7.7 km) and Opportunity drove 28.06 miles (45.16 km).",
-      "nowStatus": "Neither rover is operating. NASA's page gives no coordinates for either site."
+      "whatItIs": "Spirit was one of NASA's twin Mars Exploration Rovers, with Opportunity. It launched on 10 June 2003 and landed on 3 January 2004 in Gusev Crater, at 14.5692° S, 175.4729° E, about 13.4 km from its planned target. The site was named Columbia Memorial Station.",
+      "whyLeft": "On 1 May 2009 Spirit became stuck in soft soil beside the western edge of a feature called Home Plate, and on 28 November 2009 its right rear wheel stopped working. Contact was lost after 22 March 2010. More than 1,300 commands were sent without success; NASA says the most probable cause was excessive cold that made its survival heaters ineffective. NASA ended recovery efforts and declared the mission complete on 25 May 2011.",
+      "science": "Spirit found varied bedrock in the Columbia Hills, with some rocks altered by water, filmed dust devils in motion, and found evidence of an ancient explosion at Home Plate. In 2007 it unearthed nearly pure silica, which NASA calls strong evidence that ancient Mars was much wetter. It drove 4.8 miles (7.73 km) and worked for 6 years, 2 months and 19 days, more than 25 times its intended lifetime.",
+      "nowStatus": "Spirit is no longer operating. It is in Gusev Crater, where it became stuck beside Home Plate."
     },
     "sources": [
       {
-        "title": "NASA Science: Mars Exploration Rovers, Spirit and Opportunity",
-        "url": "https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/"
+        "title": "NASA Science: Mars Exploration Rover Spirit",
+        "url": "https://science.nasa.gov/mission/mer-spirit/"
       },
       {
         "title": "NASA 3D Resources: Mars Exploration Rover (Opportunity)",
         "url": "https://science.nasa.gov/3d-resources/mars-exploration-rover-opportunity-mer-b/"
-      },
-      {
-        "title": "NASA GISS Mars24: Mars lander coordinates (map position only; Ingenuity uses the Jezero Crater landing site of Perseverance)",
-        "url": "https://www.giss.nasa.gov/tools/mars24/help/landers.html"
       }
     ],
-    "tagLabel": "Spirit",
-    "mapLabel": "Spirit and Opportunity",
-    "cutscene": "assets/cutscenes/spirit-and-opportunity.mp4"
+    "cutscene": "assets/cutscenes/spirit.mp4"
+  },
+  {
+    "id": "opportunity",
+    "name": "Opportunity rover",
+    "world": "mars",
+    "site": {
+      "name": "Opportunity site: Meridiani Planum",
+      "lat": -1.9483,
+      "lon": -5.52583
+    },
+    "mission": "Mars Exploration Rovers",
+    "year": "2004–2018",
+    "model": "/assets/models/mer-opportunity.glb",
+    "modelSize": 2.3,
+    "modelCredit": "NASA 3D Resources, Mars Exploration Rover (Opportunity, MER-B)",
+    "surfacePosition": {
+      "x": 58,
+      "z": 44
+    },
+    "story": {
+      "whatItIs": "Opportunity was one of NASA's twin Mars Exploration Rovers, with Spirit. It launched on 7 July 2003 and landed in January 2004 on Meridiani Planum, at 1.9483° S, 354.47417° E, about 14.9 km from its intended target. It came down inside Eagle crater. (NASA's page gives both 24 and 25 January for the landing.)",
+      "whyLeft": "A severe Mars-wide dust storm blanketed the rover's location in June 2018, cutting the power available to its solar panels. Its last signal was heard on 10 June 2018, and NASA declared the end of the mission on 13 February 2019.",
+      "science": "Opportunity found evidence that Mars may once have been able to sustain microbial life. Near its heat shield it found an iron-nickel meteorite, and it explored Victoria and Endeavour craters and Marathon Valley. It drove 28.06 miles (45.16 km) in total, passing the marathon distance on 25 March 2015, which NASA says made it the first human enterprise to do so on another world.",
+      "nowStatus": "Opportunity is no longer operating. NASA says its final resting spot is Perseverance Valley."
+    },
+    "sources": [
+      {
+        "title": "NASA Science: Mars Exploration Rover Opportunity",
+        "url": "https://science.nasa.gov/mission/mer-opportunity/"
+      },
+      {
+        "title": "NASA 3D Resources: Mars Exploration Rover (Opportunity)",
+        "url": "https://science.nasa.gov/3d-resources/mars-exploration-rover-opportunity-mer-b/"
+      }
+    ],
+    "cutscene": "assets/cutscenes/opportunity.mp4"
   },
   {
     "id": "viking-1",
@@ -332,6 +345,42 @@
       }
     ],
     "cutscene": "assets/cutscenes/viking-1.mp4"
+  },
+  {
+    "id": "viking-2",
+    "name": "Viking 2 lander",
+    "world": "mars",
+    "site": {
+      "name": "Viking 2 site: Utopia Planitia",
+      "lat": 47.968,
+      "lon": 134.29
+    },
+    "mission": "Viking 2",
+    "year": "1976",
+    "model": "/assets/models/viking-lander.glb",
+    "modelSize": 3.0,
+    "modelCredit": "NASA 3D Resources, Viking Lander",
+    "surfacePosition": {
+      "x": -56,
+      "z": 52
+    },
+    "story": {
+      "whatItIs": "Viking 2 was a combined orbiter and lander mission to Mars, launched on 9 September 1975 from Cape Canaveral, Florida. Its lander touched down on 3 September 1976 in Utopia Planitia, about 6,460 km from the Viking 1 landing site, at 47.968° N, 225.71° W.",
+      "whyLeft": "The lander transmitted data until 12 April 1980. NASA's page does not say what ended its transmissions. The Viking 2 orbiter's operations had ended earlier, on 24 July 1978, after a series of leaks.",
+      "science": "Its soil biology experiments, which began on 12 September 1976, gave results similar to Viking 1's: inconclusive on whether life exists or ever existed on Mars. Together the two Viking orbiters returned 52,663 images and mapped about 97% of the surface, and the two landers returned about 4,500 photos of their landing sites.",
+      "nowStatus": "The lander is no longer operating, in Utopia Planitia. In July 2001 it was renamed the Gerald Soffen Memorial Station, after the Viking project scientist."
+    },
+    "sources": [
+      {
+        "title": "NASA Science: Viking 2",
+        "url": "https://science.nasa.gov/mission/viking-2/"
+      },
+      {
+        "title": "NASA 3D Resources: Viking Lander",
+        "url": "https://science.nasa.gov/3d-resources/viking-lander/"
+      }
+    ],
+    "cutscene": "assets/cutscenes/viking-2.mp4"
   },
   {
     "id": "insight",
@@ -409,6 +458,39 @@
     ],
     "nameplate": false,
     "cutscene": "assets/cutscenes/ingenuity.mp4"
+  },
+  {
+    "id": "phoenix",
+    "name": "Phoenix lander",
+    "world": "mars",
+    "site": {
+      "name": "Phoenix site: Green Valley, Vastitas Borealis",
+      "lat": 68.22,
+      "lon": -125.75
+    },
+    "mission": "Mars Phoenix",
+    "year": "2008",
+    "model": "procedural:phoenix",
+    "modelSize": 5.5,
+    "modelCredit": "Simplified stand-in built for this game; NASA 3D Resources has no downloadable Phoenix model in the set we used.",
+    "surfacePosition": {
+      "x": 54,
+      "z": -58
+    },
+    "story": {
+      "whatItIs": "Phoenix was a NASA lander whose objective was to search for evidence of past or present microbial life. It launched on 4 August 2007 from Cape Canaveral, Florida, and landed on 25 May 2008 in the Green Valley of Vastitas Borealis, an arctic plain on Mars, at 68.22° N, 234.25° E.",
+      "whyLeft": "The mission ended on 2 November 2008. NASA's mission page does not state the cause.",
+      "science": "Phoenix verified water ice in the Martian subsurface: on 31 July 2008 NASA announced there is water on Mars, based on a sample analysed by the lander's TEGA instrument. It also found perchlorate in the soil, announced on 5 August 2008, a finding NASA described as neither confirming nor refuting the possibility of life.",
+      "nowStatus": "Phoenix is no longer operating. It remains at its landing site in Vastitas Borealis."
+    },
+    "sources": [
+      {
+        "title": "NASA Science: Mars Phoenix",
+        "url": "https://science.nasa.gov/mission/mars-phoenix/"
+      }
+    ],
+    "nameplate": false,
+    "cutscene": "assets/cutscenes/phoenix.mp4"
   },
   {
     "id": "dawn",
@@ -520,6 +602,39 @@
       }
     ],
     "cutscene": "assets/cutscenes/pioneer-10.mp4"
+  },
+  {
+    "id": "pioneer-11",
+    "name": "Pioneer 11 spacecraft",
+    "world": "space",
+    "body": "pioneer-11",
+    "site": {
+      "name": "Heading out of the Solar System, toward the star Lambda Aquilae",
+      "lat": null,
+      "lon": null
+    },
+    "mission": "Pioneer 11",
+    "year": "1973–1995",
+    "model": "",
+    "modelCredit": "NASA 3D Resources, Pioneer 10; used here for its sister craft, Pioneer 11 (shown larger than life so you can see it)",
+    "surfacePosition": {
+      "x": 0,
+      "z": 0
+    },
+    "whereabouts": "Heading out of the Solar System toward the centre of the galaxy, in the general direction of Sagittarius. NASA says it will pass near the star Lambda Aquilae in almost four million years. NASA's latest figure is about 97.59 AU from Earth on 5 November 2017 (14.599 billion km); the game places it at that distance, toward that star, and does not extrapolate to today.",
+    "story": {
+      "whatItIs": "Pioneer 11 was the sister craft to Pioneer 10, launched on 6 April 1973 from Cape Canaveral, Florida. It flew past Jupiter on 3 December 1974, about 42,500 km above the cloud tops, and on 1 September 1979 it became the first spacecraft to study Saturn up close and the first human-made object to fly past it.",
+      "whyLeft": "NASA's page says the mission ended in 1995. NASA Ames made last contact on 30 September 1995, when the spacecraft was 44.1 AU from Earth. A few minutes of good engineering data were received on 24 November 1995, and contact was lost again once Earth moved out of view of the spacecraft's antenna.",
+      "science": "At Jupiter it took the first pictures of the planet's polar regions and about 200 images of its moons. At Saturn it took 440 images, found a new ring (the F ring) and a new moon about 200 km across, and gave the first conclusive evidence of Saturn's magnetic field. Its data suggested Saturn is primarily liquid hydrogen.",
+      "nowStatus": "Still travelling outward. NASA's page does not give its current position, so the game shows it at the 2017 distance NASA lists, in the direction of Lambda Aquilae."
+    },
+    "sources": [
+      {
+        "title": "NASA Science: Pioneer 11 mission page",
+        "url": "https://science.nasa.gov/mission/pioneer-11/"
+      }
+    ],
+    "cutscene": "assets/cutscenes/pioneer-11.mp4"
   },
   {
     "id": "kepler",

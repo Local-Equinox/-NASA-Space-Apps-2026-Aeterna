@@ -9,7 +9,7 @@ export const BODY_DATA: Record<string, BodyData> = Object.fromEntries(BODIES.map
 export type LandId = 'earth' | 'moon' | 'mars'
 /** Destinations the ship can select, warp to and orbit. */
 /** Equipment out in space: each is its own body in the solar system view. */
-export const PROBE_IDS = ['dawn', 'near-shoemaker', 'pioneer-10', 'kepler']
+export const PROBE_IDS = ['dawn', 'near-shoemaker', 'pioneer-10', 'pioneer-11', 'kepler']
 export const DESTINATIONS = ['earth', 'moon', 'mars', ...PROBE_IDS]
 export const isDestination = (id: string) => DESTINATIONS.includes(id)
 /** Only the Moon and Mars can be landed on. */

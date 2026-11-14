@@ -111,6 +111,30 @@ function sojourner() {
   return g
 }
 
+/** Phoenix: a round deck on three legs with two round solar arrays, a mast and a digging arm. About 5.5 m across. */
+function phoenix() {
+  const g = new Group()
+  add(g, new CylinderGeometry(0.75, 0.75, 0.3, 10), foil, 0, 1.0, 0)
+  add(g, new CylinderGeometry(0.78, 0.78, 0.04, 10), white, 0, 1.17, 0)
+  for (let i = 0; i < 3; i++) {
+    const a = (i / 3) * Math.PI * 2 + 0.5
+    const foot = new Vector3(Math.cos(a) * 1.15, 0.05, Math.sin(a) * 1.15)
+    strut(g, new Vector3(Math.cos(a) * 0.6, 0.9, Math.sin(a) * 0.6), foot, 0.04, metal)
+    add(g, new CylinderGeometry(0.16, 0.16, 0.05, 12), metal, foot.x, 0.03, foot.z)
+  }
+  for (const side of [-1, 1]) {
+    add(g, new CylinderGeometry(0.9, 0.9, 0.03, 10), panel, side * 1.75, 1.12, 0)
+    strut(g, new Vector3(side * 0.75, 1.1, 0), new Vector3(side * 0.9, 1.1, 0), 0.03, metal)
+  }
+  strut(g, new Vector3(0.3, 1.15, -0.3), new Vector3(0.3, 2.1, -0.3), 0.03, metal)
+  add(g, new BoxGeometry(0.22, 0.12, 0.12), dark, 0.3, 2.14, -0.3)
+  strut(g, new Vector3(-0.2, 1.2, 0.5), new Vector3(-0.3, 1.7, 1.2), 0.035, metal)
+  strut(g, new Vector3(-0.3, 1.7, 1.2), new Vector3(-0.35, 0.25, 1.9), 0.03, metal)
+  add(g, new BoxGeometry(0.14, 0.1, 0.18), dark, -0.35, 0.2, 1.92)
+  add(g, new BoxGeometry(0.35, 0.2, 0.3), white, 0.25, 1.28, 0.35)
+  return g
+}
+
 export const PROPS: Record<string, () => Group> = {
-  surveyor, lrv, alsep, easep: () => alsep(true), pathfinder, sojourner,
+  phoenix, surveyor, lrv, alsep, easep: () => alsep(true), pathfinder, sojourner,
 }

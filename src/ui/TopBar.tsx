@@ -36,7 +36,7 @@ export default function TopBar() {
       {open && (
         <div className="settings" role="group" aria-label="Settings">
           <h2>Settings</h2>
-          <button className="button secondary" onClick={() => { setOpen(false); setOverlay('help') }}>? Controls</button>
+          <button className="button secondary" onClick={() => { setOpen(false); setOverlay('help') }}>Controls</button>
           <Switch label="Orbits" on={view.orbits} onChange={(v) => set('orbits', v)} />
           <Switch label="Names" on={view.labels} onChange={(v) => set('labels', v)} />
           <Switch label="Stars" on={view.constellations} onChange={(v) => set('constellations', v)} />

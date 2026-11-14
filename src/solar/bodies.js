@@ -351,6 +351,13 @@ const ALL_BODIES = [
     blurb: 'NASA’s Pioneer 10, heading generally toward the star Aldebaran in Taurus. Its last signal came in January 2003.',
   },
   {
+    id: 'pioneer-11', name: 'Pioneer 11', kind: 'probe', probe: true, model: 'assets/models/pioneer-10.glb', modelUnits: 0.16, type: 'Spacecraft leaving the Solar System', color: '#9fd0ff',
+    mass: [1, 3], radiusKm: 25, shape: [1, 0.35, 1], gravity: 0, orbitDays: null,
+    // Direction: toward Lambda Aquilae (RA 286.56°, Dec −4.88°), the star NASA says it will pass. Distance: 97.59 AU, NASA's figure for 5 Nov 2017.
+    fixedAU: { ra: 286.56, dec: -4.88, au: 97.59 },
+    blurb: 'NASA’s Pioneer 11, sister craft to Pioneer 10 and the first spacecraft to fly past Saturn. Last contact was in 1995.',
+  },
+  {
     id: 'kepler', name: 'Kepler', kind: 'probe', probe: true, model: 'assets/models/kepler.glb', modelUnits: 0.16, type: 'Spacecraft in solar orbit', color: '#ffb36b',
     mass: [1, 3], radiusKm: 25, shape: [1, 0.35, 1], gravity: 0, orbitDays: 371,
     // Earth-trailing orbit, 371-day period: the design figure in NASA's pre-launch planning, lagging Earth since the 2009 launch (day 3352.5 after J2000).
@@ -365,5 +372,5 @@ const ALL_BODIES = [
 // This game only needs the inner system, the giants and a handful of famous moons.
 const KEEP = new Set(['sun', 'mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune',
   'moon', 'phobos', 'deimos', 'io', 'europa', 'ganymede', 'callisto', 'titan',
-  'ceres', 'eros', 'dawn', 'near-shoemaker', 'pioneer-10', 'kepler']);
+  'ceres', 'eros', 'dawn', 'near-shoemaker', 'pioneer-10', 'pioneer-11', 'kepler']);
 export const BODIES = ALL_BODIES.filter((b) => KEEP.has(b.id));

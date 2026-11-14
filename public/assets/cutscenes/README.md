@@ -11,13 +11,17 @@ A missing file is skipped: the game goes straight to the story (while developing
 | Apollo 12 Lunar Module Intrepid and ALSEP | `apollo-12-intrepid.mp4` |
 | Surveyor 3 | `surveyor-3.mp4` |
 | Sojourner rover and Pathfinder lander | `sojourner.mp4` |
-| Spirit and Opportunity | `spirit-and-opportunity.mp4` |
+| Spirit rover | `spirit.mp4` |
+| Opportunity rover | `opportunity.mp4` |
 | Viking 1 lander | `viking-1.mp4` |
+| Viking 2 lander | `viking-2.mp4` |
 | InSight lander | `insight.mp4` |
 | Ingenuity helicopter | `ingenuity.mp4` |
+| Phoenix lander | `phoenix.mp4` |
 | Dawn | `dawn.mp4` |
 | NEAR Shoemaker | `near-shoemaker.mp4` |
 | Pioneer 10 | `pioneer-10.mp4` |
+| Pioneer 11 | `pioneer-11.mp4` |
 | Kepler | `kepler.mp4` |
 
 The path for each one is the `cutscene` field in `src/data/artifacts.json`. Keep files small (a few MB) and credit the footage in `CREDITS.md`. No NASA logos or insignia.
