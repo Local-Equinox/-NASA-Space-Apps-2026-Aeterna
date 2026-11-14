@@ -3,14 +3,18 @@
     "id": "apollo-lunar-module-descent-stages",
     "name": "Apollo Lunar Module descent stages",
     "world": "moon",
+    "site": {
+      "name": "DRAFT – verify: Apollo 11 site",
+      "lat": null,
+      "lon": null
+    },
     "mission": "TODO",
     "year": "TODO",
-    "siteImage": "/assets/placeholder.svg",
-    "siteImageCredit": "TODO",
-    "hotspot": {
-      "x": 0.5,
-      "y": 0.5,
-      "radius": 0.1
+    "model": "/assets/models/apollo-lunar-module-descent-stages.glb",
+    "modelCredit": "TODO",
+    "surfacePosition": {
+      "x": -45,
+      "z": 30
     },
     "decision": {
       "question": "TODO",
@@ -44,14 +48,18 @@
     "id": "lunar-roving-vehicles",
     "name": "Lunar Roving Vehicles (LRVs)",
     "world": "moon",
+    "site": {
+      "name": "Apollo 15 site: Hadley–Apennine",
+      "lat": null,
+      "lon": null
+    },
     "mission": "Apollo 15, 16 and 17",
     "year": "1971–1972",
-    "siteImage": "/assets/placeholder.svg",
-    "siteImageCredit": "TODO",
-    "hotspot": {
-      "x": 0.5,
-      "y": 0.5,
-      "radius": 0.1
+    "model": "/assets/models/lunar-roving-vehicles.glb",
+    "modelCredit": "TODO",
+    "surfacePosition": {
+      "x": 40,
+      "z": -65
     },
     "decision": {
       "question": "TODO",
@@ -85,14 +93,18 @@
     "id": "alsep-science-packages",
     "name": "ALSEP science packages",
     "world": "moon",
+    "site": {
+      "name": "DRAFT – verify: Apollo 12 site",
+      "lat": null,
+      "lon": null
+    },
     "mission": "TODO",
     "year": "TODO",
-    "siteImage": "/assets/placeholder.svg",
-    "siteImageCredit": "TODO",
-    "hotspot": {
-      "x": 0.5,
-      "y": 0.5,
-      "radius": 0.1
+    "model": "/assets/models/alsep-science-packages.glb",
+    "modelCredit": "TODO",
+    "surfacePosition": {
+      "x": 60,
+      "z": 50
     },
     "decision": {
       "question": "TODO",
@@ -126,14 +138,18 @@
     "id": "surveyor-landers",
     "name": "Surveyor landers",
     "world": "moon",
+    "site": {
+      "name": "TODO",
+      "lat": null,
+      "lon": null
+    },
     "mission": "TODO",
-    "year": "1960s (DRAFT – verify)",
-    "siteImage": "/assets/placeholder.svg",
-    "siteImageCredit": "TODO",
-    "hotspot": {
-      "x": 0.5,
-      "y": 0.5,
-      "radius": 0.1
+    "year": "1960s",
+    "model": "/assets/models/surveyor-landers.glb",
+    "modelCredit": "TODO",
+    "surfacePosition": {
+      "x": -70,
+      "z": -40
     },
     "decision": {
       "question": "TODO",
@@ -167,14 +183,18 @@
     "id": "sojourner",
     "name": "Sojourner",
     "world": "mars",
+    "site": {
+      "name": "DRAFT – verify: Mars Pathfinder site",
+      "lat": null,
+      "lon": null
+    },
     "mission": "Mars Pathfinder",
     "year": "1997",
-    "siteImage": "/assets/placeholder.svg",
-    "siteImageCredit": "TODO",
-    "hotspot": {
-      "x": 0.5,
-      "y": 0.5,
-      "radius": 0.1
+    "model": "/assets/models/sojourner.glb",
+    "modelCredit": "TODO",
+    "surfacePosition": {
+      "x": 35,
+      "z": 55
     },
     "decision": {
       "question": "TODO",
@@ -208,14 +228,18 @@
     "id": "spirit-and-opportunity",
     "name": "Spirit and Opportunity",
     "world": "mars",
+    "site": {
+      "name": "TODO",
+      "lat": null,
+      "lon": null
+    },
     "mission": "TODO",
     "year": "TODO",
-    "siteImage": "/assets/placeholder.svg",
-    "siteImageCredit": "TODO",
-    "hotspot": {
-      "x": 0.5,
-      "y": 0.5,
-      "radius": 0.1
+    "model": "/assets/models/spirit-and-opportunity.glb",
+    "modelCredit": "TODO",
+    "surfacePosition": {
+      "x": -50,
+      "z": 45
     },
     "decision": {
       "question": "TODO",
@@ -249,14 +273,18 @@
     "id": "viking-landers",
     "name": "Viking 1 and 2 landers",
     "world": "mars",
+    "site": {
+      "name": "TODO",
+      "lat": null,
+      "lon": null
+    },
     "mission": "Viking 1 and 2",
     "year": "1976",
-    "siteImage": "/assets/placeholder.svg",
-    "siteImageCredit": "TODO",
-    "hotspot": {
-      "x": 0.5,
-      "y": 0.5,
-      "radius": 0.1
+    "model": "/assets/models/viking-landers.glb",
+    "modelCredit": "TODO",
+    "surfacePosition": {
+      "x": 55,
+      "z": -35
     },
     "decision": {
       "question": "TODO",
@@ -290,14 +318,18 @@
     "id": "phoenix-and-insight",
     "name": "Phoenix and InSight landers",
     "world": "mars",
+    "site": {
+      "name": "TODO",
+      "lat": null,
+      "lon": null
+    },
     "mission": "TODO",
     "year": "TODO",
-    "siteImage": "/assets/placeholder.svg",
-    "siteImageCredit": "TODO",
-    "hotspot": {
-      "x": 0.5,
-      "y": 0.5,
-      "radius": 0.1
+    "model": "/assets/models/phoenix-and-insight.glb",
+    "modelCredit": "TODO",
+    "surfacePosition": {
+      "x": -40,
+      "z": -60
     },
     "decision": {
       "question": "TODO",
@@ -331,14 +363,18 @@
     "id": "ingenuity-helicopter",
     "name": "Ingenuity helicopter",
     "world": "mars",
+    "site": {
+      "name": "TODO",
+      "lat": null,
+      "lon": null
+    },
     "mission": "TODO",
     "year": "TODO",
-    "siteImage": "/assets/placeholder.svg",
-    "siteImageCredit": "TODO",
-    "hotspot": {
-      "x": 0.5,
-      "y": 0.5,
-      "radius": 0.1
+    "model": "/assets/models/ingenuity-helicopter.glb",
+    "modelCredit": "TODO",
+    "surfacePosition": {
+      "x": 70,
+      "z": 20
     },
     "decision": {
       "question": "TODO",

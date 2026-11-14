@@ -1,25 +1,35 @@
-import { usePath } from './lib/router'
-import { artifacts } from './data/artifacts'
-import Layout from './components/Layout'
-import Home from './pages/Home'
-import SiteMap from './pages/SiteMap'
-import ArtifactFlow from './pages/ArtifactFlow'
-import Collection from './pages/Collection'
-import About from './pages/About'
-import NotFound from './pages/NotFound'
+import { lazy, Suspense } from 'react'
+import { GameProvider, useGame } from './state/game'
+import TitleScreen from './ui/TitleScreen'
+import Collection from './ui/Collection'
+import About from './ui/About'
+import DevControls from './ui/DevControls'
+
+const SpaceScene = lazy(() => import('./scenes/SpaceScene'))
+const SurfaceScene = lazy(() => import('./scenes/SurfaceScene'))
+
+function Game() {
+  const { scene, overlay, fading } = useGame()
+  return (
+    <div className="stage">
+      {/* Only one 3D scene is mounted at a time */}
+      <Suspense fallback={<p className="hud">Loading…</p>}>
+        {scene === 'space' && <SpaceScene />}
+        {scene === 'surface' && <SurfaceScene />}
+      </Suspense>
+      {scene === 'title' && <TitleScreen />}
+      <DevControls />
+      {overlay === 'collection' && <Collection />}
+      {overlay === 'about' && <About />}
+      <div className={`fade ${fading ? 'on' : ''}`} aria-hidden="true" />
+    </div>
+  )
+}
 
 export default function App() {
-  const path = usePath()
-  const parts = path.split('/').filter(Boolean)
-
-  let page = <NotFound />
-  if (parts.length === 0) page = <Home />
-  else if (parts[0] === 'world' && (parts[1] === 'moon' || parts[1] === 'mars')) page = <SiteMap world={parts[1]} />
-  else if (parts[0] === 'artifact' && parts[1]) {
-    const artifact = artifacts.find((a) => a.id === parts[1])
-    if (artifact) page = <ArtifactFlow artifact={artifact} />
-  } else if (parts[0] === 'collection') page = <Collection />
-  else if (parts[0] === 'about') page = <About />
-
-  return <Layout>{page}</Layout>
+  return (
+    <GameProvider>
+      <Game />
+    </GameProvider>
+  )
 }

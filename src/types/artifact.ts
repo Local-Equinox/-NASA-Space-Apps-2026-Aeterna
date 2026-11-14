@@ -1,12 +1,5 @@
 export type World = 'moon' | 'mars'
 
-/** Fractions (0–1) of the site image's width and height. */
-export interface Hotspot {
-  x: number
-  y: number
-  radius: number
-}
-
 export interface DecisionOption {
   text: string
   correct: boolean
@@ -17,11 +10,19 @@ export interface Artifact {
   id: string
   name: string
   world: World
+  site: {
+    name: string
+    /** Real landing-site coordinates. Leave null until sourced from NASA. */
+    lat: number | null
+    lon: number | null
+  }
   mission: string
   year: string
-  siteImage: string
-  siteImageCredit: string
-  hotspot: Hotspot
+  /** Path under /assets/models/. Missing file = labelled placeholder box. */
+  model: string
+  modelCredit: string
+  /** Metres from the spawn point on that site's terrain patch. */
+  surfacePosition: { x: number; z: number }
   decision: {
     question: string
     options: DecisionOption[]
