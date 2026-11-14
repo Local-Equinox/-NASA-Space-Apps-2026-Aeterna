@@ -71,7 +71,10 @@ h3 { margin: 1rem 0 .25rem; font-size: 1rem; color: var(--accent); }
 .return-button { position: absolute; left: 1rem; bottom: 1rem; z-index: 10; }
 .blurb { margin: 0 0 1rem; }
 .prompt { background: linear-gradient(var(--bg), var(--bg)) padding-box, linear-gradient(90deg, #ff7aa2, #f8a45c, #f6d365, #8fd98a, #5fd3c8) border-box; border: 3px solid transparent; font-family: 'Bungee', system-ui, sans-serif; text-transform: uppercase; letter-spacing: .02em; padding: 0 1.75rem; min-height: 52px; }
-@media (max-width: 900px) { .hud-center { top: 11rem; max-width: calc(100% - 2rem); font-size: .8rem; } }
+/* Site label and gravity stay at the top. On medium widths they sit in the gap between the mini-map and the buttons;
+   only on phone widths, where there is no gap, do they drop below the mini-map. */
+@media (max-width: 1100px) { .hud-center { left: calc(50% - 65px); max-width: calc(100% - 490px); font-size: .8rem; } }
+@media (max-width: 720px) { .hud-center { left: 50%; top: 11rem; max-width: calc(100% - 2rem); } }
 @media (max-width: 640px) {
   .topbar { left: 1rem; right: 1rem; justify-content: flex-end; gap: .3rem; }
   .topbar .button { padding: 0 .55rem; font-size: .78rem; min-width: 44px; }
