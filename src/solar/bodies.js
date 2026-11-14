@@ -328,28 +328,28 @@ const ALL_BODIES = [
     blurb: 'An S-class asteroid about 34 km long. NEAR Shoemaker was the first spacecraft to orbit an asteroid, and the first to land on one.',
   },
   {
-    id: 'dawn', name: 'Dawn', kind: 'moon', probe: true, parent: 'ceres', type: 'Spacecraft in orbit', color: '#d8dde6',
+    id: 'dawn', name: 'Dawn', kind: 'moon', probe: true, model: 'assets/models/dawn.glb', modelUnits: 0.16, parent: 'ceres', type: 'Spacecraft in orbit', color: '#d8dde6',
     mass: [1, 3], radiusKm: 25, shape: [1, 0.35, 1], gravity: 0, orbitDays: 0.76,
     // The orbit drawn here is illustrative: NASA's pages say Dawn is in orbit around Ceres, not what shape the orbit is.
     orbit: { aKm: 1900, inc: 0, frame: 'ecliptic', phase: 40, node: 0 },
     blurb: 'NASA’s Dawn spacecraft, out of fuel and still circling the dwarf planet Ceres.',
   },
   {
-    id: 'near-shoemaker', name: 'NEAR Shoemaker', kind: 'probe', probe: true, parent: 'eros', type: 'Spacecraft on an asteroid', color: '#e2c27a',
+    id: 'near-shoemaker', name: 'NEAR Shoemaker', kind: 'probe', probe: true, model: 'assets/models/near-shoemaker.glb', modelUnits: 0.16, parent: 'eros', type: 'Spacecraft on an asteroid', color: '#e2c27a',
     mass: [1, 3], radiusKm: 12, shape: [1, 0.35, 1], gravity: 0, orbitDays: null,
     // Touched down on Eros just south of the saddle-shaped feature Himeros, per NASA; placed on the underside here.
     attach: [0.25, -1, 0.15],
     blurb: 'NASA’s NEAR Shoemaker, resting on the asteroid Eros where it landed in 2001.',
   },
   {
-    id: 'pioneer-10', name: 'Pioneer 10', kind: 'probe', probe: true, type: 'Spacecraft leaving the Solar System', color: '#9fd0ff',
+    id: 'pioneer-10', name: 'Pioneer 10', kind: 'probe', probe: true, model: 'assets/models/pioneer-10.glb', modelUnits: 0.16, type: 'Spacecraft leaving the Solar System', color: '#9fd0ff',
     mass: [1, 3], radiusKm: 25, shape: [1, 0.35, 1], gravity: 0, orbitDays: null,
     // Direction: toward Aldebaran (RA 68.98°, Dec +16.51°). Distance: 118.824 AU, NASA's figure for 5 Nov 2017.
     fixedAU: { ra: 68.98, dec: 16.51, au: 118.824 },
     blurb: 'NASA’s Pioneer 10, heading generally toward the star Aldebaran in Taurus. Its last signal came in January 2003.',
   },
   {
-    id: 'kepler', name: 'Kepler', kind: 'probe', probe: true, type: 'Spacecraft in solar orbit', color: '#ffb36b',
+    id: 'kepler', name: 'Kepler', kind: 'probe', probe: true, model: 'assets/models/kepler.glb', modelUnits: 0.16, type: 'Spacecraft in solar orbit', color: '#ffb36b',
     mass: [1, 3], radiusKm: 25, shape: [1, 0.35, 1], gravity: 0, orbitDays: 371,
     // Earth-trailing orbit, 371-day period: the design figure in NASA's pre-launch planning, lagging Earth since the 2009 launch (day 3352.5 after J2000).
     elements: {

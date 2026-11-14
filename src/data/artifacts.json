@@ -414,7 +414,7 @@
     "mission": "Dawn",
     "year": "2007–2018",
     "model": "",
-    "modelCredit": "Simplified in-game stand-in drawn as a flat disc; no NASA 3D model is used for this one.",
+    "modelCredit": "NASA 3D Resources, Dawn (shown larger than life so you can see it)",
     "surfacePosition": {
       "x": 0,
       "z": 0
@@ -454,7 +454,7 @@
     "mission": "NEAR Shoemaker",
     "year": "1996–2001",
     "model": "",
-    "modelCredit": "Simplified in-game stand-in drawn as a flat disc; no NASA 3D model is used for this one.",
+    "modelCredit": "NASA 3D Resources, NEAR Shoemaker (shown larger than life so you can see it)",
     "surfacePosition": {
       "x": 0,
       "z": 0
@@ -490,7 +490,7 @@
     "mission": "Pioneer 10",
     "year": "1972–2003",
     "model": "",
-    "modelCredit": "Simplified in-game stand-in drawn as a flat disc; no NASA 3D model is used for this one.",
+    "modelCredit": "NASA 3D Resources, Pioneer 10 (shown larger than life so you can see it)",
     "surfacePosition": {
       "x": 0,
       "z": 0
@@ -522,7 +522,7 @@
     "mission": "Kepler",
     "year": "2009–2018",
     "model": "",
-    "modelCredit": "Simplified in-game stand-in drawn as a flat disc; no NASA 3D model is used for this one.",
+    "modelCredit": "NASA 3D Resources, Kepler (A) (shown larger than life so you can see it)",
     "surfacePosition": {
       "x": 0,
       "z": 0

@@ -12,8 +12,10 @@
 import {
   AdditiveBlending, AmbientLight, BufferAttribute, BufferGeometry, CanvasTexture, Color, Group, Line,
   LinearMipmapLinearFilter, Matrix4, Mesh, MeshLambertMaterial, PointLight, Points, Quaternion, RingGeometry,
-  SphereGeometry, Sprite, SpriteMaterial, SRGBColorSpace, TextureLoader, Vector3,
+  Box3, SphereGeometry, Sprite, SpriteMaterial, SRGBColorSpace, TextureLoader, Vector3,
 } from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { BODIES } from './bodies.js';
 import { KeplerOrbit, equatorialToScene } from './astro.js';
 import { displayRadius, moonOrbitRadius } from './scale.js';
@@ -33,6 +35,17 @@ const Y_AXIS = new Vector3(0, 1, 0);
 const MAX_SPIN_REV_PER_S = 0.35;
 const MAX_MOON_REV_PER_S = 0.5;
 const softLimit = (revPerSecond, limit) => limit * Math.tanh(revPerSecond / limit);
+
+let gltfLoader = null;
+function getLoader() {
+  if (!gltfLoader) {
+    gltfLoader = new GLTFLoader();
+    const draco = new DRACOLoader();
+    draco.setDecoderPath('./draco/'); // bundled locally, no CDN
+    gltfLoader.setDRACOLoader(draco);
+  }
+  return gltfLoader;
+}
 
 const PLANET_SPHERE = new SphereGeometry(1, 64, 44);
 const MOON_SPHERE = new SphereGeometry(1, 32, 22);
@@ -171,6 +184,7 @@ export class SolarSystem {
     if (parent) parent.moons.push(body);
 
     this._addSurface(body);
+    if (data.model) this._addModel(body);
     if (data.pole) {
       body.poleQuaternion = poleQuaternion(data.pole);
       body.axis.quaternion.copy(body.poleQuaternion);
@@ -216,6 +230,28 @@ export class SolarSystem {
     body.surface = surface;
     body.axis.add(surface);
     this.pickables.push(surface);
+  }
+
+  /** A real NASA 3D model, shown at `modelUnits` scene units across. The invisible sphere is the tap target. */
+  _addModel(body) {
+    const { data } = body;
+    body.surface.material.visible = false;
+    body.surface.scale.setScalar(data.modelUnits * 0.6);
+    getLoader().load(data.model, (gltf) => {
+      const root = gltf.scene;
+      const box = new Box3().setFromObject(root);
+      const size = box.getSize(new Vector3());
+      const k = data.modelUnits / Math.max(size.x, size.y, size.z);
+      root.scale.setScalar(k);
+      root.position.copy(box.getCenter(new Vector3())).multiplyScalar(-k);
+      const holder = new Group();
+      holder.add(root);
+      body.axis.add(holder);
+      body.spinner = holder;
+    }, undefined, () => {
+      body.surface.material.visible = true; // fall back to the flat disc
+      console.warn(`Model failed to load: ${data.model}`);
+    });
   }
 
   _addPlanetOrbit(body, startDays) {
@@ -405,6 +441,7 @@ export class SolarSystem {
         body.axis.quaternion.setFromRotationMatrix(_basis);
       }
 
+      if (body.spinner) body.spinner.rotation.y += 0.3 * dt;
       if (body.data.pole) {
         const signedRev = (body.data.pole.wd / 360) * daysPerS;
         const delta = softLimit(signedRev, MAX_SPIN_REV_PER_S) * 360 * dt;

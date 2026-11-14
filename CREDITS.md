@@ -28,4 +28,5 @@
 ## Data sources
 TODO
 
+- Deep-space 3D models (Dawn, Kepler, NEAR Shoemaker, Pioneer 10) and their preview images: NASA 3D Resources (https://github.com/nasa/NASA-3D-Resources). Shown larger than life.
 - Orbits of Ceres and Eros: NASA/JPL Small-Body Database elements (https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html), rounded. Deep-space story text: NASA Science mission pages and NASA news releases linked on each story card.

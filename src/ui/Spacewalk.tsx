@@ -32,6 +32,7 @@ export default function Spacewalk() {
   const [bumps, setBumps] = useState(0)
   const [done, setDone] = useState(false)
   const doneRef = useRef(false)
+  const preview = useRef<HTMLImageElement | null>(null)
   const stars = useRef(Array.from({ length: 70 }, () => ({ x: Math.random() * W, y: Math.random() * H, s: Math.random() * 1.6 + 0.4 })))
 
   useEffect(() => {
@@ -49,6 +50,9 @@ export default function Spacewalk() {
   }, [])
 
   useEffect(() => {
+    const img = new Image()
+    img.src = `./assets/models/previews/${site?.body}.png`
+    preview.current = img
     const c = canvas.current!
     const g = c.getContext('2d')!
     const px = { x: START, flash: 0 }
@@ -88,8 +92,13 @@ export default function Spacewalk() {
       // Spacecraft being inspected: a disc with a dish
       g.save(); g.translate(W - 36, LANE)
       g.shadowColor = '#ffd166'; g.shadowBlur = doneRef.current ? 24 : 10
-      g.fillStyle = '#e2e6ee'; g.beginPath(); g.ellipse(0, 0, 26, 12, 0, 0, Math.PI * 2); g.fill()
-      g.strokeStyle = '#9fb0cf'; g.lineWidth = 3; g.beginPath(); g.moveTo(-6, -6); g.lineTo(-30, -26); g.stroke()
+      const im = preview.current
+      if (im && im.complete && im.naturalWidth > 0) {
+        const w = 120, h = (im.naturalHeight / im.naturalWidth) * w
+        g.drawImage(im, -w / 2 - 14, -h / 2, w, h)
+      } else {
+        g.fillStyle = '#e2e6ee'; g.beginPath(); g.ellipse(0, 0, 26, 12, 0, 0, Math.PI * 2); g.fill()
+      }
       g.restore()
       // Tether
       g.strokeStyle = '#ffd166'; g.lineWidth = 2; g.setLineDash([6, 4])
