@@ -1,15 +1,13 @@
 import { Canvas } from '@react-three/fiber'
 import { Physics, RigidBody } from '@react-three/rapier'
 import { useGame } from '../state/game'
-
-// Real surface gravity in m/s². Phase 3 shows this in the HUD.
-export const GRAVITY = { moon: 1.62, mars: 3.71 } as const
+import { BODIES } from '../data/bodies'
 
 // Phase 3: terrain, 3rd-person character, artifact model, Inspect.
 export default function SurfaceScene() {
   const { site } = useGame()
   if (!site) return null
-  const g = GRAVITY[site.world]
+  const g = BODIES[site.world].gravity
   const color = site.world === 'moon' ? '#8a8a8a' : '#a0522d'
   return (
     <Canvas dpr={[1, 2]} camera={{ position: [0, 6, 14], fov: 60 }}>

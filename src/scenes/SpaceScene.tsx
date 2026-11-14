@@ -1,20 +1,27 @@
-import { Canvas } from '@react-three/fiber'
-import { Stars } from '@react-three/drei'
 import { Suspense } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { SUN_DIR } from '../data/bodies'
+import { useGame } from '../state/game'
+import Stars from './space/Stars'
+import Bodies from './space/Bodies'
+import Ship from './space/Ship'
 
-// Phase 2: Earth, Moon, Mars, ship flight, selection, warp.
 export default function SpaceScene() {
+  const { setSelected } = useGame()
   return (
-    <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 8], fov: 60 }}>
+    <Canvas
+      dpr={[1, 2]}
+      camera={{ position: [0, 0, 8], fov: 60, near: 0.05, far: 5000 }}
+      onPointerMissed={() => setSelected(null)}
+    >
       <color attach="background" args={['#000']} />
-      <ambientLight intensity={0.6} />
+      <ambientLight intensity={0.12} />
+      <directionalLight position={SUN_DIR.clone().multiplyScalar(500)} intensity={3} />
       <Suspense fallback={null}>
-        <Stars radius={200} depth={50} count={3000} factor={4} fade />
+        <Stars />
+        <Bodies />
+        <Ship />
       </Suspense>
-      <mesh>
-        <sphereGeometry args={[1.5, 32, 32]} />
-        <meshStandardMaterial color="#3b6fb6" />
-      </mesh>
     </Canvas>
   )
 }
