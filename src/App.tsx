@@ -9,6 +9,9 @@ import SitePicker from './ui/SitePicker'
 import Help from './ui/Help'
 import SurfaceHud from './ui/SurfaceHud'
 import InspectPrompt from './ui/InspectPrompt'
+import ProbePrompt from './ui/ProbePrompt'
+import Wires from './ui/Wires'
+import Spacewalk from './ui/Spacewalk'
 import BoardPrompt from './ui/BoardPrompt'
 import MiniMap from './ui/MiniMap'
 import BodiesList from './ui/BodiesList'
@@ -18,13 +21,14 @@ import MapOverlay from './ui/MapOverlay'
 import Story from './ui/Story'
 import Stories from './ui/Stories'
 import TopBar from './ui/TopBar'
+import { artifacts } from './data/artifacts'
 import Joystick from './ui/Joystick'
 
 const SpaceScene = lazy(() => import('./scenes/SpaceScene'))
 const SurfaceScene = lazy(() => import('./scenes/SurfaceScene'))
 
 function Game() {
-  const { scene, overlay, fading, warping, near, canInspect, canBoard, surfaceWorld, setOverlay, setSelected, setSpawn, goTo } = useGame()
+  const { scene, site, overlay, fading, warping, near, nearProbe, inspect, canInspect, canBoard, surfaceWorld, setOverlay, setSelected, setSpawn, goTo } = useGame()
 
   // Show the controls once on first load of the space scene; H toggles them any time.
   useEffect(() => {
@@ -41,7 +45,11 @@ function Game() {
     const onKey = (e: KeyboardEvent) => {
       if (scene === 'title') return
       if (e.code === 'KeyH' && (overlay === 'none' || overlay === 'help')) setOverlay(overlay === 'help' ? 'none' : 'help')
-      else if (e.code === 'KeyE' && scene === 'surface' && canInspect && overlay === 'none') setOverlay('clean')
+      else if (e.code === 'KeyE' && scene === 'surface' && canInspect && overlay === 'none' && site) inspect(site)
+      else if (e.code === 'KeyE' && scene === 'space' && nearProbe && overlay === 'none') {
+        const a = artifacts.find((x) => x.body === nearProbe)
+        if (a) inspect(a)
+      }
       else if (e.code === 'KeyM' && scene === 'surface' && (overlay === 'none' || overlay === 'map')) setOverlay(overlay === 'map' ? 'none' : 'map')
       else if (e.code === 'KeyL' && scene === 'space' && near && overlay === 'none') setOverlay('sites')
       else if (e.code === 'KeyE' && scene === 'surface' && canBoard && !canInspect && overlay === 'none') {
@@ -52,7 +60,7 @@ function Game() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [scene, near, canInspect, canBoard, surfaceWorld, overlay, setOverlay, setSelected, setSpawn, goTo])
+  }, [scene, site, nearProbe, inspect, near, canInspect, canBoard, surfaceWorld, overlay, setOverlay, setSelected, setSpawn, goTo])
 
   return (
     <div className={`stage ${warping ? 'warping' : ''}`}>
@@ -66,11 +74,14 @@ function Game() {
       {scene === 'space' && <LandPrompt />}
       <SurfaceHud />
       <InspectPrompt />
+      <ProbePrompt />
       <BoardPrompt />
       <MiniMap />
       <BodiesList />
       <TimeControls />
       {overlay === 'clean' && <Clean />}
+      {overlay === 'wires' && <Wires />}
+      {overlay === 'spacewalk' && <Spacewalk />}
       {overlay === 'map' && <MapOverlay />}
       {overlay === 'story' && <Story />}
       {overlay === 'stories' && <Stories />}

@@ -6,7 +6,9 @@ A 3D browser game for the **NASA Space Apps Challenge 2026** (Iligan), for the c
 You are a young space archaeologist. Walk to your ship on Earth and blast off into a solar system with real
 orbits, rotations and labelled constellations. Select a world, warp to it, land at a mission site, explore on
 foot under that world's real gravity, and follow the map tracker (artifacts show as ??? until found). Find
-the hardware NASA left behind (shown as real NASA 3D models where NASA has them), clear the debris and dust off its nameplate, and unlock its story. Nine artifacts, from NASA mission pages.
+the hardware NASA left behind (shown as real NASA 3D models where NASA has them), clear the debris and dust off its nameplate, and unlock its story. Thirteen artifacts from NASA mission pages: nine on the Moon and Mars, and four spacecraft out in space (Dawn, NEAR Shoemaker, Pioneer 10, Kepler) that you warp to from the Bodies list.
+
+**Inspecting equipment:** on the Moon and Mars the equipment triggers one of two minigames at random (clear debris and brush off the dust to read the nameplate, or reconnect colour-coded cut wires to power its module). Equipment with `"nameplate": false` always gets the wire minigame. Out in space it is a tethered spacewalk past rogue asteroids. Press **M** on a surface (or tap the mini-map) for the Moon and Mars map.
 
 Not affiliated with or endorsed by NASA. Distances and sizes are compressed (logarithmic) so the trip is quick.
 The solar system engine in `src/solar/` is ported from the team's Solar System 3D project.
@@ -41,6 +43,7 @@ All artifact content is in **`src/data/artifacts.json`**. Each entry follows the
 - `site.name`, `lat`, `lon`: landing site (leave `lat`/`lon` as `null` until sourced from NASA).
 - `surfacePosition`: metres from where the player spawns (the patch is about 200 m in radius).
 - `pairedModels` (optional): extra models for paired artifacts (e.g. two rovers). Inspecting any opens the same story.
+- `world`: `moon`, `mars` or `space`. Space entries also set `body` (the id in `src/solar/bodies.js`) and `whereabouts`. `nameplate`, `tagLabel` and `mapLabel` are optional (see `src/types/artifact.ts`).
 - `site.alt` (optional): a second site for entries that cover two (Spirit and Opportunity).
 - `story`: `whatItIs`, `whyLeft`, `science`, `nowStatus`. `sources`: title and `https://` URL.
 - All current story text comes from the NASA pages listed in each artifact's `sources`. Where a page does not say something (such as coordinates or a reason), the text says so. Re-check any edit against NASA before the pitch.

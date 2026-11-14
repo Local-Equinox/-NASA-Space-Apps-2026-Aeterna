@@ -1,11 +1,10 @@
 import { useGame } from '../state/game'
-import { sfx } from '../lib/sound'
 
 export default function InspectPrompt() {
-  const { scene, canInspect, overlay, setOverlay } = useGame()
-  if (scene !== 'surface' || !canInspect || overlay !== 'none') return null
+  const { scene, site, canInspect, overlay, inspect } = useGame()
+  if (scene !== 'surface' || !canInspect || overlay !== 'none' || !site) return null
   return (
-    <button className="prompt" onClick={() => { sfx.inspect(); setOverlay('clean') }}>
+    <button className="prompt" onClick={() => inspect(site)}>
       Inspect <kbd>E</kbd>
     </button>
   )

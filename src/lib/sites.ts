@@ -8,7 +8,7 @@ export function isRevealed(a: Artifact, found: string[]): boolean {
 }
 
 export const siteLabel = (a: Artifact, found: string[]) => (isRevealed(a, found) ? a.site.name : '???')
-export const shortLabel = (a: Artifact, found: string[]) => (isRevealed(a, found) ? a.mission : '???')
+export const shortLabel = (a: Artifact, found: string[]) => (isRevealed(a, found) ? (a.mapLabel ?? a.mission) : '???')
 
 export interface SitePoint { key: string; lat: number; lon: number }
 

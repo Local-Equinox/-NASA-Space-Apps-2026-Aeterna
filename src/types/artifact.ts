@@ -1,4 +1,4 @@
-export type World = 'moon' | 'mars'
+export type World = 'moon' | 'mars' | 'space'
 
 export interface Artifact {
   id: string
@@ -12,6 +12,16 @@ export interface Artifact {
     /** Second location when one entry covers two sites (Spirit and Opportunity). */
     alt?: { name: string; lat: number; lon: number }
   }
+  /** Space entries only: id of the body in the solar system view (src/solar/bodies.js). */
+  body?: string
+  /** Space entries only: where the equipment is, in NASA's words. */
+  whereabouts?: string
+  /** false = no nameplate, so the wire-connection minigame is used instead of the cleaning one. */
+  nameplate?: boolean
+  /** Name on the 3D tag of the first model, when it differs from the entry's name. */
+  tagLabel?: string
+  /** Name shown on the world map, when it differs from the mission. */
+  mapLabel?: string
   mission: string
   year: string
   /** A GLB under /assets/models/, or "procedural:<name>" for a simplified model built in code (see src/game/props.ts). */

@@ -4,7 +4,7 @@ import type { Group, Mesh, Object3D, PerspectiveCamera, Scene, Vector3, WebGLRen
 export interface BodyData {
   id: string
   name: string
-  kind: 'star' | 'planet' | 'moon'
+  kind: 'star' | 'planet' | 'moon' | 'asteroid' | 'probe'
   type: string
   color: string
   gravity: number
@@ -17,12 +17,13 @@ export interface BodyData {
   knownMoons?: number
   orbitDays: number | null
   parent?: string
+  probe?: boolean
 }
 
 export interface SolarBody {
   id: string
   name: string
-  kind: 'star' | 'planet' | 'moon'
+  kind: 'star' | 'planet' | 'moon' | 'asteroid' | 'probe'
   data: BodyData
   parent: SolarBody | null
   moons: SolarBody[]

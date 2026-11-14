@@ -40,6 +40,7 @@ const MOON_SPHERE = new SphereGeometry(1, 32, 22);
 const _x = new Vector3();
 const _z = new Vector3();
 const _basis = new Matrix4();
+const _attach = new Vector3();
 const _quatA = new Quaternion();
 const _quatB = new Quaternion();
 
@@ -175,7 +176,8 @@ export class SolarSystem {
       body.axis.quaternion.copy(body.poleQuaternion);
       body.spinDeg = data.pole.w0 + data.pole.wd * startDays;
     }
-    if (data.kind === 'planet') this._addPlanetOrbit(body, startDays);
+    if (data.fixedAU) body.fixed = equatorialToScene(data.fixedAU.ra, data.fixedAU.dec).multiplyScalar(data.fixedAU.au);
+    if (data.elements) this._addPlanetOrbit(body, startDays);
     if (data.kind === 'moon') this._addMoonOrbit(body, startDays);
     if (data.atmosphere) this._addAtmosphere(body);
     if (data.ring) this._addRing(body);
@@ -197,14 +199,16 @@ export class SolarSystem {
       this._requestTexture(data.nightTexture, true, (t) => { material.uniforms.nightMap.value = t; }, priority);
     } else {
       material = new MeshLambertMaterial({ color: body.color });
-      this._requestTexture(data.texture, true, (t) => {
+      // Spacecraft and asteroids have no map: they keep their flat colour (spacecraft glow a little so they stay visible).
+      if (data.probe) material.emissive.copy(body.color).multiplyScalar(0.4);
+      if (data.texture) this._requestTexture(data.texture, true, (t) => {
         material.map = t;
         material.color.set(0xffffff);
         material.needsUpdate = true;
       }, priority);
     }
 
-    const geometry = data.kind === 'moon' ? MOON_SPHERE : PLANET_SPHERE;
+    const geometry = data.kind === 'planet' || data.kind === 'star' ? PLANET_SPHERE : MOON_SPHERE;
     const surface = new Mesh(geometry, material);
     surface.userData.body = body;
     const [sx, sy, sz] = data.shape ?? [1, 1, 1];
@@ -301,7 +305,7 @@ export class SolarSystem {
     const sizes = new Float32Array(count);
     this.bodies.forEach((body, i) => {
       body.color.toArray(colors, i * 3);
-      sizes[i] = body.kind === 'moon' ? 2.5 : 4;
+      sizes[i] = body.kind === 'moon' || body.kind === 'probe' ? 2.5 : 4;
     });
     const geometry = new BufferGeometry();
     this.markerPositions = new BufferAttribute(new Float32Array(count * 3), 3);
@@ -371,6 +375,19 @@ export class SolarSystem {
         KeplerOrbit.toScene(body.positionAU, body.anchor.position);
         body.worldPosition.copy(body.anchor.position);
         body.path.material.uniforms.head.value = ((E / TAU) % 1 + 1) % 1;
+      } else if (body.fixed) {
+        KeplerOrbit.toScene(body.fixed, body.anchor.position);
+        body.worldPosition.copy(body.anchor.position);
+        body.positionAU.copy(body.fixed);
+      } else if (body.data.attach && body.parent) {
+        // Resting on the parent's surface: a point on its (ellipsoidal) surface in the attach direction
+        const v = _attach.set(...body.data.attach).normalize();
+        const [sx, sy, sz] = body.parent.data.shape ?? [1, 1, 1];
+        const R = body.parent.radius;
+        const reach = 1 / Math.sqrt((v.x / (R * sx)) ** 2 + (v.y / (R * sy)) ** 2 + (v.z / (R * sz)) ** 2);
+        body.anchor.position.copy(v).multiplyScalar(reach * 1.1);
+        body.worldPosition.addVectors(body.parent.worldPosition, body.anchor.position);
+        body.positionAU.copy(body.parent.positionAU);
       } else if (body.orbitFrame) {
         const rev = daysPerS / body.data.orbitDays;
         body.orbitAngleDeg += softLimit(rev, MAX_MOON_REV_PER_S) * 360 * dt;

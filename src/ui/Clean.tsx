@@ -4,7 +4,7 @@ import { sfx } from '../lib/sound'
 
 const W = 560
 const H = 200
-const GOAL = 0.93
+const GOAL = 0.95
 
 interface Rock { id: number; x: number; y: number; size: number; rot: number; radius: string }
 
@@ -99,9 +99,9 @@ export default function Clean() {
     const g = dust.current!.getContext('2d')!
     g.globalCompositeOperation = 'destination-out'
     g.lineCap = 'round'; g.lineJoin = 'round'
-    g.globalAlpha = 0.5; g.lineWidth = 42
+    g.globalAlpha = 0.5; g.lineWidth = 92
     g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke()
-    g.globalAlpha = 1; g.lineWidth = 28
+    g.globalAlpha = 1; g.lineWidth = 66
     g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke()
     g.globalCompositeOperation = 'source-over'
   }
@@ -168,7 +168,6 @@ export default function Clean() {
       </div>
       <div className="progress" aria-hidden="true"><i style={{ width: `${stage === 'rocks' ? Math.round(((5 - rocks.filter((r) => !outside(r)).length) / 5) * 25) : 25 + pct * 0.75}%` }} /></div>
       <div className="row">
-        {!done && <button className="button secondary" onClick={finish}>Skip: clean it for me</button>}
         {done && <button className="button" onClick={() => setOverlay('story')}>Read the story</button>}
       </div>
     </section>

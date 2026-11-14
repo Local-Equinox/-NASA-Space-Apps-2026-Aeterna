@@ -83,8 +83,8 @@ interface Props {
 // Equipment stays unidentified (???) until the player inspects it.
 export default function ArtifactModel({ artifact, found, terrain }: Props) {
   const items = [
-    { model: artifact.model, size: artifact.modelSize, cutAbove: artifact.modelCutAbove, ...artifact.surfacePosition },
-    ...(artifact.pairedModels ?? []).map((m) => ({ model: m.model, size: m.modelSize, cutAbove: m.modelCutAbove, ...m.surfacePosition })),
+    { label: artifact.tagLabel ?? artifact.name, model: artifact.model, size: artifact.modelSize, cutAbove: artifact.modelCutAbove, ...artifact.surfacePosition },
+    ...(artifact.pairedModels ?? []).map((m) => ({ label: m.label, model: m.model, size: m.modelSize, cutAbove: m.modelCutAbove, ...m.surfacePosition })),
   ]
   return (
     <>
@@ -97,7 +97,7 @@ export default function ArtifactModel({ artifact, found, terrain }: Props) {
           <Suspense fallback={null}>
             <Model model={it.model} size={it.size} cutAbove={it.cutAbove} />
           </Suspense>
-          <Tag text={found ? artifact.name : '???'} found={found} height={(it.size ?? 3) + 1.4} />
+          <Tag text={found ? it.label : '???'} found={found} height={(it.size ?? 3) + 1.4} />
         </group>
       ))}
     </>

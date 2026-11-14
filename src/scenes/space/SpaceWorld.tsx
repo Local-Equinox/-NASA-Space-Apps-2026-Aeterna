@@ -5,7 +5,7 @@ import { SolarSystem, type SolarBody } from '../../solar/solarSystem.js'
 import { Picker } from '../../solar/picker.js'
 import { Labels } from '../../solar/labels.js'
 import { createSpaceship } from '../../game/models'
-import { isDestination, isLandable, type SiteWorld } from '../../data/bodies'
+import { isDestination, isLandable, PROBE_IDS, type SiteWorld } from '../../data/bodies'
 import { useGame } from '../../state/game'
 import { sim, view, daysPerSecond } from '../../lib/sim'
 import { touch } from '../../lib/touch'
@@ -40,7 +40,7 @@ interface Warp {
 }
 
 export default function SpaceWorld() {
-  const { spawn, overlay, warpRequest, setNear, setOrbitOf, setWarping, setSelected, selected } = useGame()
+  const { spawn, overlay, warpRequest, setNear, setNearProbe, setOrbitOf, setWarping, setSelected, selected } = useGame()
   const { gl, camera: cam, size } = useThree()
   const camera = cam as PerspectiveCamera
 
@@ -73,6 +73,7 @@ export default function SpaceWorld() {
     anchor: null as SolarBody | null,
     offset: new Vector3(),
     near: null as SiteWorld | null,
+    nearProbe: null as string | null,
     orbitOf: null as string | null,
     // Autopilot: circle the body we just arrived at, until the player takes the controls
     orbit: null as { body: SolarBody; turn: number } | null,
@@ -284,17 +285,20 @@ export default function SpaceWorld() {
     // Land prompt: of the landable bodies in range, the smallest wins.
     let near: SiteWorld | null = null
     let nearR = Infinity
+    let nearProbe: string | null = null
     let orbitOf: string | null = null
     let orbitR = Infinity
     if (!st.warp) {
       for (const b of system.bodies) {
         if (!isDestination(b.id)) continue
         if (st.pos.distanceTo(b.worldPosition) >= landRange(b)) continue
+        if (PROBE_IDS.includes(b.id)) { nearProbe = b.id; continue }
         if (b.radius < orbitR) { orbitOf = b.id; orbitR = b.radius }
         if (isLandable(b.id) && b.radius < nearR) { near = b.id; nearR = b.radius }
       }
     }
     if (near !== st.near) { st.near = near; setNear(near) }
+    if (nearProbe !== st.nearProbe) { st.nearProbe = nearProbe; setNearProbe(nearProbe) }
     if (orbitOf !== st.orbitOf) { st.orbitOf = orbitOf; setOrbitOf(orbitOf) }
 
     // Floating origin: shift the whole system so the ship sits at (0,0,0)

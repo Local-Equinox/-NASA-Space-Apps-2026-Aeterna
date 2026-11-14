@@ -1,10 +1,11 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 import { artifacts } from '../data/artifacts'
+import { sfx } from '../lib/sound'
 import type { Artifact } from '../types/artifact'
 import type { LandId, SiteWorld } from '../data/bodies'
 
 export type SceneName = 'title' | 'space' | 'surface'
-export type Overlay = 'none' | 'collection' | 'about' | 'help' | 'sites' | 'clean' | 'map' | 'story' | 'stories'
+export type Overlay = 'none' | 'collection' | 'about' | 'help' | 'sites' | 'clean' | 'wires' | 'spacewalk' | 'map' | 'story' | 'stories'
 
 const STORAGE_KEY = 'left-behind-found'
 
@@ -27,6 +28,11 @@ interface Game {
   near: SiteWorld | null
   orbitOf: string | null
   setOrbitOf: (w: string | null) => void
+  /** Space body id of the spacecraft the ship is next to, if any (Dawn, NEAR Shoemaker, Pioneer 10, Kepler). */
+  nearProbe: string | null
+  setNearProbe: (id: string | null) => void
+  /** Start inspecting equipment: picks the minigame (or the story if it was already found). */
+  inspect: (a: Artifact) => void
   surfaceWorld: LandId
   canBoard: boolean
   setCanBoard: (b: boolean) => void
@@ -57,6 +63,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [selected, setSelected] = useState<string | null>(null)
   const [near, setNear] = useState<SiteWorld | null>(null)
   const [orbitOf, setOrbitOf] = useState<string | null>(null)
+  const [nearProbe, setNearProbe] = useState<string | null>(null)
   const [surfaceWorld, setSurfaceWorld] = useState<LandId>('earth')
   const [canBoard, setCanBoard] = useState(false)
   const [warping, setWarping] = useState(false)
@@ -80,6 +87,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
       setScene(next)
       setSelected(null)
       setNear(null)
+      setNearProbe(null)
       setWarping(false)
       setCanInspect(false)
       setSite(nextSite)
@@ -95,8 +103,19 @@ export function GameProvider({ children }: { children: ReactNode }) {
   )
   const resetProgress = useCallback(() => setFound([]), [])
 
+  // Moon and Mars equipment: a nameplate-cleaning or a wire minigame (equipment with no nameplate always gets wires).
+  // Equipment out in space: the spacewalk. Anything already found goes straight to its story.
+  const inspect = useCallback((a: Artifact) => {
+    setSite(a)
+    sfx.inspect()
+    if (found.includes(a.id)) setOverlay('story')
+    else if (a.world === 'space') setOverlay('spacewalk')
+    else if (a.nameplate === false) setOverlay('wires')
+    else setOverlay(Math.random() < 0.5 ? 'clean' : 'wires')
+  }, [found])
+
   return (
-    <Ctx.Provider value={{ scene, site, overlay, found, fading, selected, near, orbitOf, setOrbitOf, surfaceWorld, canBoard, setCanBoard, warping, canInspect, setCanInspect, warpRequest, spawn, setSelected, setNear, setWarping, requestWarp, setSpawn, goTo, setOverlay, markFound, resetProgress }}>
+    <Ctx.Provider value={{ scene, site, overlay, found, fading, selected, near, orbitOf, setOrbitOf, nearProbe, setNearProbe, inspect, surfaceWorld, canBoard, setCanBoard, warping, canInspect, setCanInspect, warpRequest, spawn, setSelected, setNear, setWarping, requestWarp, setSpawn, goTo, setOverlay, markFound, resetProgress }}>
       {children}
     </Ctx.Provider>
   )

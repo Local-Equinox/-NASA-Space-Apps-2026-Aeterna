@@ -110,3 +110,19 @@ h3 { margin: 1rem 0 .25rem; font-size: 1rem; color: var(--accent); }
 .progress { height: 8px; border-radius: 999px; background: #1a2340; overflow: hidden; margin: .25rem 0 .75rem; }
 .progress i { display: block; height: 100%; background: #5bd18a; transition: width .15s; }
 @media (max-width: 600px) { .clean-area { padding: 3rem 1.25rem; } }
+.plate-text b { font-size: clamp(1.15rem, 4.8vw, 2.1rem) !important; }
+.plate-text span { font-size: clamp(.95rem, 2.6vw, 1.25rem); font-weight: 600; }
+.brush { font-size: 3rem !important; }
+.wires { width: 100%; max-width: 640px; display: block; margin: .5rem auto; touch-action: none; user-select: none; }
+.wires-panel { fill: #0d1428; stroke: #2a3558; stroke-width: 3; }
+.wires.on .wires-panel { stroke: #5bd18a; filter: drop-shadow(0 0 10px #5bd18a); }
+.wires.miss .wires-panel { stroke: #ff6b6b; }
+.wires .terminal { fill: #202a48; stroke: #5b6b8f; stroke-width: 3; }
+.wires .mark { fill: #fff; font: 700 15px system-ui; pointer-events: none; }
+.wires .handle { cursor: grab; }
+.wires .live { filter: drop-shadow(0 0 5px currentColor); }
+.walk { width: 100%; max-width: 640px; display: block; margin: .5rem auto; border-radius: .5rem; border: 1px solid #2a3558; touch-action: none; }
+.walk-controls { align-items: center; justify-content: center; }
+.walk-controls .button { min-width: 8rem; min-height: 3rem; touch-action: none; }
+.label.label-probe, .label.label-asteroid { color: #ffd166; }
+.stage canvas.walk { position: static; inset: auto; }

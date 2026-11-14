@@ -1,5 +1,5 @@
 import { artifacts } from '../data/artifacts'
-import { BODY_DATA } from '../data/bodies'
+import { BODY_DATA, type SiteWorld } from '../data/bodies'
 import { isRevealed, siteLabel } from '../lib/sites'
 import { useGame } from '../state/game'
 import WorldMap from './WorldMap'
@@ -13,7 +13,7 @@ export default function SitePicker() {
     const a = sites.find((s) => s.id === id)
     if (!a) return
     setOverlay('none')
-    goTo('surface', a, a.world)
+    goTo('surface', a, a.world as SiteWorld)
   }
   return (
     <section className="overlay" role="dialog" aria-labelledby="sites-title">

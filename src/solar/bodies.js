@@ -307,9 +307,61 @@ const ALL_BODIES = [
     temperature: '−235 °C', discovered: '1846, William Lassell', composition: 'Thin nitrogen atmosphere',
     blurb: 'The only large moon that orbits backwards, a sign it is a captured Kuiper Belt object. Nitrogen geysers erupt from its frozen surface.',
   },
+  // ---- Equipment beyond the Moon and Mars. Orbits are approximate (see the notes on each entry). ----
+  {
+    // JPL Small-Body Database elements (epoch JD 2461200.5), rounded: good enough for drawing the orbit.
+    id: 'ceres', name: 'Ceres', kind: 'asteroid', type: 'Dwarf planet', color: '#9a948c',
+    mass: [9.38, 20], radiusKm: 469.7, gravity: 0.28, orbitDays: 1682, distance: '2.77 AU (about 414 million km)',
+    elements: {
+      a: [2.77, 0], e: [0.0797, 0], i: [10.6, 0],
+      L: [274 + 73.3 + 80.2 - 0.214 * 9655.5, 0.214 * 36525], peri: [73.3 + 80.2, 0], node: [80.2, 0],
+    },
+    blurb: 'The largest object in the main asteroid belt, and the first dwarf planet a spacecraft visited. NASA’s Dawn is still in orbit around it.',
+  },
+  {
+    id: 'eros', name: 'Eros', kind: 'asteroid', type: 'Near-Earth asteroid', color: '#b09a84', shape: [1.8, 0.65, 0.65],
+    mass: [6.69, 15], radiusKm: 8.42, gravity: 0.0059, orbitDays: 643, distance: '1.46 AU (about 218 million km)',
+    elements: {
+      a: [1.46, 0], e: [0.223, 0], i: [10.8, 0],
+      L: [62.5 + 179 + 304 - 0.56 * 9655.5, 0.56 * 36525], peri: [179 + 304, 0], node: [304, 0],
+    },
+    blurb: 'An S-class asteroid about 34 km long. NEAR Shoemaker was the first spacecraft to orbit an asteroid, and the first to land on one.',
+  },
+  {
+    id: 'dawn', name: 'Dawn', kind: 'moon', probe: true, parent: 'ceres', type: 'Spacecraft in orbit', color: '#d8dde6',
+    mass: [1, 3], radiusKm: 25, shape: [1, 0.35, 1], gravity: 0, orbitDays: 0.76,
+    // The orbit drawn here is illustrative: NASA's pages say Dawn is in orbit around Ceres, not what shape the orbit is.
+    orbit: { aKm: 1900, inc: 0, frame: 'ecliptic', phase: 40, node: 0 },
+    blurb: 'NASA’s Dawn spacecraft, out of fuel and still circling the dwarf planet Ceres.',
+  },
+  {
+    id: 'near-shoemaker', name: 'NEAR Shoemaker', kind: 'probe', probe: true, parent: 'eros', type: 'Spacecraft on an asteroid', color: '#e2c27a',
+    mass: [1, 3], radiusKm: 12, shape: [1, 0.35, 1], gravity: 0, orbitDays: null,
+    // Touched down on Eros just south of the saddle-shaped feature Himeros, per NASA; placed on the underside here.
+    attach: [0.25, -1, 0.15],
+    blurb: 'NASA’s NEAR Shoemaker, resting on the asteroid Eros where it landed in 2001.',
+  },
+  {
+    id: 'pioneer-10', name: 'Pioneer 10', kind: 'probe', probe: true, type: 'Spacecraft leaving the Solar System', color: '#9fd0ff',
+    mass: [1, 3], radiusKm: 25, shape: [1, 0.35, 1], gravity: 0, orbitDays: null,
+    // Direction: toward Aldebaran (RA 68.98°, Dec +16.51°). Distance: 118.824 AU, NASA's figure for 5 Nov 2017.
+    fixedAU: { ra: 68.98, dec: 16.51, au: 118.824 },
+    blurb: 'NASA’s Pioneer 10, heading generally toward the star Aldebaran in Taurus. Its last signal came in January 2003.',
+  },
+  {
+    id: 'kepler', name: 'Kepler', kind: 'probe', probe: true, type: 'Spacecraft in solar orbit', color: '#ffb36b',
+    mass: [1, 3], radiusKm: 25, shape: [1, 0.35, 1], gravity: 0, orbitDays: 371,
+    // Earth-trailing orbit, 371-day period: the design figure in NASA's pre-launch planning, lagging Earth since the 2009 launch (day 3352.5 after J2000).
+    elements: {
+      a: [Math.pow(371 / 365.256, 2 / 3), 0], e: [0, 0], i: [0, 0],
+      L: [164.5 - (360 / 371) * 3352.5 + 3600, (360 / 371) * 36525], peri: [102.9, 0], node: [0, 0],
+    },
+    blurb: 'NASA’s Kepler space telescope, retired in a safe orbit around the Sun, away from Earth.',
+  },
 ];
 
 // This game only needs the inner system, the giants and a handful of famous moons.
 const KEEP = new Set(['sun', 'mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune',
-  'moon', 'phobos', 'deimos', 'io', 'europa', 'ganymede', 'callisto', 'titan']);
+  'moon', 'phobos', 'deimos', 'io', 'europa', 'ganymede', 'callisto', 'titan',
+  'ceres', 'eros', 'dawn', 'near-shoemaker', 'pioneer-10', 'kepler']);
 export const BODIES = ALL_BODIES.filter((b) => KEEP.has(b.id));

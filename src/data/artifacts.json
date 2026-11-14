@@ -182,7 +182,8 @@
         "title": "NASA Science: Surveyor 3",
         "url": "https://science.nasa.gov/mission/surveyor-3/"
       }
-    ]
+    ],
+    "nameplate": false
   },
   {
     "id": "sojourner",
@@ -229,7 +230,8 @@
         "title": "NASA GISS Mars24: Mars lander coordinates (map position only; Ingenuity uses the Jezero Crater landing site of Perseverance)",
         "url": "https://www.giss.nasa.gov/tools/mars24/help/landers.html"
       }
-    ]
+    ],
+    "nameplate": false
   },
   {
     "id": "spirit-and-opportunity",
@@ -285,7 +287,9 @@
         "title": "NASA GISS Mars24: Mars lander coordinates (map position only; Ingenuity uses the Jezero Crater landing site of Perseverance)",
         "url": "https://www.giss.nasa.gov/tools/mars24/help/landers.html"
       }
-    ]
+    ],
+    "tagLabel": "Spirit",
+    "mapLabel": "Spirit and Opportunity"
   },
   {
     "id": "viking-1",
@@ -393,6 +397,151 @@
       {
         "title": "NASA GISS Mars24: Mars lander coordinates (map position only; Ingenuity uses the Jezero Crater landing site of Perseverance)",
         "url": "https://www.giss.nasa.gov/tools/mars24/help/landers.html"
+      }
+    ],
+    "nameplate": false
+  },
+  {
+    "id": "dawn",
+    "name": "Dawn spacecraft",
+    "world": "space",
+    "body": "dawn",
+    "site": {
+      "name": "In orbit around Ceres, main asteroid belt",
+      "lat": null,
+      "lon": null
+    },
+    "mission": "Dawn",
+    "year": "2007–2018",
+    "model": "",
+    "modelCredit": "Simplified in-game stand-in drawn as a flat disc; no NASA 3D model is used for this one.",
+    "surfacePosition": {
+      "x": 0,
+      "z": 0
+    },
+    "whereabouts": "In orbit around the dwarf planet Ceres in the main asteroid belt. NASA says it will remain there for decades: at least 20 years, with more than 99 percent confidence of at least 50 years.",
+    "story": {
+      "whatItIs": "NASA's Dawn was an orbiter that made extended stays at two small worlds in the main asteroid belt: the giant asteroid Vesta and the dwarf planet Ceres. It launched on 27 September 2007. In 2011 it became the first spacecraft to orbit a body in the region between Mars and Jupiter, and in 2015 it became the first to visit a dwarf planet.",
+      "whyLeft": "Dawn ran out of hydrazine, the fuel that lets it control its pointing. Without it, it can no longer aim its antennas at Earth or its solar panels at the Sun. It missed scheduled contacts on 31 October and 1 November 2018, and NASA's release of 1 November 2018 announced the end of the mission. NASA left it in orbit instead of sending it down: because Ceres has conditions of interest to scientists who study the chemistry that leads to life, NASA follows strict planetary protection protocols for disposing of the spacecraft.",
+      "science": "Dawn let scientists compare two planet-like worlds that evolved very differently, and showed that location mattered to how objects formed and evolved in the early Solar System. NASA says its results reinforced the idea that dwarf planets could have hosted oceans over a significant part of their history.",
+      "nowStatus": "Dawn is in orbit around Ceres, where NASA says it will remain for decades. NASA's pages do not give the shape of that orbit, so the circle drawn in the game is only illustrative."
+    },
+    "sources": [
+      {
+        "title": "NASA Science: Dawn mission page",
+        "url": "https://science.nasa.gov/mission/dawn/"
+      },
+      {
+        "title": "NASA: Dawn Mission to Asteroid Belt Comes to End (1 Nov 2018)",
+        "url": "https://www.nasa.gov/news-release/nasas-dawn-mission-to-asteroid-belt-comes-to-end/"
+      },
+      {
+        "title": "JPL Small-Body Database: Ceres (orbit drawn in the game, rounded)",
+        "url": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1"
+      }
+    ]
+  },
+  {
+    "id": "near-shoemaker",
+    "name": "NEAR Shoemaker spacecraft",
+    "world": "space",
+    "body": "near-shoemaker",
+    "site": {
+      "name": "On asteroid Eros, just south of the saddle-shaped feature Himeros",
+      "lat": null,
+      "lon": null
+    },
+    "mission": "NEAR Shoemaker",
+    "year": "1996–2001",
+    "model": "",
+    "modelCredit": "Simplified in-game stand-in drawn as a flat disc; no NASA 3D model is used for this one.",
+    "surfacePosition": {
+      "x": 0,
+      "z": 0
+    },
+    "whereabouts": "On the surface of the asteroid 433 Eros, where it touched down on 12 February 2001 at 19:44 UT, just south of a saddle-shaped feature named Himeros. NASA's page gives only this touchdown area, not exact coordinates.",
+    "story": {
+      "whatItIs": "NASA calls NEAR the first spacecraft to orbit an asteroid, and it was also the first to land on one. It launched on 17 February 1996 from Cape Canaveral, Florida, and was renamed NEAR Shoemaker in March 2000 to honour the geologist Eugene M. Shoemaker (1928–1997). Its target was the asteroid Eros.",
+      "whyLeft": "NASA's page says the spacecraft was not designed as a lander, yet it survived a slow, controlled descent and touched down at about 4 mph (6.4 km/h) on 12 February 2001. Its last contact was on 28 February 2001, when the spacecraft succumbed to extreme cold (about minus 173 °C). A contact attempt on 10 December 2002 was unsuccessful. The page does not say why the landing was attempted.",
+      "science": "NEAR found that Eros has no magnetic field. Its near-infrared spectrometer mapped more than 70 percent of the surface, and it returned about 10 times more data than planned, including 160,000 images. Eros turned out smaller than expected, with two medium-sized craters, a long surface ridge, and a density similar to Earth's crust.",
+      "nowStatus": "NEAR Shoemaker is on Eros, near its touchdown area south of Himeros. NASA's page does not give its exact position on the asteroid; in the game it is placed on the asteroid's underside."
+    },
+    "sources": [
+      {
+        "title": "NASA Science: NEAR Shoemaker mission page",
+        "url": "https://science.nasa.gov/mission/near-shoemaker/"
+      },
+      {
+        "title": "JPL Small-Body Database: 433 Eros (orbit drawn in the game, rounded)",
+        "url": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=433"
+      }
+    ]
+  },
+  {
+    "id": "pioneer-10",
+    "name": "Pioneer 10 spacecraft",
+    "world": "space",
+    "body": "pioneer-10",
+    "site": {
+      "name": "Heading toward the star Aldebaran, in Taurus, in interstellar space",
+      "lat": null,
+      "lon": null
+    },
+    "mission": "Pioneer 10",
+    "year": "1972–2003",
+    "model": "",
+    "modelCredit": "Simplified in-game stand-in drawn as a flat disc; no NASA 3D model is used for this one.",
+    "surfacePosition": {
+      "x": 0,
+      "z": 0
+    },
+    "whereabouts": "Heading generally toward the red star Aldebaran in the constellation Taurus, which NASA says it is expected to pass in about two million years. NASA's latest figure on its page is about 118.8 AU from Earth on 5 November 2017 (roughly 17.7 billion km); the game places it at that distance and does not extrapolate to today.",
+    "story": {
+      "whatItIs": "Pioneer 10 was NASA's first mission to the outer planets, launched on 2 March 1972 from Cape Canaveral, Florida. It was the first spacecraft to fly beyond Mars, cross the main asteroid belt, pass Jupiter, and cross Neptune's orbit (13 June 1983), the first on a trajectory to leave the Solar System, and the first to use all-nuclear electrical power. It was designed for a 21-month mission.",
+      "whyLeft": "Routine contact ended on 31 March 1997 due to budgetary reasons. Later, its nuclear power source decayed until there was not enough power for the radio transmitter. The last signal was received on 23 January 2003 from about 12.23 billion km away; the signal took 11 hours 20 minutes to arrive. A final contact attempt on 4 March 2006 failed.",
+      "science": "Scientists identified plasma in Jupiter's magnetic field. Pioneer 10 took about 500 images of Jupiter's atmosphere, including the Great Red Spot, and the first close-up images of Ganymede. Its data showed Jupiter's magnetic tail extends almost 800 million km, reaching Saturn's orbit. It also measured zodiacal light and met fewer asteroid hits than expected.",
+      "nowStatus": "Still travelling outward toward Aldebaran. NASA's page does not give its current speed or position, so the game shows it at the 2017 distance NASA lists."
+    },
+    "sources": [
+      {
+        "title": "NASA Science: Pioneer 10 mission page",
+        "url": "https://science.nasa.gov/mission/pioneer-10/"
+      }
+    ]
+  },
+  {
+    "id": "kepler",
+    "name": "Kepler space telescope",
+    "world": "space",
+    "body": "kepler",
+    "site": {
+      "name": "In orbit around the Sun, away from Earth",
+      "lat": null,
+      "lon": null
+    },
+    "mission": "Kepler",
+    "year": "2009–2018",
+    "model": "",
+    "modelCredit": "Simplified in-game stand-in drawn as a flat disc; no NASA 3D model is used for this one.",
+    "surfacePosition": {
+      "x": 0,
+      "z": 0
+    },
+    "whereabouts": "In a heliocentric (Sun-centred) orbit. NASA retired it \"within its current, safe orbit, away from Earth\". NASA's pages give no distance from Earth, and the game's placement (a 371-day Earth-trailing orbit, the design figure from NASA's pre-launch planning) is approximate.",
+    "story": {
+      "whatItIs": "Kepler was NASA's first planet-hunting mission, a space telescope that searched for Earth-sized planets outside our Solar System. It launched on 6 March 2009 and became the agency's first mission to detect Earth-size planets in the habitable zones of their stars.",
+      "whyLeft": "In May 2013 the loss of a second reaction wheel effectively ended new data collection for the original mission, and the extended K2 mission followed. Kepler then ran out of the fuel needed for further science operations. NASA announced on 30 October 2018 that the spacecraft was retired within its current, safe orbit, away from Earth.",
+      "science": "Kepler leaves a legacy of more than 2,600 planet discoveries from outside our Solar System. The most common planet size it found is between Earth and Neptune, a size that does not exist in our own Solar System.",
+      "nowStatus": "Kepler is in its retirement orbit around the Sun, away from Earth. NASA's pages do not state its exact position or distance."
+    },
+    "sources": [
+      {
+        "title": "NASA Science: Kepler mission page",
+        "url": "https://science.nasa.gov/mission/kepler/"
+      },
+      {
+        "title": "NASA: NASA Retires Kepler Space Telescope, Passes Planet-Hunting Torch (30 Oct 2018)",
+        "url": "https://www.nasa.gov/news-release/nasa-retires-kepler-space-telescope-passes-planet-hunting-torch/"
       }
     ]
   }

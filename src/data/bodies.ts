@@ -8,7 +8,9 @@ export const BODY_DATA: Record<string, BodyData> = Object.fromEntries(BODIES.map
 /** Worlds the player can walk on. Earth is only the home launch pad; Moon and Mars have the artifact sites. */
 export type LandId = 'earth' | 'moon' | 'mars'
 /** Destinations the ship can select, warp to and orbit. */
-export const DESTINATIONS = ['earth', 'moon', 'mars']
+/** Equipment out in space: each is its own body in the solar system view. */
+export const PROBE_IDS = ['dawn', 'near-shoemaker', 'pioneer-10', 'kepler']
+export const DESTINATIONS = ['earth', 'moon', 'mars', ...PROBE_IDS]
 export const isDestination = (id: string) => DESTINATIONS.includes(id)
 /** Only the Moon and Mars can be landed on. */
 export type SiteWorld = 'moon' | 'mars'

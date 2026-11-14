@@ -144,6 +144,12 @@ export default function Player({ artifact, terrain }: { artifact: Artifact | nul
     const r = Math.hypot(pos.x, pos.z)
     if (r > PATCH_RADIUS && pos.x * vx + pos.z * vz > 0) { vx = 0; vz = 0 }
     rb.setLinvel({ x: vx, y: vy, z: vz }, true)
+    // Never fall through the ground: if the physics ever lets the player sink below the surface, put them back on it
+    const floor = ground + 0.8
+    if (pos.y < floor) {
+      rb.setTranslation({ x: pos.x, y: floor, z: pos.z }, true)
+      rb.setLinvel({ x: vx, y: Math.max(vy, 0), z: vz }, true)
+    }
     if (pos.y < -60) { rb.setTranslation({ x: 0, y: terrain.height(0, 0) + 1, z: 0 }, true); rb.setLinvel({ x: 0, y: 0, z: 0 }, true) }
 
     // Face the direction of travel and animate

@@ -27,3 +27,5 @@
 
 ## Data sources
 TODO
+
+- Orbits of Ceres and Eros: NASA/JPL Small-Body Database elements (https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html), rounded. Deep-space story text: NASA Science mission pages and NASA news releases linked on each story card.
