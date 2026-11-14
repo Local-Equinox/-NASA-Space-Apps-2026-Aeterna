@@ -319,7 +319,9 @@ const ALL_BODIES = [
     blurb: 'The largest object in the main asteroid belt, and the first dwarf planet a spacecraft visited. NASA’s Dawn is still in orbit around it.',
   },
   {
-    id: 'eros', name: 'Eros', kind: 'asteroid', type: 'Near-Earth asteroid', color: '#b09a84', shape: [1.8, 0.65, 0.65],
+    id: 'eros', name: 'Eros', kind: 'asteroid', type: 'Near-Earth asteroid', color: '#a39686', shape: [1.8, 0.65, 0.65], displayRadius: 0.2,
+    // NASA's shape model of Eros (3D Resources, 3D-printing set), joined from its two printed halves and simplified.
+    shapeModel: 'assets/models/eros.glb',
     mass: [6.69, 15], radiusKm: 8.42, gravity: 0.0059, orbitDays: 643, distance: '1.46 AU (about 218 million km)',
     elements: {
       a: [1.46, 0], e: [0.223, 0], i: [10.8, 0],
@@ -335,7 +337,7 @@ const ALL_BODIES = [
     blurb: 'NASA’s Dawn spacecraft, out of fuel and still circling the dwarf planet Ceres.',
   },
   {
-    id: 'near-shoemaker', name: 'NEAR Shoemaker', kind: 'probe', probe: true, model: 'assets/models/near-shoemaker.glb', modelUnits: 0.16, parent: 'eros', type: 'Spacecraft on an asteroid', color: '#e2c27a',
+    id: 'near-shoemaker', name: 'NEAR Shoemaker', kind: 'probe', probe: true, model: 'assets/models/near-shoemaker.glb', modelUnits: 0.06, parent: 'eros', type: 'Spacecraft on an asteroid', color: '#e2c27a',
     mass: [1, 3], radiusKm: 12, shape: [1, 0.35, 1], gravity: 0, orbitDays: null,
     // Touched down on Eros just south of the saddle-shaped feature Himeros, per NASA; placed on the underside here.
     attach: [0.25, -1, 0.15],

@@ -105,9 +105,10 @@ export default function TerrainView({ world, seed, terrain, avoid }: Props) {
       <mesh geometry={geometry} receiveShadow>
         <meshStandardMaterial vertexColors roughness={1} />
       </mesh>
-      {/* Level ground far beyond the detailed patch, so the horizon is never an edge */}
-      <mesh rotation-x={-Math.PI / 2} position={[0, -0.05, 0]}>
-        <circleGeometry args={[1200, 48]} />
+      {/* Level ground only BEYOND the detailed patch (a ring), so the horizon is never an edge.
+          It must not cover the patch: a full disc hid every dip and crater under a fake flat floor. */}
+      <mesh rotation-x={-Math.PI / 2} position={[0, -0.03, 0]}>
+        <ringGeometry args={[PATCH_RADIUS + 2, 1200, 64]} />
         <meshStandardMaterial color={colors.ground} roughness={1} />
       </mesh>
       {rocks.map((rock, i) => (

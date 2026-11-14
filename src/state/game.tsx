@@ -5,7 +5,7 @@ import type { Artifact } from '../types/artifact'
 import type { LandId, SiteWorld } from '../data/bodies'
 
 export type SceneName = 'title' | 'space' | 'surface'
-export type Overlay = 'none' | 'collection' | 'about' | 'help' | 'sites' | 'clean' | 'wires' | 'spacewalk' | 'map' | 'story' | 'stories'
+export type Overlay = 'none' | 'collection' | 'about' | 'help' | 'sites' | 'cutscene' | 'clean' | 'wires' | 'spacewalk' | 'map' | 'story' | 'stories'
 
 const STORAGE_KEY = 'left-behind-found'
 

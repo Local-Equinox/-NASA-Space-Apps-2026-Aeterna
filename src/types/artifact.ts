@@ -22,6 +22,8 @@ export interface Artifact {
   tagLabel?: string
   /** Name shown on the world map, when it differs from the mission. */
   mapLabel?: string
+  /** Flashback video played after the minigame, under public/. If the file is missing the game goes straight to the story. */
+  cutscene?: string
   mission: string
   year: string
   /** A GLB under /assets/models/, or "procedural:<name>" for a simplified model built in code (see src/game/props.ts). */

@@ -168,7 +168,7 @@ export default function Clean() {
       </div>
       <div className="progress" aria-hidden="true"><i style={{ width: `${stage === 'rocks' ? Math.round(((5 - rocks.filter((r) => !outside(r)).length) / 5) * 25) : 25 + pct * 0.75}%` }} /></div>
       <div className="row">
-        {done && <button className="button" onClick={() => setOverlay('story')}>Read the story</button>}
+        {done && <button className="button" onClick={() => setOverlay('cutscene')}>Read the story</button>}
       </div>
     </section>
   )

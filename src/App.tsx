@@ -11,6 +11,7 @@ import SurfaceHud from './ui/SurfaceHud'
 import InspectPrompt from './ui/InspectPrompt'
 import ProbePrompt from './ui/ProbePrompt'
 import Wires from './ui/Wires'
+import Cutscene from './ui/Cutscene'
 import Spacewalk from './ui/Spacewalk'
 import BoardPrompt from './ui/BoardPrompt'
 import MiniMap from './ui/MiniMap'
@@ -81,6 +82,7 @@ function Game() {
       <TimeControls />
       {overlay === 'clean' && <Clean />}
       {overlay === 'wires' && <Wires />}
+      {overlay === 'cutscene' && <Cutscene />}
       {overlay === 'spacewalk' && <Spacewalk />}
       {overlay === 'map' && <MapOverlay />}
       {overlay === 'story' && <Story />}

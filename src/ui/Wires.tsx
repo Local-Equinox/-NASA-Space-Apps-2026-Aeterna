@@ -97,7 +97,7 @@ export default function Wires() {
         ))}
       </svg>
       <div className="row">
-        {done && <button className="button" onClick={() => setOverlay('story')}>Open module menu</button>}
+        {done && <button className="button" onClick={() => setOverlay('cutscene')}>Open module menu</button>}
       </div>
     </section>
   )

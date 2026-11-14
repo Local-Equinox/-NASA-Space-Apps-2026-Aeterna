@@ -144,7 +144,7 @@ export default function Spacewalk() {
         <button className="button" {...hold('fwd', true)} aria-label="Move forward">Forward ►</button>
         <span className="small">Hits: {bumps}</span>
       </div>
-      {done && <button className="button" onClick={() => setOverlay('story')}>Inspect the spacecraft</button>}
+      {done && <button className="button" onClick={() => setOverlay('cutscene')}>Inspect the spacecraft</button>}
     </section>
   )
 }

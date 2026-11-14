@@ -45,7 +45,8 @@
         "title": "NASA 3D Resources: Apollo Lunar Module",
         "url": "https://science.nasa.gov/3d-resources/apollo-lunar-module/"
       }
-    ]
+    ],
+    "cutscene": "assets/cutscenes/apollo-11-eagle.mp4"
   },
   {
     "id": "apollo-15-falcon",
@@ -103,7 +104,8 @@
         "title": "NASA 3D Resources: Apollo Lunar Module",
         "url": "https://science.nasa.gov/3d-resources/apollo-lunar-module/"
       }
-    ]
+    ],
+    "cutscene": "assets/cutscenes/apollo-15-falcon.mp4"
   },
   {
     "id": "apollo-12-intrepid",
@@ -151,7 +153,8 @@
         "title": "NASA 3D Resources: Apollo Lunar Module",
         "url": "https://science.nasa.gov/3d-resources/apollo-lunar-module/"
       }
-    ]
+    ],
+    "cutscene": "assets/cutscenes/apollo-12-intrepid.mp4"
   },
   {
     "id": "surveyor-3",
@@ -183,7 +186,8 @@
         "url": "https://science.nasa.gov/mission/surveyor-3/"
       }
     ],
-    "nameplate": false
+    "nameplate": false,
+    "cutscene": "assets/cutscenes/surveyor-3.mp4"
   },
   {
     "id": "sojourner",
@@ -231,7 +235,8 @@
         "url": "https://www.giss.nasa.gov/tools/mars24/help/landers.html"
       }
     ],
-    "nameplate": false
+    "nameplate": false,
+    "cutscene": "assets/cutscenes/sojourner.mp4"
   },
   {
     "id": "spirit-and-opportunity",
@@ -289,7 +294,8 @@
       }
     ],
     "tagLabel": "Spirit",
-    "mapLabel": "Spirit and Opportunity"
+    "mapLabel": "Spirit and Opportunity",
+    "cutscene": "assets/cutscenes/spirit-and-opportunity.mp4"
   },
   {
     "id": "viking-1",
@@ -324,7 +330,8 @@
         "title": "NASA 3D Resources: Viking Lander",
         "url": "https://science.nasa.gov/3d-resources/viking-lander/"
       }
-    ]
+    ],
+    "cutscene": "assets/cutscenes/viking-1.mp4"
   },
   {
     "id": "insight",
@@ -359,7 +366,8 @@
         "title": "NASA 3D Resources: InSight Cruise Lander",
         "url": "https://science.nasa.gov/3d-resources/insight-cruise-lander/"
       }
-    ]
+    ],
+    "cutscene": "assets/cutscenes/insight.mp4"
   },
   {
     "id": "ingenuity",
@@ -399,7 +407,8 @@
         "url": "https://www.giss.nasa.gov/tools/mars24/help/landers.html"
       }
     ],
-    "nameplate": false
+    "nameplate": false,
+    "cutscene": "assets/cutscenes/ingenuity.mp4"
   },
   {
     "id": "dawn",
@@ -439,7 +448,8 @@
         "title": "JPL Small-Body Database: Ceres (orbit drawn in the game, rounded)",
         "url": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=1"
       }
-    ]
+    ],
+    "cutscene": "assets/cutscenes/dawn.mp4"
   },
   {
     "id": "near-shoemaker",
@@ -475,7 +485,8 @@
         "title": "JPL Small-Body Database: 433 Eros (orbit drawn in the game, rounded)",
         "url": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=433"
       }
-    ]
+    ],
+    "cutscene": "assets/cutscenes/near-shoemaker.mp4"
   },
   {
     "id": "pioneer-10",
@@ -507,7 +518,8 @@
         "title": "NASA Science: Pioneer 10 mission page",
         "url": "https://science.nasa.gov/mission/pioneer-10/"
       }
-    ]
+    ],
+    "cutscene": "assets/cutscenes/pioneer-10.mp4"
   },
   {
     "id": "kepler",
@@ -543,6 +555,7 @@
         "title": "NASA: NASA Retires Kepler Space Telescope, Passes Planet-Hunting Torch (30 Oct 2018)",
         "url": "https://www.nasa.gov/news-release/nasa-retires-kepler-space-telescope-passes-planet-hunting-torch/"
       }
-    ]
+    ],
+    "cutscene": "assets/cutscenes/kepler.mp4"
   }
 ]

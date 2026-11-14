@@ -65,3 +65,11 @@ Found artifacts are saved in `localStorage`. "Reset progress" is in the Collecti
 
 See [CREDITS.md](CREDITS.md) and [AI_USE.md](AI_USE.md). Earth, Moon and Mars textures are CC BY 4.0
 (Solar System Scope, based on NASA data).
+
+## Flashback cutscenes
+
+After each minigame the game plays `public/assets/cutscenes/<artifact id>.mp4`, then opens the story. The files are not included yet: add them with the names listed in `public/assets/cutscenes/README.md`. A missing video is skipped (in `npm run dev` a placeholder card shows the expected file name).
+
+## Settings
+
+The gear button opens Settings: Controls, and switches for Orbits, Names, Stars and Sound.

@@ -102,7 +102,7 @@ class Body {
   constructor(data, parent) {
     Object.assign(this, { data, parent, id: data.id, name: data.name, kind: data.kind });
     this.moons = [];
-    this.radius = displayRadius(data.radiusKm);
+    this.radius = data.displayRadius ?? displayRadius(data.radiusKm);
     this.color = new Color(data.color);
     this.worldPosition = new Vector3();
     this.positionAU = new Vector3(); // heliocentric; a moon shares its planet's
@@ -185,6 +185,7 @@ export class SolarSystem {
 
     this._addSurface(body);
     if (data.model) this._addModel(body);
+    if (data.shapeModel) this._addShapeModel(body);
     if (data.pole) {
       body.poleQuaternion = poleQuaternion(data.pole);
       body.axis.quaternion.copy(body.poleQuaternion);
@@ -252,6 +253,32 @@ export class SolarSystem {
       body.surface.material.visible = true; // fall back to the flat disc
       console.warn(`Model failed to load: ${data.model}`);
     });
+  }
+
+  /** Replaces the globe with a real shape model (an asteroid). The mesh is normalised: longest half-axis = 1. */
+  _addShapeModel(body) {
+    const { data } = body;
+    getLoader().load(data.shapeModel, (gltf) => {
+      let geometry = null;
+      gltf.scene.traverse((o) => { if (o.isMesh && !geometry) geometry = o.geometry; });
+      if (!geometry) return;
+      geometry.computeVertexNormals();
+      const long = body.radius * (data.shape?.[0] ?? 1);
+      body.surface.geometry = geometry;
+      body.surface.scale.setScalar(long);
+      // How far the surface reaches from the centre in a given direction, for things resting on it
+      const pos = geometry.getAttribute('position');
+      const v = new Vector3();
+      body.surfaceReach = (dir) => {
+        let best = 0;
+        for (let i = 0; i < pos.count; i++) {
+          v.fromBufferAttribute(pos, i);
+          const along = v.dot(dir);
+          if (along > best && v.lengthSq() - along * along < 0.02) best = along;
+        }
+        return best * long;
+      };
+    }, undefined, () => console.warn(`Shape model failed to load: ${data.shapeModel}`));
   }
 
   _addPlanetOrbit(body, startDays) {
@@ -420,8 +447,9 @@ export class SolarSystem {
         const v = _attach.set(...body.data.attach).normalize();
         const [sx, sy, sz] = body.parent.data.shape ?? [1, 1, 1];
         const R = body.parent.radius;
-        const reach = 1 / Math.sqrt((v.x / (R * sx)) ** 2 + (v.y / (R * sy)) ** 2 + (v.z / (R * sz)) ** 2);
-        body.anchor.position.copy(v).multiplyScalar(reach * 1.1);
+        if (body.parent.surfaceReach && !body.attachReach) body.attachReach = body.parent.surfaceReach(v) + (body.data.modelUnits ?? 0) * 0.35;
+        const reach = body.attachReach ?? 1.1 / Math.sqrt((v.x / (R * sx)) ** 2 + (v.y / (R * sy)) ** 2 + (v.z / (R * sz)) ** 2);
+        body.anchor.position.copy(v).multiplyScalar(reach);
         body.worldPosition.addVectors(body.parent.worldPosition, body.anchor.position);
         body.positionAU.copy(body.parent.positionAU);
       } else if (body.orbitFrame) {
