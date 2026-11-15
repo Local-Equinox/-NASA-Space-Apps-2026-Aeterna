@@ -64,5 +64,6 @@ export class Labels {
   constructor(container: HTMLElement, system: SolarSystem, camera: PerspectiveCamera)
   setSelected(body: SolarBody | null): void
   setEnabled(enabled: boolean): void
+  setMasked(ids: Set<string>): void
   update(width: number, height: number): void
 }

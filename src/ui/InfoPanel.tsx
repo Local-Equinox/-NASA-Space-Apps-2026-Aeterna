@@ -16,23 +16,25 @@ export default function InfoPanel() {
   const equipment = artifacts.find((a) => a.body === selected)
   if (equipment) {
     const got = found.includes(equipment.id)
+    // Keep it a mystery until the player has inspected it.
+    const title = got ? body.name : 'Unknown spacecraft'
     return (
-      <aside className="info-panel" aria-label={`${body.name} information`}>
+      <aside className="info-panel" aria-label={`${title} information`}>
         <header className="ip-head">
           <span className="ip-kicker">{body.type}</span>
-          <h2>{body.name}</h2>
+          <h2>{title}</h2>
           <span className={`ip-status ${got ? 'found' : ''}`}>{got ? '✔ Found' : 'Not inspected yet'}</span>
         </header>
         <div className="ip-body">
           <dl className="ip-facts stack">
-            <div><dt>Mission</dt><dd>{equipment.mission}, {shortYear(equipment)}</dd></div>
+            <div><dt>Mission</dt><dd>{got ? `${equipment.mission}, ${shortYear(equipment)}` : '???'}</dd></div>
             <div><dt>Where it is</dt><dd>{equipment.whereabouts}</dd></div>
           </dl>
-          <p className="ip-blurb">{body.blurb}</p>
+          <p className="ip-blurb">{got ? body.blurb : 'A human-made spacecraft drifting out here. Fly close and make a spacewalk to find out which one it is.'}</p>
           <p className="ip-hint">When you arrive, press <kbd className="kb-only">E</kbd><span className="touch-text">the Spacewalk button</span> to start the spacewalk.</p>
           <div className="ip-actions">
             <button className="btn-glow" disabled={warping || here} onClick={() => requestWarp(selected)}>
-              {here ? `Next to ${body.name}` : `Warp to ${body.name}`}
+              {here ? `Next to ${title}` : `Warp to ${title}`}
             </button>
             <button className="button secondary" onClick={() => setSelected(null)}>Close</button>
           </div>

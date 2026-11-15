@@ -6,6 +6,7 @@ import { Picker } from '../../solar/picker.js'
 import { Labels } from '../../solar/labels.js'
 import { createSpaceship } from '../../game/models'
 import { isDestination, isLandable, PROBE_IDS, type SiteWorld } from '../../data/bodies'
+import { artifacts } from '../../data/artifacts'
 import { useGame } from '../../state/game'
 import { sim, view, daysPerSecond } from '../../lib/sim'
 import { touch } from '../../lib/touch'
@@ -41,7 +42,7 @@ interface Warp {
 }
 
 export default function SpaceWorld() {
-  const { spawn, overlay, warpRequest, setNear, setNearProbe, setOrbitOf, setWarping, setSelected, selected } = useGame()
+  const { spawn, overlay, warpRequest, setNear, setNearProbe, setOrbitOf, setWarping, setSelected, selected, found } = useGame()
   const { gl, camera: cam, size } = useThree()
   const camera = cam as PerspectiveCamera
 
@@ -114,6 +115,12 @@ export default function SpaceWorld() {
     ;(window as unknown as { __picker?: Picker }).__picker = picker
     return () => { container.remove(); labels.current = null; picker.enabled = false }
   }, [gl, system, sysCam, camera, setSelected])
+
+  // Spacecraft out in space stay "???" on their name tags until they have been found.
+  useEffect(() => {
+    const hidden = new Set(PROBE_IDS.filter((id) => !found.some((f) => artifacts.find((a) => a.id === f)?.body === id)))
+    labels.current?.setMasked(hidden)
+  }, [found, gl, system, sysCam, camera, setSelected])
 
   // Keyboard
   useEffect(() => {

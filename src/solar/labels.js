@@ -38,6 +38,14 @@ export class Labels {
     this.entries.unshift({ body: marker, element, x: NaN, y: NaN, halfWidth: (marker.name.length * LABEL_CHAR_WIDTH_PX) / 2 + 4 });
   }
 
+  /** Shows "???" instead of the name for the given body ids (equipment that hasn't been found yet). */
+  setMasked(ids) {
+    for (const { body, element } of this.entries) {
+      const masked = ids.has(body.id);
+      element.textContent = masked ? '???' : body.name;
+    }
+  }
+
   /** Hides all labels for views where they don't apply, without changing the user's preference. */
   setSuppressed(suppressed) {
     this.suppressed = suppressed;
