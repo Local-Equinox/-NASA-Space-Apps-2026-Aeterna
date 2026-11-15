@@ -69,6 +69,6 @@ export default function MiniMap() {
 
   if (!visible) return null
   // Stay mounted during the decision and story (just hidden): unmounting it used to leave the map blank afterwards.
-  const hidden = overlay === 'story' || overlay === 'clean' || overlay === 'wires' || overlay === 'cutscene' || overlay === 'spacewalk' || overlay === 'map' || overlay === 'collection' || overlay === 'stories'
+  const hidden = overlay === 'story' || overlay === 'clean' || overlay === 'wires' || overlay === 'cutscene' || overlay === 'spacewalk' || overlay === 'antenna' || overlay === 'reboot' || overlay === 'signal' || overlay === 'burn' || overlay === 'map' || overlay === 'collection' || overlay === 'stories'
   return <canvas ref={ref} className="minimap" style={{ width: SIZE, height: SIZE, visibility: hidden ? 'hidden' : 'visible' }} role="button" tabIndex={0} onClick={() => setOverlay('map')} onKeyDown={(e) => { if (e.key === 'Enter') setOverlay('map') }} aria-label="Map tracker. Undiscovered equipment shows as question marks. Press to open the world map (M)." title="Open world map (M)" />
 }

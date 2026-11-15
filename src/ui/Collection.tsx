@@ -1,6 +1,7 @@
 import { artifacts } from '../data/artifacts'
 import { isLandable, type SiteWorld } from '../data/bodies'
 import { useGame } from '../state/game'
+import { shortYear } from '../lib/sites'
 import type { Artifact, World } from '../types/artifact'
 
 const GROUPS: { world: World; title: string; body?: string }[] = [
@@ -51,7 +52,7 @@ export default function Collection() {
                       <i aria-hidden="true" />
                       <span>
                         <b>{artifacts.indexOf(a) + 1}. {got ? a.name : '???'}</b>
-                        <em>{got ? `Explored · ${a.mission}, ${a.year}` : a.world === 'space' ? 'Unexplored · warp there' : 'Unexplored · you can land there'}</em>
+                        <em>{got ? `Explored · ${a.mission}, ${shortYear(a)}` : a.world === 'space' ? 'Unexplored · warp there' : 'Unexplored · you can land there'}</em>
                       </span>
                     </button>
                   </li>

@@ -9,6 +9,8 @@ export interface Artifact {
     /** Real landing-site coordinates. Leave null until sourced from NASA. */
     lat: number | null
     lon: number | null
+    /** Coordinates exactly as the card words them (e.g. "19.47° N, 326.75° E (the same as 33.25° W)"). Shown instead of lat/lon when set. */
+    coordinates?: string
     /** Second location when one entry covers two sites (Spirit and Opportunity). */
     alt?: { name: string; lat: number; lon: number }
   }
@@ -24,6 +26,10 @@ export interface Artifact {
   mapLabel?: string
   /** Flashback video played after the minigame, under public/. If the file is missing the game goes straight to the story. */
   cutscene?: string
+  /** The map pin is only approximate (NASA says Viking 2's landing position is uncertain). */
+  approximate?: boolean
+  /** Pictures shown at the top of the equipment's card (files in public/assets/cards/). */
+  images?: { src: string; alt: string; caption?: string }[]
   mission: string
   year: string
   /** A GLB under /assets/models/, or "procedural:<name>" for a simplified model built in code (see src/game/props.ts). */
@@ -42,6 +48,8 @@ export interface Artifact {
     whyLeft: string
     science: string
     nowStatus: string
+    /** Optional extra section shown after "Why it was left" (Surveyor 3's rough landing). */
+    landing?: string
   }
   sources: { title: string; url: string }[]
 }

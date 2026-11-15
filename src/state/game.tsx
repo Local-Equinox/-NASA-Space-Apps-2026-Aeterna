@@ -5,7 +5,7 @@ import type { Artifact } from '../types/artifact'
 import type { LandId, SiteWorld } from '../data/bodies'
 
 export type SceneName = 'title' | 'space' | 'surface' | 'launch'
-export type Overlay = 'none' | 'collection' | 'about' | 'help' | 'sites' | 'cutscene' | 'clean' | 'wires' | 'spacewalk' | 'map' | 'story' | 'stories'
+export type Overlay = 'none' | 'collection' | 'about' | 'help' | 'sites' | 'cutscene' | 'clean' | 'wires' | 'spacewalk' | 'antenna' | 'reboot' | 'signal' | 'burn' | 'map' | 'story' | 'stories'
 
 const STORAGE_KEY = 'left-behind-found'
 
@@ -119,15 +119,18 @@ export function GameProvider({ children }: { children: ReactNode }) {
     goTo(surfaceWorld === 'earth' ? 'launch' : 'space')
   }, [surfaceWorld, goTo])
 
-  // Moon and Mars equipment: a nameplate-cleaning or a wire minigame (equipment with no nameplate always gets wires).
-  // Equipment out in space: the spacewalk. Anything already found goes straight to its story.
+  // Moon and Mars equipment: one of four minigames (nameplate cleaning, wires, antenna, reboot; equipment with no nameplate skips the cleaning).
+  // Equipment out in space: spacewalk, signal match or orbit burn. Anything already found goes straight to its story.
   const inspect = useCallback((a: Artifact) => {
     setSite(a)
     sfx.inspect()
     if (found.includes(a.id)) setOverlay('story')
-    else if (a.world === 'space') setOverlay('spacewalk')
-    else if (a.nameplate === false) setOverlay('wires')
-    else setOverlay(Math.random() < 0.5 ? 'clean' : 'wires')
+    else {
+      const pick = (l: Overlay[]) => l[Math.floor(Math.random() * l.length)]
+      if (a.world === 'space') setOverlay(pick(['spacewalk', 'signal', 'burn']))
+      else if (a.nameplate === false) setOverlay(pick(['wires', 'antenna', 'reboot']))
+      else setOverlay(pick(['clean', 'wires', 'antenna', 'reboot']))
+    }
   }, [found])
 
   return (

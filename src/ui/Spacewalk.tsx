@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useGame } from '../state/game'
 import { sfx } from '../lib/sound'
+import { useFinish } from './useFinish'
 
 const W = 640
 const H = 320
@@ -26,13 +27,14 @@ const makeRock = (): Rock => {
 
 // Inspect minigame for equipment out in space: tethered, cross to the spacecraft while rogue asteroids cut across the rope.
 export default function Spacewalk() {
-  const { site, setOverlay } = useGame()
+  const { site } = useGame()
   const canvas = useRef<HTMLCanvasElement>(null)
   const held = useRef({ fwd: false, back: false })
   const [bumps, setBumps] = useState(0)
   const [done, setDone] = useState(false)
   const doneRef = useRef(false)
   const preview = useRef<HTMLImageElement | null>(null)
+  useFinish(done)
   const stars = useRef(Array.from({ length: 70 }, () => ({ x: Math.random() * W, y: Math.random() * H, s: Math.random() * 1.6 + 0.4 })))
 
   useEffect(() => {
@@ -144,7 +146,6 @@ export default function Spacewalk() {
         <button className="button" {...hold('fwd', true)} aria-label="Move forward">Forward ►</button>
         <span className="small">Hits: {bumps}</span>
       </div>
-      {done && <button className="button" onClick={() => setOverlay('cutscene')}>Inspect the spacecraft</button>}
     </section>
   )
 }

@@ -12,6 +12,7 @@ import ProbePrompt from './ui/ProbePrompt'
 import Wires from './ui/Wires'
 import Cutscene from './ui/Cutscene'
 import Spacewalk from './ui/Spacewalk'
+import { Antenna, Burn, Reboot, Signal } from './ui/minigames'
 import BoardPrompt from './ui/BoardPrompt'
 import MiniMap from './ui/MiniMap'
 import Brand from './ui/Brand'
@@ -83,6 +84,10 @@ function Game() {
       {overlay === 'wires' && <Wires />}
       {overlay === 'cutscene' && <Cutscene />}
       {overlay === 'spacewalk' && <Spacewalk />}
+      {overlay === 'antenna' && <Antenna />}
+      {overlay === 'reboot' && <Reboot />}
+      {overlay === 'signal' && <Signal />}
+      {overlay === 'burn' && <Burn />}
       {overlay === 'map' && <MapOverlay />}
       {overlay === 'story' && <Story />}
       {overlay === 'stories' && <Stories />}

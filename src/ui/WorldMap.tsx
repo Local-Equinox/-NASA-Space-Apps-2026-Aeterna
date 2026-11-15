@@ -11,11 +11,11 @@ export default function WorldMap({ world, onPick }: { world: World; onPick?: (id
     <div className="site-map" style={{ backgroundImage: worldMapImage(world) }}>
       {list.flatMap((a, i) =>
         sitePoints(a).map((p, pi) => {
-          const label = shortLabel(a, found)
+          const label = shortLabel(a, found) + (a.approximate && found.includes(a.id) ? ' (approx. location)' : '')
           const props = {
             className: `site-dot ${found.includes(a.id) ? 'done' : ''} ${(i + pi) % 2 ? 'alt' : ''} ${scene === 'surface' && here?.id === a.id ? 'here' : ''}`,
             style: mapPos(p.lat, p.lon),
-            title: `${siteLabel(a, found)} (${p.lat}°, ${p.lon}°)`,
+            title: `${siteLabel(a, found)} (${p.lat}°, ${p.lon}°)${a.approximate ? ', approximate location' : ''}`,
           }
           return onPick ? (
             <button key={p.key} {...props} onClick={() => onPick(a.id)} aria-label={siteLabel(a, found)}><span>{label}</span></button>

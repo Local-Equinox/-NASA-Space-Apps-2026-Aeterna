@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useGame } from '../state/game'
 import { sfx } from '../lib/sound'
+import { shortYear } from '../lib/sites'
 
 const W = 560
 const H = 200
@@ -124,7 +125,7 @@ export default function Clean() {
   }
   const brushUp = () => { brush.current = null }
 
-  const plateText = useMemo(() => (site ? [site.name, `${site.mission} · ${site.year}`] : ['', '']), [site])
+  const plateText = useMemo(() => (site ? [site.name, `${site.mission} · ${shortYear(site)}`] : ['', '']), [site])
   if (!site) return null
   const pct = Math.min(100, Math.round(Math.min(progress / GOAL, 1) * 100))
 

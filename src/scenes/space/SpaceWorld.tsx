@@ -23,6 +23,7 @@ const WARP_FOV = 34
 const smoother = (t: number) => t * t * t * (t * (t * 6 - 15) + 10)
 const wrap = (a: number) => Math.atan2(Math.sin(a), Math.cos(a))
 const lookAngles = (d: Vector3) => ({ yaw: Math.atan2(-d.x, -d.z), pitch: Math.asin(MathUtils.clamp(d.y, -1, 1)) })
+const SHIP_DIR = new Vector3(), SHIP_FWD = new Vector3(), SHIP_TURN = new Quaternion()
 const forwardOf = (yaw: number, pitch: number, out: Vector3) =>
   out.set(-Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), -Math.cos(yaw) * Math.cos(pitch))
 const MOVE_KEYS = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD', 'Space', 'KeyC', 'ShiftLeft', 'ShiftRight'])
@@ -53,6 +54,9 @@ export default function SpaceWorld() {
     return m
   }, [])
   const shipRoot = useRef<Group>(null)
+  // The ship's own heading. It turns to face the way it is flying, and otherwise stays put: looking around only moves the camera.
+  const shipQ = useRef(new Quaternion())
+  const shipInit = useRef(false)
 
   const keys = useRef(new Set<string>())
   const locked = useRef(false)
@@ -329,7 +333,18 @@ export default function SpaceWorld() {
     camera.quaternion.copy(q)
     camera.position.copy(fwd).multiplyScalar(-CHASE).addScaledVector(up, CHASE_UP)
     if (shipRoot.current) {
-      shipRoot.current.quaternion.slerp(q, 1 - Math.exp(-8 * dt))
+      const sq = shipQ.current
+      if (!shipInit.current) { sq.copy(q); shipInit.current = true }
+      if (st.warp) {
+        sq.slerp(q, 1 - Math.exp(-4 * dt)) // warp flies where the camera points
+      } else if (thrust > 0.05 && st.vel.lengthSq() > 1e-10) {
+        // Thrusting: swing the nose toward the direction of travel (shortest turn, so no roll or flip)
+        SHIP_DIR.copy(st.vel).normalize()
+        SHIP_FWD.set(0, 0, -1).applyQuaternion(sq)
+        SHIP_TURN.setFromUnitVectors(SHIP_FWD, SHIP_DIR).multiply(sq)
+        sq.slerp(SHIP_TURN, 1 - Math.exp(-3 * dt))
+      }
+      shipRoot.current.quaternion.copy(sq)
       shipModel.userData.setThrust(thrust)
     }
 

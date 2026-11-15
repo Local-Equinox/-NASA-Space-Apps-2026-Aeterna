@@ -1,6 +1,7 @@
 import { artifacts } from '../data/artifacts'
 import { BODY_DATA, isLandable } from '../data/bodies'
 import { useGame } from '../state/game'
+import { shortYear } from '../lib/sites'
 
 const fmtMass = ([m, e]: [number, number]) => `${m} × 10^${e} kg`
 
@@ -17,47 +18,56 @@ export default function InfoPanel() {
     const got = found.includes(equipment.id)
     return (
       <aside className="info-panel" aria-label={`${body.name} information`}>
-        <h2>{body.name}</h2>
-        <p className="small">{body.type}</p>
-        <dl>
-          <dt>Mission</dt><dd>{equipment.mission}, {equipment.year}</dd>
-          <dt>Where it is</dt><dd>{equipment.whereabouts}</dd>
-          <dt>Status</dt><dd>{got ? '✔ Found' : 'Not inspected yet'}</dd>
-        </dl>
-        <p className="small blurb">{body.blurb} When you arrive, press E to start the spacewalk.</p>
-        <div className="row">
-          <button className="btn-glow" disabled={warping || here} onClick={() => requestWarp(selected)}>
-            {here ? `Next to ${body.name}` : `Warp to ${body.name}`}
-          </button>
-          <button className="button secondary" onClick={() => setSelected(null)}>Close</button>
+        <header className="ip-head">
+          <span className="ip-kicker">{body.type}</span>
+          <h2>{body.name}</h2>
+          <span className={`ip-status ${got ? 'found' : ''}`}>{got ? '✔ Found' : 'Not inspected yet'}</span>
+        </header>
+        <div className="ip-body">
+          <dl className="ip-facts stack">
+            <div><dt>Mission</dt><dd>{equipment.mission}, {shortYear(equipment)}</dd></div>
+            <div><dt>Where it is</dt><dd>{equipment.whereabouts}</dd></div>
+          </dl>
+          <p className="ip-blurb">{body.blurb}</p>
+          <p className="ip-hint">When you arrive, press <kbd className="kb-only">E</kbd><span className="touch-text">the Spacewalk button</span> to start the spacewalk.</p>
+          <div className="ip-actions">
+            <button className="btn-glow" disabled={warping || here} onClick={() => requestWarp(selected)}>
+              {here ? `Next to ${body.name}` : `Warp to ${body.name}`}
+            </button>
+            <button className="button secondary" onClick={() => setSelected(null)}>Close</button>
+          </div>
         </div>
       </aside>
     )
   }
   return (
     <aside className="info-panel" aria-label={`${body.name} information`}>
-      <h2>{body.name}</h2>
-      <p className="small">{body.type}</p>
-      <dl>
-        <dt>Surface gravity</dt><dd>{body.gravity} m/s²</dd>
-        <dt>Mean radius</dt><dd>{body.radiusKm.toLocaleString()} km</dd>
-        <dt>Mass</dt><dd>{fmtMass(body.mass)}</dd>
-        {body.distance && (<><dt>From the Sun</dt><dd>{body.distance}</dd></>)}
-        {body.temperature && (<><dt>Temperature</dt><dd>{body.temperature}</dd></>)}
-        {sites.length > 0 && (<><dt>Artifacts found</dt><dd>{done} of {sites.length}</dd></>)}
-        {isLandable(selected) && (<><dt>Landing sites</dt><dd>{sites.length}</dd></>)}
-      </dl>
-      <p className="small blurb">{body.blurb}</p>
-      <div className="row">
-        <button className="btn-glow" disabled={warping || here} onClick={() => requestWarp(selected)}>
-          {here ? `In orbit of ${body.name}` : `Warp to ${body.name}`}
-        </button>
-        <button className="button secondary" onClick={() => setSelected(null)}>Close</button>
+      <header className="ip-head">
+        <span className="ip-kicker">{body.type}</span>
+        <h2>{body.name}</h2>
+      </header>
+      <div className="ip-body">
+        <dl className="ip-facts">
+          <div><dt>Surface gravity</dt><dd>{body.gravity} m/s²</dd></div>
+          <div><dt>Mean radius</dt><dd>{body.radiusKm.toLocaleString()} km</dd></div>
+          <div><dt>Mass</dt><dd>{fmtMass(body.mass)}</dd></div>
+          {body.distance && <div><dt>From the Sun</dt><dd>{body.distance}</dd></div>}
+          {body.temperature && <div><dt>Temperature</dt><dd>{body.temperature}</dd></div>}
+          {sites.length > 0 && <div><dt>Artifacts found</dt><dd>{done} of {sites.length}</dd></div>}
+          {isLandable(selected) && <div><dt>Landing sites</dt><dd>{sites.length}</dd></div>}
+        </dl>
+        <p className="ip-blurb">{body.blurb}</p>
+        <div className="ip-actions">
+          <button className="btn-glow" disabled={warping || here} onClick={() => requestWarp(selected)}>
+            {here ? `In orbit of ${body.name}` : `Warp to ${body.name}`}
+          </button>
+          <button className="button secondary" onClick={() => setSelected(null)}>Close</button>
+        </div>
+        <details className="credits">
+          <summary>Credits</summary>
+          <p className="small">Planet, Sun and Moon textures: Solar System Scope, CC BY 4.0, from NASA data. Star catalog and constellation lines: d3-celestial. Facts: NASA/JPL fact sheets (DRAFT – verify).</p>
+        </details>
       </div>
-      <details className="credits">
-        <summary>Credits</summary>
-        <p className="small">Planet, Sun and Moon textures: Solar System Scope, CC BY 4.0, from NASA data. Star catalog and constellation lines: d3-celestial. Facts: NASA/JPL fact sheets (DRAFT – verify).</p>
-      </details>
     </aside>
   )
 }

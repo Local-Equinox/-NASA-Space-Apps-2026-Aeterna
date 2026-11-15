@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { artifacts } from '../data/artifacts'
 import { useGame } from '../state/game'
 import { sfx } from '../lib/sound'
+import Rich from './Rich'
 
 const isUrl = (u: string) => /^https?:\/\//.test(u)
 const PLACE = { moon: 'Moon', mars: 'Mars', space: 'Deep space' } as const
@@ -20,7 +21,8 @@ export default function Story() {
     ['Years', a.year],
     [a.world === 'space' ? 'Where' : 'Site', a.site.name.replace(/^.*site: /, '')],
   ]
-  if (a.site.lat !== null && a.site.lon !== null) facts.push(['Coordinates', `${fmt(a.site.lat, 'N', 'S')}, ${fmt(a.site.lon, 'E', 'W')}`])
+  if (a.site.coordinates) facts.push(['Coordinates', a.site.coordinates])
+  else if (a.site.lat !== null && a.site.lon !== null) facts.push(['Coordinates', `${fmt(a.site.lat, 'N', 'S')}, ${fmt(a.site.lon, 'E', 'W')}`])
   return (
     <aside className="dossier" role="dialog" aria-labelledby="story-title">
       <header>
@@ -30,17 +32,27 @@ export default function Story() {
       <div className="dossier-body">
         <p className="dossier-kicker">Chapter {artifacts.indexOf(a) + 1} · {PLACE[a.world]}</p>
         <h2 id="story-title">{a.name}</h2>
-        <p className="dossier-lead">{story.whatItIs}</p>
+        {a.images && a.images.length > 0 && (
+          <div className={`dossier-figures n${a.images.length}`}>
+            {a.images.map((im) => (
+              <figure key={im.src}>
+                <img src={im.src} alt={im.alt} loading="lazy" decoding="async" />
+                {im.caption && <figcaption>{im.caption}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        )}
+        <div className="dossier-lead"><Rich text={story.whatItIs} /></div>
         <p className="dossier-stamp">Added to your missions</p>
         <dl className="dossier-facts">
           {facts.map(([k, v], i) => (
             <div key={k}><dt><span>{String(i + 1).padStart(2, '0')}</span>{k}</dt><dd>{v}</dd></div>
           ))}
         </dl>
-        <section><p className="dossier-kicker">Why it was left</p><p>{story.whyLeft}</p></section>
-        <section><p className="dossier-kicker">The science it enabled</p><p>{story.science}</p></section>
-        <section><p className="dossier-kicker">Where it is now</p><p>{story.nowStatus}</p></section>
-        {a.whereabouts && <section><p className="dossier-kicker">Whereabouts</p><p>{a.whereabouts}</p></section>}
+        <section><p className="dossier-kicker">Why it was left</p><Rich text={story.whyLeft} /></section>
+        {story.landing && <section><p className="dossier-kicker">The landing</p><Rich text={story.landing} /></section>}
+        <section><p className="dossier-kicker">The science it enabled</p><Rich text={story.science} /></section>
+        <section><p className="dossier-kicker">Where it is now</p><Rich text={story.nowStatus} /></section>
         <section>
           <p className="dossier-kicker">3D model</p>
           <p className="dossier-small">{a.modelCredit}</p>

@@ -7,6 +7,8 @@ export function isRevealed(a: Artifact, found: string[]): boolean {
   return found.includes(a.id) || artifacts.find((x) => x.world === a.world) === a
 }
 
+// "2004–2018 (last signal 10 June 2018; ...)" -> "2004–2018" for plates and list rows
+export const shortYear = (a: Artifact) => a.year.replace(/\s*\(.*$/, '')
 export const siteLabel = (a: Artifact, found: string[]) => (isRevealed(a, found) ? a.site.name : '???')
 export const shortLabel = (a: Artifact, found: string[]) => (isRevealed(a, found) ? (a.mapLabel ?? a.mission) : '???')
 
