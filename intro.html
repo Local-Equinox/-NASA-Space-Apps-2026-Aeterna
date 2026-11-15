@@ -120,28 +120,6 @@
 
     .loading-text { font-size: .78rem; }
 
-    .calibration-toggle {
-      position: fixed;
-      z-index: 4;
-      right: max(12px, env(safe-area-inset-right));
-      bottom: max(12px, env(safe-area-inset-bottom));
-      display: none;
-      min-width: 38px;
-      min-height: 34px;
-      padding: 7px 10px;
-      border: 1px solid rgba(255, 154, 60, .55);
-      border-radius: 6px;
-      color: var(--amber);
-      background: rgba(5, 7, 13, .86);
-      font: 700 .7rem/1 system-ui, sans-serif;
-      cursor: pointer;
-    }
-
-    /* This makes calibration discoverable on touch devices, while C works everywhere. */
-    @media (hover: none), (pointer: coarse) {
-      .calibration-toggle { display: block; }
-    }
-
     .calibration-panel {
       position: fixed;
       z-index: 5;
@@ -232,8 +210,7 @@
     </div>
   </main>
 
-  <!-- Remove this button and the calibration panel/script when calibration is finished. -->
-  <button id="calibration-toggle" class="calibration-toggle" type="button" aria-expanded="false" aria-controls="calibration-panel">Crop</button>
+  <!-- Calibration is opened with the C key (desktop only); there is no on-screen button. -->
 
   <section id="calibration-panel" class="calibration-panel" aria-label="Crop calibration" aria-hidden="true">
     <div class="calibration-header">
@@ -258,7 +235,6 @@
       const root = document.documentElement;
       const frame = document.getElementById('intro-frame');
       const loadingScreen = document.getElementById('loading-screen');
-      const toggle = document.getElementById('calibration-toggle');
       const panel = document.getElementById('calibration-panel');
       const close = document.getElementById('calibration-close');
       const topSlider = document.getElementById('crop-top-slider');
@@ -300,7 +276,6 @@
       function setCalibrationOpen(open) {
         panel.classList.toggle('is-open', open);
         panel.setAttribute('aria-hidden', String(!open));
-        toggle.setAttribute('aria-expanded', String(open));
         if (open) {
           topSlider.value = cssPixels('--crop-top');
           bottomSlider.value = cssPixels('--crop-bottom');
@@ -311,7 +286,6 @@
 
       topSlider.addEventListener('input', updateCalibration);
       bottomSlider.addEventListener('input', updateCalibration);
-      toggle.addEventListener('click', () => setCalibrationOpen(!panel.classList.contains('is-open')));
       close.addEventListener('click', () => setCalibrationOpen(false));
       copyButton.addEventListener('click', async () => {
         const values = output.textContent;
