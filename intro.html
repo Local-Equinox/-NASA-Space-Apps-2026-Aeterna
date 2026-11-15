@@ -268,9 +268,18 @@
       const output = document.getElementById('calibration-output');
       const copyButton = document.getElementById('copy-values');
 
+      // The Wix page fires `load` while its hero cut-outs (satellite, astronaut) are still at a pre-layout size and
+      // shrinks them about 0.5 s later with its own script (measured: 432x579 -> 226x302 at +450..600 ms). That is
+      // inside the iframe, so this page can't set their size; instead keep the loading screen up until it has settled.
+      const SETTLE_MS = 1400;
       frame.addEventListener('load', () => {
-        frame.classList.add('is-loaded');
-        loadingScreen.classList.add('is-hidden');
+        const reveal = () => {
+          frame.classList.add('is-loaded');
+          loadingScreen.classList.add('is-hidden');
+        };
+        const wait = new Promise((r) => setTimeout(r, SETTLE_MS));
+        const fonts = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+        Promise.all([wait, fonts]).then(() => requestAnimationFrame(reveal), reveal);
       }, { once: true });
 
       // Start navigation only after the load listener exists, including on fast caches.

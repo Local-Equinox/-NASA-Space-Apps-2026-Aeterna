@@ -1,84 +1,48 @@
-# Left Behind
+# Left Behind: Find what NASA left on the Moon and Mars
 
-A 3D browser game for the **NASA Space Apps Challenge 2026** (Iligan), for the challenge
-*“Abandoned but Not Forgotten: Storytelling about NASA's Discarded Equipment on the Moon and Mars.”*
+An interactive 3D website by Team Aeterna for NASA Space Apps Challenge 2026, challenge "Abandoned but not Forgotten: Storytelling about NASA's Discarded Equipment on the Moon and Mars." Written for children, teens and adults who love games.
 
-You are a young space archaeologist. Walk to your ship on Earth and blast off into a solar system with real
-orbits, rotations and labelled constellations. Select a world, warp to it, land at a mission site, explore on
-foot under that world's real gravity, and follow the map tracker (artifacts show as ??? until found). Find
-the hardware NASA left behind (shown as real NASA 3D models where NASA has them), clear the debris and dust off its nameplate, and unlock its story. Seventeen artifacts from NASA mission pages: twelve on the Moon and Mars, and five spacecraft out in space (Dawn, NEAR Shoemaker, Pioneer 10, Pioneer 11, Kepler) that you warp to from the Bodies list.
+**Live site:** https://local-equinox.github.io/-NASA-Space-Apps-2026-Aeterna/intro.html
 
-**Inspecting equipment:** on the Moon and Mars the equipment triggers one of two minigames at random (clear debris and brush off the dust to read the nameplate, or reconnect colour-coded cut wires to power its module). Equipment with `"nameplate": false` always gets the wire minigame. Out in space it is a tethered spacewalk past rogue asteroids. Press **M** on a surface (or tap the mini-map) for the Moon and Mars map.
+## What it is
 
-Not affiliated with or endorsed by NASA. Distances and sizes are compressed (logarithmic) so the trip is quick.
-The solar system engine in `src/solar/` is ported from the team's Solar System 3D project.
+* A 3D game. You play a young space archaeologist: walk to your ship on Earth, blast off, warp to the Moon or Mars, land at a mission site, explore on foot under that world's real gravity, and find the equipment left there.
+* Seventeen artifacts to find, taken from NASA mission pages:
+  * **Moon (4):** Apollo 11 Lunar Module Eagle, Apollo 15 Lunar Module Falcon with its ALSEP and rover, Apollo 12 Lunar Module Intrepid with its ALSEP, and Surveyor 3.
+  * **Mars (8):** Sojourner and the Pathfinder lander, Spirit, Opportunity, Viking 1, Viking 2, InSight, Ingenuity and Phoenix.
+  * **Deep space (5):** Dawn, NEAR Shoemaker, Pioneer 10, Pioneer 11 and Kepler. You warp to these from the Missions list and reach them on a spacewalk.
+* Each find starts a short challenge: clear the debris and brush off the dust to read a nameplate, reconnect colour-coded wires, or (in deep space) spacewalk past asteroids. The challenge unlocks a story card: what it is, why it was left, the science it did, and where it is now, with NASA source links. Found artifacts are saved in your browser and listed under Missions.
+* A mini-map shows each artifact as ??? until you find it. Press M for the Moon and Mars world map. Four finds (the three Apollo landers and Surveyor 3) also play a flashback video; the other 13 do not have one yet.
+* An introduction page (`intro.html`) opens the experience, and its Start mission button leads to the game (`mission.html`).
+* It also works on phones: turn the phone to landscape and use the on-screen stick, Jump button and tap-to-interact prompts.
 
-## Run it
+The site is built with React, three.js (React Three Fiber and Rapier), Vite and TypeScript, and is a static site: `npm install`, then `npm run dev` to run it and `npm run build` to publish `dist/`. The game makes no backend or API calls, and its textures, 3D models and fonts are bundled in the repository. The intro page loads its embedded content from the web.
 
-Requires Node 20+.
+## Sources and credits
 
-```bash
-npm install
-npm run dev      # http://localhost:5173 (add -- --host to test on a phone on the same Wi-Fi)
-npm run build    # production build in dist/
-npm run preview  # serve dist/ locally
-```
+* Facts come from NASA NSSDCA and NASA Science mission pages, linked on each story card. Mars coordinates for some sites come from NASA GISS's Mars24 lander table, and the orbits of Ceres and Eros from the NASA/JPL Small-Body Database. These are NASA sources, not outside ones.
+* Every story card was fact-checked by a team member on 14 November 2026 against the sources listed on the card. Where a NASA page does not give a fact, such as exact coordinates or the reason for a decision, the card says so.
+* NASA 3D models are credited where they appear and in [CREDITS.md](CREDITS.md). They are scaled and cropped in code but not otherwise altered; the Apollo Lunar Module is shown as its descent stage only. Planet and moon textures are from Solar System Scope (CC BY 4.0, based on NASA data) and NASA/JPL.
+* Intro page images: none are AI-generated. [TO CONFIRM: the source and license of each image on the intro page]
+* Third-party software and fonts: see [CREDITS.md](CREDITS.md).
+* This project is not affiliated with or endorsed by NASA.
 
-## Controls
+## AI disclosure
 
-| | Space | Surface |
-|---|---|---|
-| Move | WASD (Space / C up and down) | WASD, Shift to run |
-| Look | Drag | Drag, wheel to zoom |
-| Other | Shift boost; click a world or use Bodies, then Warp; L to land | Space jump; E inspect or board your ship |
-| Touch | On-screen stick and Jump button | same |
+This project was built with help from Claude and Claude Code (Anthropic) for code, game design scaffolding, story text drafted from NASA pages, and this README. The full log is in [AI_USE.md](AI_USE.md).
 
-`H` shows help. The top bar has Orbits/Names/Stars toggles, Collection, help and a sound toggle. The bottom-right clock sets the simulation speed. On the surface, the map tracker (top left) shows ??? where an artifact is, and your ship.
+* Spacecraft without an official NASA 3D model (Surveyor 3, the Lunar Roving Vehicle, ALSEP, Pathfinder, Sojourner, Phoenix, and the Space Shuttle style ship) are simplified models built in code with AI help. Each story card says when its model is simplified.
+* The astronaut, the spaceship and the solar system engine were ported from the team's earlier Solar System 3D project, which was also built with AI help.
+* NASA 3D models are used as NASA published them, not generated by AI. No image on the intro page is AI-generated.
 
-## Editing content (no code needed)
+## Team
 
-All artifact content is in **`src/data/artifacts.json`**. Each entry follows the type in
-`src/types/artifact.ts`. Adding an artifact means adding one entry; no code changes.
+* Jee Yanne Alecer: Pitcher
+* Rembrant Pagarigan: Data and Science
+* Maxine Morales: Developer
+* John Erwin Cadiz: Developer
+* Mizchelle Kale: Storyteller
 
-- `site.name`, `lat`, `lon`: landing site (leave `lat`/`lon` as `null` until sourced from NASA).
-- `surfacePosition`: metres from where the player spawns (the patch is about 200 m in radius).
-- `pairedModels` (optional): extra models for paired artifacts (e.g. two rovers). Inspecting any opens the same story.
-- `world`: `moon`, `mars` or `space`. Space entries also set `body` (the id in `src/solar/bodies.js`) and `whereabouts`. `nameplate`, `tagLabel` and `mapLabel` are optional (see `src/types/artifact.ts`).
-- `site.alt` (optional): a second site for entries that cover two (Spirit and Opportunity).
-- `story`: `whatItIs`, `whyLeft`, `science`, `nowStatus`. `sources`: title and `https://` URL.
-- All current story text comes from the NASA pages listed in each artifact's `sources`. Where a page does not say something (such as coordinates or a reason), the text says so. Re-check any edit against NASA before the pitch.
-- `model`: a GLB in `public/assets/models/` (Draco and WebP are fine; the decoder is bundled), or `"procedural:<name>"` for a simplified model from `src/game/props.ts`. `modelSize` is the model's real largest dimension in metres. `modelCutAbove` (0–1) hides the part above that fraction of the height (used to show only the Lunar Module's descent stage).
-- Only the Moon and Mars can be landed on; Earth is the launch pad. After take-off the ship circles Earth: pick the Moon or Mars, then Warp.
+## License
 
-## Deploy
-
-It is a static site: `npm run build` produces `dist/`. A `vercel.json` is included, so import the repo into
-Vercel and deploy with defaults. Netlify works too (build `npm run build`, publish `dist`). The build uses
-relative paths; keep the site at the domain root because artifact `model` paths start with `/assets/`.
-No backend or runtime API calls; all textures are bundled locally.
-
-## Progress
-
-Found artifacts are saved in `localStorage`. "Reset progress" is in the Collection screen.
-
-## Credits and AI use
-
-See [CREDITS.md](CREDITS.md) and [AI_USE.md](AI_USE.md). Earth, Moon and Mars textures are CC BY 4.0
-(Solar System Scope, based on NASA data).
-
-## Flashback cutscenes
-
-After each minigame the game plays `public/assets/cutscenes/<artifact id>.mp4`, then opens the story. The files are not included yet: add them with the names listed in `public/assets/cutscenes/README.md`. A missing video is skipped (in `npm run dev` a placeholder card shows the expected file name).
-
-## Settings
-
-The gear button opens Settings: Controls, and switches for Orbits, Names, Stars and Sound.
-
-## Pages
-
-- `index.html` is the **intro page** (the team's Wix story in a cropped iframe). Its Start mission link goes to `mission.html`.
-- `mission.html` is the **game**. It must keep `<div id="root"></div>` and the `<script type="module" src="/src/main.tsx">` line, or the game will not load. It opens straight into the mission, on Earth.
-
-Both pages are built by `npm run build` (see `vite.config.ts`).
-
-Buttons: add the class `btn-glow` for the glowing call-to-action effect, or `btn-glow soft` for the toned-down version (see the end of `src/styles.css`).
+MIT License for original code, writing and artwork, Copyright (c) 2026 Team Aeterna. See [LICENSE](LICENSE). Third-party material keeps its own terms (see [CREDITS.md](CREDITS.md)).
